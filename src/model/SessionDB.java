@@ -1,12 +1,16 @@
 package src.model;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -122,5 +126,30 @@ public abstract class SessionDB {
     public static void printTables() {
         ArrayList<String> tablenames = listTables();
         tablenames.forEach((name) -> System.out.println(name));
+    }
+    
+    public static boolean crearTablas(){
+        boolean success = false;
+        File sql = new File("src/src/model/Tables.sql");
+        StringBuilder sqlcmd = new StringBuilder();
+        try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))) {
+            while (scan.hasNext()) {
+                sqlcmd.append(scan.nextLine()).append("\n");
+            }
+            String multicmd = sqlcmd.toString();
+            String[] cmds = multicmd.split(";");
+            SessionDB.connect();
+            try(Statement stmt = SessionDB.getConn().createStatement()){
+                for(String cmd : cmds)
+                    stmt.addBatch(cmd);
+                stmt.executeBatch();
+                success = true;
+            }
+        } catch (FileNotFoundException | SQLException ex) {
+            Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            SessionDB.close();
+        }
+        return success;
     }
 }
