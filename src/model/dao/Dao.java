@@ -5,9 +5,7 @@
  */
 package src.model.dao;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  *
@@ -16,13 +14,17 @@ import java.util.Optional;
  */
 public interface Dao<T> {
     
-    Optional<T> get(int id);
-     
     Map<Integer,T> queryAll();
+    
+    T get(int id);     
+    
+    Map<Integer,T> getAll();
      
-    void save(T t);
+    int insert(T objecT);
      
-    void update(T t, String[] params);
+    int update(T objecT);
      
-    void delete(T t);
+    int delete(T objecT);
+    
+    int delete(int id);
 }
