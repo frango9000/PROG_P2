@@ -17,46 +17,18 @@ import java.util.logging.Logger;
  *
  * @author fsancheztemprano
  */
-public class SessionDB {
+public abstract class SessionDB {
 
-    private Connection conn;
-    private String dbUrl;
-    private File db;
-
-    /**
-     * Constructor predefinido para HostDB
-     */
-    public SessionDB() {
-        dbUrl = "jdbc:sqlite:PROG_P2/resources/host.db";
-        db = new File(dbUrl.substring(dbUrl.lastIndexOf(":")));
-    }
-
-    /**
-     * Constructor presonalizado
-     *
-     * @param url String ubicacion del archivo sqlite
-     */
-    public SessionDB(String url) {
-        this.dbUrl = "jdbc:sqlite:" + url;
-        db = new File(url);
-    }
-
-    /**
-     * Constructor presonalizado
-     *
-     * @param db File ubicacion del archivo sqlite
-     */
-    public SessionDB(File db) {
-        this.db = db;
-        dbUrl = "jdbc:sqlite:" + db.getAbsolutePath();
-    }
+    private static Connection conn;
+    private static final String DB_URL = "jdbc:sqlite:PROG_P2/resources/host.db";
+    private static final File DB_FILE = new File(DB_URL);
 
     /**
      * Getter para la clase Conexion
      *
      * @return Conexion
      */
-    public Connection getConn() {
+    public static Connection getConn() {
         return conn;
     }
 
@@ -66,8 +38,8 @@ public class SessionDB {
      *
      * @return BOOLEAN
      */
-    public boolean exists() {
-        return db.exists();
+    public static boolean exists() {
+        return DB_FILE.exists();
     }
 
     /**
@@ -75,11 +47,11 @@ public class SessionDB {
      * 
      * @return true si la conexion fue establecida correctamente
      */
-    public boolean connect() {
+    public static boolean connect() {
         boolean success = false;
         conn = null;
         try {
-            conn = DriverManager.getConnection(dbUrl);
+            conn = DriverManager.getConnection(DB_URL);
             System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
             success = true;
         } catch (SQLException e) {
@@ -91,7 +63,7 @@ public class SessionDB {
     /**
      * Finaliza una conexion a la DB
      */
-    public void close() {
+    public static void close() {
         try {
             if (conn != null) {
                 conn.close();
@@ -107,7 +79,7 @@ public class SessionDB {
      *
      * @return integer: el numero de tablas en la base de datos
      */
-    public int numOfTables() {
+    public static int numOfTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         int count = 0;
         connect();
@@ -127,7 +99,7 @@ public class SessionDB {
      *
      * @return
      */
-    public ArrayList<String> listTables() {
+    public static ArrayList<String> listTables() {
         String sql = "SELECT name FROM  sqlite_master  WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
         ArrayList<String> tableNames = new ArrayList<>();
         connect();
@@ -147,7 +119,7 @@ public class SessionDB {
     /**
      * println de la lista de tablas de una DB
      */
-    public void printTables() {
+    public static void printTables() {
         ArrayList<String> tablenames = listTables();
         tablenames.forEach((name) -> System.out.println(name));
     }
