@@ -6,24 +6,34 @@
 package src.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author NarF
  */
 public class Orden {
-    private final int idOrden;
+    private int idOrden;
     private LocalDateTime apertura;
     private LocalDateTime cierre;
     private float total;
     private int idMesa;
 
-    public Orden(int idOrden, LocalDateTime apertura, int idMesa) {
-        this.idOrden = idOrden;
-        this.apertura = apertura;
+    public Orden(int idMesa) {
         this.idMesa = idMesa;
+        apertura = LocalDateTime.now();
+        total = 0f;
+        cierre = null;
     }
 
+    public Orden(int idOrden, String dbDateTime, float total, int idMesa) {
+        this.idOrden = idOrden;
+        this.apertura = LocalDateTime.parse(dbDateTime, DateTimeFormatter.ofPattern(DateTimeFormat.DB_FORMAT));
+        this.total = total;
+        this.idMesa = idMesa;
+        cierre = null;
+    }
+    
     public int getIdOrden() {
         return idOrden;
     }
@@ -31,9 +41,25 @@ public class Orden {
     public LocalDateTime getApertura() {
         return apertura;
     }
-
+    
+    public String getAperturaToDbString(){
+        return DateTimeFormat.toDbString(apertura);
+    }
+    
+    public String getAperturaToUserString(){
+        return DateTimeFormat.toUserString(apertura);
+    }
+    
     public LocalDateTime getCierre() {
         return cierre;
+    }
+    
+    public String getCierreToDbString(){
+        return DateTimeFormat.toDbString(cierre);
+    }
+    
+    public String getCierreToUserString(){
+        return DateTimeFormat.toUserString(cierre);
     }
 
     public float getTotal() {
@@ -42,6 +68,10 @@ public class Orden {
 
     public int getIdMesa() {
         return idMesa;
+    }
+
+    public void setIdOrden(int idOrden) {
+        this.idOrden = idOrden;
     }
 
     public void setApertura(LocalDateTime apertura) {
@@ -58,6 +88,14 @@ public class Orden {
 
     public void setIdMesa(int idMesa) {
         this.idMesa = idMesa;
+    }
+        
+    public void cerrarMesa(){
+        cierre = LocalDateTime.now();
+    }
+    
+    public boolean isClosed(){
+        return cierre == null;
     }
 
     @Override

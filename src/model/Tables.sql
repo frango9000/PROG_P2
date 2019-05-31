@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS ordenes (
                             apertura TEXT NOT NULL,
                             cierre TEXT,
                             total REAL NOT NULL,
-                            idMesa INTEGER REFERENCES mesas (idMesa)
+                            idMesa INTEGER NOT NULL REFERENCES mesas (idMesa)
                         );
 
 CREATE TABLE IF NOT EXISTS productos (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS productos (
 CREATE TABLE IF NOT EXISTS servidos (
                             idOrden INTEGER,
                             idProducto INTEGER,
-                            PRIMARY KEY (idOrden, idProducto),
-                            FOREIGN KEY (idOrden) REFERENCES ordenes(idOrden),
-                            FOREIGN KEY (idProducto) REFERENCES productos(idProducto)
+                                PRIMARY KEY (idOrden, idProducto),
+                                FOREIGN KEY (idOrden) REFERENCES ordenes(idOrden),
+                                FOREIGN KEY (idProducto) REFERENCES productos(idProducto)
                         );
