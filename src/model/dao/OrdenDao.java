@@ -24,6 +24,22 @@ import src.model.SessionDB;
 public class OrdenDao implements Dao<Orden> {
 
     private final HashMap<Integer, Orden> ordenes = new HashMap<>();
+    
+    /**
+     * Singleton lazy initialization
+     */
+    private static Dao dao;
+
+    private OrdenDao() {
+        dao.queryAll();
+    }
+    
+    public static synchronized Dao getOrdenDao(){
+        if(dao == null){
+            dao = new OrdenDao();
+        }
+        return dao;
+    }
 
     @Override
     public Map<Integer, Orden> queryAll() {

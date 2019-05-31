@@ -23,6 +23,22 @@ import src.model.SessionDB;
 public class MesaDao implements Dao<Mesa> {
 
     private final HashMap<Integer, Mesa> mesas = new HashMap<>();
+    
+    /**
+     * Singleton lazy initialization
+     */
+    private static Dao dao;
+
+    private MesaDao() {
+        dao.queryAll();
+    }
+    
+    public static synchronized Dao getOrdenDao(){
+        if(dao == null){
+            dao = new MesaDao();
+        }
+        return dao;
+    }
 
     @Override
     public Map<Integer, Mesa> queryAll() {

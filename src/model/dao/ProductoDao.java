@@ -20,9 +20,25 @@ import src.model.SessionDB;
  *
  * @author NarF
  */
-public class ProductoDao implements Dao<Producto> {
+public final class ProductoDao implements Dao<Producto> {
 
     private final HashMap<Integer, Producto> productos = new HashMap<>();
+    
+    /**
+     * Singleton lazy initialization
+     */
+    private static Dao productoDao;
+
+    private ProductoDao() {
+        productoDao.queryAll();
+    }
+    
+    public static synchronized Dao getProductoDao(){
+        if(productoDao == null){
+            productoDao = new ProductoDao();
+        }
+        return productoDao;
+    }
 
     @Override
     public Map<Integer, Producto> queryAll() {
@@ -114,7 +130,7 @@ public class ProductoDao implements Dao<Producto> {
         try (Statement stmt = SessionDB.getConn().createStatement()) {
             rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             SessionDB.close();
         }
