@@ -32,13 +32,12 @@ public class MesaDao implements Dao<Mesa> {
             try (Statement ps = SessionDB.getConn().createStatement()) {
                 ResultSet rs = ps.executeQuery(sql);
                 while (rs.next()) {
-                    int idMesa = rs.getInt(1);
-                    Mesa m = new Mesa(idMesa, rs.getString(2));
+                    Mesa mesa = new Mesa(rs.getInt(1), rs.getString(2));
                     int capacidad = rs.getInt(3);
                     if (!rs.wasNull()) {
-                        m.setCapacidad(capacidad);
+                        mesa.setCapacidad(capacidad);
                     }
-                    mesas.put(idMesa, m);
+                    mesas.put(mesa.getIdMesa(), mesa);
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
@@ -63,12 +62,21 @@ public class MesaDao implements Dao<Mesa> {
     @Override
     public int insert(Mesa mesa) {
         String sql = "INSERT INTO mesas VALUES(NULL, ?, ?)";
+        String queryId = "SELECT idMesa FROM mesas WHERE mesa = ?";
         SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
+        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
+             PreparedStatement idpstmt =SessionDB.getConn().prepareStatement(queryId)) {
             pstmt.setString(1, mesa.getMesa());
             pstmt.setInt(2, mesa.getCapacidad());
             rows = pstmt.executeUpdate();
+            
+            idpstmt.setString(1, mesa.getMesa());
+            ResultSet rs =  idpstmt.executeQuery();
+            if(rs.next())
+                mesa.setIdMesa(rs.getInt(1));
+            
+            mesas.put(mesa.getIdMesa(), mesa);
         } catch (SQLException ex) {
             Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -97,30 +105,18 @@ public class MesaDao implements Dao<Mesa> {
 
     @Override
     public int delete(Mesa mesa) {
-        String sql = "DELETE FROM mesas WHERE idMesa = ?";
-        SessionDB.connect();
-        int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-            pstmt.setInt(1, mesa.getIdMesa());
-            rows = pstmt.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            SessionDB.close();
-        }
-        return rows;
+        return delete(mesa.getIdMesa());
     }
 
     @Override
     public int delete(int id) {
-        String sql = "DELETE FROM mesas WHERE idMesa = ?";
+        String sql = "DELETE FROM mesas WHERE idMesa = '" + id + "'";
         SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            rows = pstmt.executeUpdate();
+        try (Statement stmt = SessionDB.getConn().createStatement()) {
+            rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             SessionDB.close();
         }
