@@ -13,88 +13,82 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import src.model.Mesa;
+import src.model.Categoria;
 import src.model.SessionDB;
 
 /**
  *
  * @author NarF
  */
-public final class MesaDao implements Dao<Mesa> {
+public final class CategoriaDao implements Dao<Categoria> {
 
-    private final HashMap<Integer, Mesa> mesas = new HashMap<>();
+    private final HashMap<Integer, Categoria> categorias = new HashMap<>();
     
     /**
      * Singleton lazy initialization
      */
     private static Dao dao;
 
-    private MesaDao() {
+    private CategoriaDao() {
         dao.queryAll();
     }
     
-    public static synchronized Dao getOrdenDao(){
+    public static synchronized Dao getCategoriaDao(){
         if(dao == null){
-            dao = new MesaDao();
+            dao = new CategoriaDao();
         }
         return dao;
     }
 
     @Override
-    public Map<Integer, Mesa> queryAll() {
-        mesas.clear();
-        String sql = "SELECT * FROM mesas";
+    public Map<Integer, Categoria> queryAll() {
+        categorias.clear();
+        String sql = "SELECT * FROM categorias";
         if (SessionDB.connect()) {
             try (Statement ps = SessionDB.getConn().createStatement()) {
                 ResultSet rs = ps.executeQuery(sql);
                 while (rs.next()) {
-                    Mesa mesa = new Mesa(rs.getInt(1), rs.getString(2));
-                    int capacidad = rs.getInt(3);
-                    if (!rs.wasNull()) {
-                        mesa.setCapacidad(capacidad);
-                    }
-                    mesas.put(mesa.getIdMesa(), mesa);
+                    Categoria cat = new Categoria(rs.getInt(1), rs.getString(2));
+                    categorias.put(cat.getIdCategoria(),cat);
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 SessionDB.close();
             }
         }
-        return mesas;
+        return categorias;
     }
 
     @Override
-    public Mesa get(int idMesa) {
-        return mesas.get(idMesa);
+    public Categoria get(int idCategoria) {
+        return categorias.get(idCategoria);
     }
 
     @Override
-    public Map<Integer, Mesa> getAll() {
-        return mesas;
+    public Map<Integer, Categoria> getAll() {
+        return categorias;
     }
 
     @Override
-    public int insert(Mesa mesa) {
-        String sql = "INSERT INTO mesas VALUES(NULL, ?, ?)";
-        String queryId = "SELECT idMesa FROM mesas WHERE mesa = ?";
+    public int insert(Categoria categoria) {
+        String sql = "INSERT INTO categorias VALUES(NULL, ?)";
+        String queryId = "SELECT idCategoria FROM categorias WHERE categoria = ?";
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
              PreparedStatement idpstmt =SessionDB.getConn().prepareStatement(queryId)) {
-            pstmt.setString(1, mesa.getMesa());
-            pstmt.setInt(2, mesa.getCapacidad());
+            pstmt.setString(1, categoria.getCategoria());
             rows = pstmt.executeUpdate();
             
-            idpstmt.setString(1, mesa.getMesa());
+            idpstmt.setString(1, categoria.getCategoria());
             ResultSet rs =  idpstmt.executeQuery();
             if(rs.next())
-                mesa.setIdMesa(rs.getInt(1));
+                categorias.put(categoria.getIdCategoria(), categoria);
             
-            mesas.put(mesa.getIdMesa(), mesa);
         } catch (SQLException ex) {
-            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             SessionDB.close();
         }
@@ -102,17 +96,17 @@ public final class MesaDao implements Dao<Mesa> {
     }
 
     @Override
-    public int update(Mesa mesa) {
-        String sql = "UPDATE mesas SET mesa = ?, capacidad = ? WHERE idMesa = ?";
+    public int update(Categoria categoria) {
+        
+        String sql = "UPDATE categorias SET categoria = ? WHERE idCategoria = ?";
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-            pstmt.setString(1, mesa.getMesa());
-            pstmt.setInt(2, mesa.getCapacidad());
-            pstmt.setInt(3, mesa.getIdMesa());
+            pstmt.setString(1, categoria.getCategoria());
+            pstmt.setInt(2, categoria.getIdCategoria());
             rows = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             SessionDB.close();
         }
@@ -120,19 +114,19 @@ public final class MesaDao implements Dao<Mesa> {
     }
 
     @Override
-    public int delete(Mesa mesa) {
-        return delete(mesa.getIdMesa());
+    public int delete(Categoria categoria) {
+        return delete(categoria.getIdCategoria());
     }
 
     @Override
     public int delete(int id) {
-        String sql = "DELETE FROM mesas WHERE idMesa = '" + id + "'";
+        String sql = "DELETE FROM categorias WHERE idCategoria = '" + id + "'";
         SessionDB.connect();
         int rows = 0;
         try (Statement stmt = SessionDB.getConn().createStatement()) {
             rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             SessionDB.close();
         }

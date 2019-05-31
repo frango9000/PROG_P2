@@ -21,7 +21,7 @@ import src.model.SessionDB;
  *
  * @author NarF
  */
-public class OrdenDao implements Dao<Orden> {
+public final class OrdenDao implements Dao<Orden> {
 
     private final HashMap<Integer, Orden> ordenes = new HashMap<>();
     
