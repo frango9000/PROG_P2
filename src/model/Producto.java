@@ -10,7 +10,7 @@ package src.model;
  * @author NarF
  */
 public class Producto {
-    private final int idProducto;
+    private int idProducto;
     private String producto;
     private float precio;
     private int idCategoria;
@@ -38,6 +38,10 @@ public class Producto {
         return idCategoria;
     }
 
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
+    
     public void setProducto(String producto) {
         this.producto = producto;
     }
