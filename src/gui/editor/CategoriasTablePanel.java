@@ -5,13 +5,10 @@
  */
 package src.gui.editor;
 
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import src.dao.CategoriaDao;
-import src.dao.MesaDao;
 import src.gui.MainFrame;
 import src.gui.tablemodels.CategoriasTableModel;
-import src.model.Mesa;
 
 /**
  *
@@ -39,7 +36,7 @@ public class CategoriasTablePanel extends GenericTablePanel {
         if (selectedRow > -1) {
             java.awt.EventQueue.invokeLater(() -> {
                 int id = (int) jTable.getValueAt(selectedRow, 0);
-                new MesaFrame(id).setVisible(true);
+                new CategoriaFrame(id).setVisible(true);
             });
         } else {
             JOptionPane.showMessageDialog(this, "Elige una " + nombre + " a editar", nombre + "s", JOptionPane.ERROR_MESSAGE);
@@ -54,7 +51,7 @@ public class CategoriasTablePanel extends GenericTablePanel {
     @Override
     public void addAction() {
         java.awt.EventQueue.invokeLater(() -> {
-            new MesaFrame().setVisible(true);
+            new CategoriaFrame().setVisible(true);
         });
     }
 
