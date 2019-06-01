@@ -242,20 +242,15 @@ public class LoadPanel extends javax.swing.JPanel {
     private void jBtnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarActionPerformed
         // TODO add your handling code here:
         if (jTextFieldBrowse.getText().trim().length() > 0) {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setCurrentDirectory(new File("D:/NarF/Documents/NetBeansProjects/COD_17_sqlite/src/resources"));
             File loadfile = new File(jTextFieldBrowse.getText());
             if (loadfile.exists()) {
-                //BiblioSQL biblioSQL = new BiblioSQL(new SessionDB(loadfile));
+                SessionDB.setDbFile(loadfile);
 
-//                if (biblioSQL.isValid()) {
-//                    biblioSQL.setOpenInstance();
-//                    JPanel menuCard = new MenuPanel(biblioSQL);
-//                    cards.add(menuCard, MAINMENUPANEL);
-//                    layout.show(cards, MAINMENUPANEL);
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Biblioteca Invalida", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
-//                }
+                if (SessionDB.isValid()) {
+                    MainFrame.setCard("Start");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Biblioteca Invalida", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Archivo inexistente", "Cargando Biblioteca", JOptionPane.ERROR_MESSAGE);
             }
