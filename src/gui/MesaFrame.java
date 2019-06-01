@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import src.dao.MesaDao;
 import src.model.Mesa;
+import src.model.StaticHelpers;
 //import src.model.BiblioSQL;
 
 /**
@@ -29,18 +30,17 @@ public final class MesaFrame extends javax.swing.JFrame {
 
         this.setLocationRelativeTo(null);
     }
-    
-    public MesaFrame(Mesa mesa){
+
+    public MesaFrame(Mesa mesa) {
         this();
-        jTextFieldID.setText(mesa.getIdMesa()+"");
+        jTextFieldID.setText(mesa.getIdMesa() + "");
         jTextFieldName.setText(mesa.getMesa());
-        jTextFieldName1.setText(mesa.getCapacidad()+"");
+        jTextFieldName1.setText(mesa.getCapacidad() + "");
     }
-    
+
     public MesaFrame(int id) {
         this(MesaDao.getInstance().getAll().get(id));
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -211,30 +211,36 @@ public final class MesaFrame extends javax.swing.JFrame {
 
     private void jBtnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAcceptActionPerformed
         // TODO add your handling code here:
-        if (jTextFieldID.getText().length() == 0) {
-            if (jTextFieldName.getText().trim().length() > 0) {
-//                if (biblioSQL.insertGenero(jTextFieldName.getText().trim()) > 0) {
-//                    GenerosPanel.refreshTable();
-//                    JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
-//                }
+        String id = jTextFieldID.getText().trim();
+        String mesaStr = jTextFieldName.getText().trim();
+        String cap = jTextFieldName1.getText().trim();
+        if (mesaStr.length() > 0) {
+            if (cap.length() > 0 && StaticHelpers.isInteger(cap) && Integer.parseInt(cap) > 0) {
+                if (id.length() == 0) { // id vacio = objeto nuevo
+                    Mesa mesa = new Mesa(mesaStr, Integer.parseInt(cap));
+                    if (MesaDao.getInstance().insert(mesa) > 0) {
+                        this.dispose();
+                        JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    Mesa mesa = MesaDao.getInstance().get(Integer.parseInt(id));
+                    mesa.setMesa(mesaStr);
+                    mesa.setCapacidad(Integer.parseInt(cap));
+                    if(MesaDao.getInstance().update(mesa) > 0){
+                        this.dispose();
+                        JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Nombre de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Capacidad de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            if (jTextFieldName.getText().trim().length() > 0) {
-//                if (biblioSQL.updateGenero(Integer.parseInt(jTextFieldID.getText()), jTextFieldName.getText().trim()) > 0) {
-//                    GenerosPanel.refreshTable();
-//                    JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
-//                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Nombre de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(this, "Nombre de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        this.dispose();
     }//GEN-LAST:event_jBtnAcceptActionPerformed
 
     private void jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelActionPerformed

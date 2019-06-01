@@ -6,7 +6,6 @@
 package src.gui.template;
 
 import java.util.Arrays;
-import java.util.List;
 import src.model.Mesa;
 
 /**
@@ -20,6 +19,7 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
     }
 
 
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
     }

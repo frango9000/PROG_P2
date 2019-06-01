@@ -13,10 +13,15 @@ public class Mesa {
 
     private int idMesa;
     private String mesa;
-    private int capacidad = 0;
+    private int capacidad;
 
     public Mesa(String mesa) {
         this.mesa = mesa;
+    }
+
+    public Mesa(String mesa, int capacidad) {
+        this.mesa = mesa;
+        this.capacidad = capacidad;
     }
 
     public Mesa(int idMesa, String mesa) {
