@@ -13,18 +13,18 @@ import java.util.Map;
  * @param <T>
  */
 public interface Dao<T> {
-    
-    Map<Integer,T> queryAll();
-    
-    T get(int id);     
-    
-    Map<Integer,T> getAll();
-     
+
+    Map<Integer, T> queryAll();
+
+    T get(int id);
+
+    Map<Integer, T> getAll();
+
     int insert(T objecT);
-     
+
     int update(T objecT);
-     
+
     int delete(T objecT);
-    
+
     int delete(int id);
 }
