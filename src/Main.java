@@ -5,6 +5,8 @@
  */
 package src;
 
+import src.gui.MainFrame;
+
 /**
  *
  * @author NarF
@@ -16,6 +18,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        MainFrame mainframe = new MainFrame();
+        mainframe.setVisible(true);
+        
     }
     
 }
