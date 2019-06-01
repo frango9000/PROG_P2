@@ -18,7 +18,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private static JPanel cards;
     private static CardLayout cardLayout;
-    
 
     public final static String LOADPANEL = "Load Card";
     public final static String MAINMENUPANEL = "Main Menu Card";
@@ -27,8 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
     public final static String AUTORESPANEL = "Autores Card";
     public final static String EDITORIALESPANEL = "Editoriales Card";
     public final static String LIBROSPANEL = "Libros Card";
-    
-    
+
     private static MenuBar menu;
 
     public MainFrame() {
@@ -42,7 +40,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static CardLayout getCardLayout() {
         return cardLayout;
     }
-                     
+
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,15 +56,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         cardLayout.show(cards, "START");
         this.setContentPane(cards);
-        
+
         menu = new MenuBar();
         setJMenuBar(menu);
 
         setMenuActions();
-        
+
         pack();
         this.setLocationRelativeTo(null);
-    }                      
+    }
 
     /**
      * @param args the command line arguments
@@ -101,13 +99,13 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
 
-    public void setMenuActions(){
+    public void setMenuActions() {
         menu.jMenuItemSalir.addActionListener(e -> this.dispose());
         menu.jMenuItemCargar.addActionListener(e -> setCard(LOADPANEL));
         menu.jMenuItemNueva.addActionListener(e -> setCard(LOADPANEL));
-        
-        
+
     }
+
     public static void setCard(String cardName) {
         cardLayout.show(cards, cardName);
     }

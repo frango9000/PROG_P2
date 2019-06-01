@@ -23,7 +23,7 @@ import src.model.SessionDB;
 public final class CategoriaDao implements Dao<Categoria> {
 
     private final HashMap<Integer, Categoria> categorias = new HashMap<>();
-    
+
     /**
      * Singleton lazy initialization
      */
@@ -32,9 +32,9 @@ public final class CategoriaDao implements Dao<Categoria> {
     private CategoriaDao() {
         dao.queryAll();
     }
-    
-    public static synchronized Dao getCategoriaDao(){
-        if(dao == null){
+
+    public static synchronized Dao getCategoriaDao() {
+        if (dao == null) {
             dao = new CategoriaDao();
         }
         return dao;
@@ -49,7 +49,7 @@ public final class CategoriaDao implements Dao<Categoria> {
                 ResultSet rs = ps.executeQuery(sql);
                 while (rs.next()) {
                     Categoria cat = new Categoria(rs.getInt(1), rs.getString(2));
-                    categorias.put(cat.getIdCategoria(),cat);
+                    categorias.put(cat.getIdCategoria(), cat);
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
@@ -78,15 +78,16 @@ public final class CategoriaDao implements Dao<Categoria> {
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-             PreparedStatement idpstmt =SessionDB.getConn().prepareStatement(queryId)) {
+                PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
             pstmt.setString(1, categoria.getCategoria());
             rows = pstmt.executeUpdate();
-            
+
             idpstmt.setString(1, categoria.getCategoria());
-            ResultSet rs =  idpstmt.executeQuery();
-            if(rs.next())
+            ResultSet rs = idpstmt.executeQuery();
+            if (rs.next()) {
                 categorias.put(categoria.getIdCategoria(), categoria);
-            
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -97,7 +98,7 @@ public final class CategoriaDao implements Dao<Categoria> {
 
     @Override
     public int update(Categoria categoria) {
-        
+
         String sql = "UPDATE categorias SET categoria = ? WHERE idCategoria = ?";
         SessionDB.connect();
         int rows = 0;

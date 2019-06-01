@@ -23,7 +23,7 @@ import src.model.SessionDB;
 public final class MesaDao implements Dao<Mesa> {
 
     private final HashMap<Integer, Mesa> mesas = new HashMap<>();
-    
+
     /**
      * Singleton lazy initialization
      */
@@ -32,9 +32,9 @@ public final class MesaDao implements Dao<Mesa> {
     private MesaDao() {
         dao.queryAll();
     }
-    
-    public static synchronized Dao getOrdenDao(){
-        if(dao == null){
+
+    public static synchronized Dao getOrdenDao() {
+        if (dao == null) {
             dao = new MesaDao();
         }
         return dao;
@@ -82,16 +82,17 @@ public final class MesaDao implements Dao<Mesa> {
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-             PreparedStatement idpstmt =SessionDB.getConn().prepareStatement(queryId)) {
+                PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
             pstmt.setString(1, mesa.getMesa());
             pstmt.setInt(2, mesa.getCapacidad());
             rows = pstmt.executeUpdate();
-            
+
             idpstmt.setString(1, mesa.getMesa());
-            ResultSet rs =  idpstmt.executeQuery();
-            if(rs.next())
+            ResultSet rs = idpstmt.executeQuery();
+            if (rs.next()) {
                 mesa.setIdMesa(rs.getInt(1));
-            
+            }
+
             mesas.put(mesa.getIdMesa(), mesa);
         } catch (SQLException ex) {
             Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);

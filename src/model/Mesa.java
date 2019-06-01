@@ -5,12 +5,12 @@
  */
 package src.model;
 
-
 /**
  *
  * @author NarF
  */
 public class Mesa {
+
     private int idMesa;
     private String mesa;
     private int capacidad = 0;
@@ -18,7 +18,7 @@ public class Mesa {
     public Mesa(String mesa) {
         this.mesa = mesa;
     }
-    
+
     public Mesa(int idMesa, String mesa) {
         this.idMesa = idMesa;
         this.mesa = mesa;
@@ -44,7 +44,7 @@ public class Mesa {
 
     public void setIdMesa(int idMesa) {
         this.idMesa = idMesa;
-    }    
+    }
 
     public void setMesa(String mesa) {
         this.mesa = mesa;

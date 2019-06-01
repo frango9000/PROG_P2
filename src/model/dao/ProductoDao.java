@@ -23,7 +23,7 @@ import src.model.SessionDB;
 public final class ProductoDao implements Dao<Producto> {
 
     private final HashMap<Integer, Producto> productos = new HashMap<>();
-    
+
     /**
      * Singleton lazy initialization
      */
@@ -32,9 +32,9 @@ public final class ProductoDao implements Dao<Producto> {
     private ProductoDao() {
         productoDao.queryAll();
     }
-    
-    public static synchronized Dao getProductoDao(){
-        if(productoDao == null){
+
+    public static synchronized Dao getProductoDao() {
+        if (productoDao == null) {
             productoDao = new ProductoDao();
         }
         return productoDao;
@@ -78,17 +78,18 @@ public final class ProductoDao implements Dao<Producto> {
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-             PreparedStatement idpstmt =SessionDB.getConn().prepareStatement(queryId)) {
+                PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
             pstmt.setString(1, producto.getProducto());
             pstmt.setInt(2, producto.getIdCategoria());
             pstmt.setFloat(3, producto.getPrecio());
             rows = pstmt.executeUpdate();
-            
+
             idpstmt.setString(1, producto.getProducto());
-            ResultSet rs =  idpstmt.executeQuery();
-            if(rs.next())
+            ResultSet rs = idpstmt.executeQuery();
+            if (rs.next()) {
                 producto.setIdProducto(rs.getInt(1));
-            
+            }
+
             productos.put(producto.getIdProducto(), producto);
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, null, ex);

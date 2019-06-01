@@ -10,6 +10,7 @@ package src.model;
  * @author NarF
  */
 public class Categoria {
+
     private int idCategoria;
     private String categoria;
 
@@ -42,7 +43,5 @@ public class Categoria {
     public String toString() {
         return "Categoria{" + "idCategoria=" + idCategoria + ", categoria=" + categoria + '}';
     }
-    
-    
-    
+
 }

@@ -165,8 +165,8 @@ public final class SessionDB {
         }
         return success;
     }
-    
-        public static boolean insertarDemoData() {
+
+    public static boolean insertarDemoData() {
         boolean success = false;
         File sql = new File("src/src/model/DemoData.sql");
         StringBuilder sqlcmd = new StringBuilder();
@@ -190,7 +190,7 @@ public final class SessionDB {
         }
         return success;
     }
-        
+
     /**
      * devuelve true si la estructura de la DB activa es valida (coincide con la
      * inicializada)

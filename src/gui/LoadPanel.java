@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import src.model.SessionDB;
-import static src.gui.MainFrame.MAINMENUPANEL;
 
 /**
  *
@@ -30,7 +29,7 @@ public class LoadPanel extends javax.swing.JPanel {
         this.cards = MainFrame.getCards();
         layout = (CardLayout) cards.getLayout();
         initComponents();
-        
+
         jTextFieldBrowse.setText(System.getProperty("user.dir") + "\\src\\src\\resources");
 
     }
@@ -282,9 +281,6 @@ public class LoadPanel extends javax.swing.JPanel {
 
         if (SessionDB.isValid()) {
             jLabStatus.setText(ok);
-//            jLabNumLibros.setText(biblioSQL.queryLibros().size() + "");
-//            jLabNumAutores.setText(biblioSQL.queryAutores().size() + "");
-//            jLabFileSize.setText(byteSizeFormatter(file.length()) + " bytes");
         } else {
             jLabStatus.setText(err);
             jLabNumMesas.setText("");

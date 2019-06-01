@@ -15,8 +15,8 @@ import javax.swing.JPopupMenu;
  *
  * @author NarF
  */
-public final class MenuBar extends JMenuBar{
-          
+public final class MenuBar extends JMenuBar {
+
     public JMenu jMenuEditar;
     public JMenu jMenuInicio;
     public JMenuItem jMenuItemCargar;
@@ -36,8 +36,8 @@ public final class MenuBar extends JMenuBar{
     public MenuBar() {
         initComponents();
     }
-    
-    public void initComponents(){
+
+    public void initComponents() {
         jMenuInicio = new JMenu();
         jMenuItemNueva = new JMenuItem();
         jMenuItemCargar = new JMenuItem();
@@ -100,5 +100,5 @@ public final class MenuBar extends JMenuBar{
         this.add(jMenuMas);
 
     }
-    
+
 }

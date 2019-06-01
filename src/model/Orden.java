@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
  * @author NarF
  */
 public class Orden {
+
     private int idOrden;
     private LocalDateTime apertura;
     private LocalDateTime cierre;
@@ -33,7 +34,7 @@ public class Orden {
         this.idMesa = idMesa;
         cierre = null;
     }
-    
+
     public int getIdOrden() {
         return idOrden;
     }
@@ -41,24 +42,24 @@ public class Orden {
     public LocalDateTime getApertura() {
         return apertura;
     }
-    
-    public String getAperturaToDbString(){
+
+    public String getAperturaToDbString() {
         return DateTimeFormat.toDbString(apertura);
     }
-    
-    public String getAperturaToUserString(){
+
+    public String getAperturaToUserString() {
         return DateTimeFormat.toUserString(apertura);
     }
-    
+
     public LocalDateTime getCierre() {
         return cierre;
     }
-    
-    public String getCierreToDbString(){
+
+    public String getCierreToDbString() {
         return DateTimeFormat.toDbString(cierre);
     }
-    
-    public String getCierreToUserString(){
+
+    public String getCierreToUserString() {
         return DateTimeFormat.toUserString(cierre);
     }
 
@@ -89,12 +90,12 @@ public class Orden {
     public void setIdMesa(int idMesa) {
         this.idMesa = idMesa;
     }
-        
-    public void cerrarMesa(){
+
+    public void cerrarMesa() {
         cierre = LocalDateTime.now();
     }
-    
-    public boolean isClosed(){
+
+    public boolean isClosed() {
         return cierre == null;
     }
 
@@ -102,5 +103,5 @@ public class Orden {
     public String toString() {
         return "Orden{" + "idOrden=" + idOrden + ", apertura=" + apertura + ", cierre=" + cierre + ", total=" + total + ", idMesa=" + idMesa + '}';
     }
-    
+
 }

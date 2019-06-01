@@ -24,7 +24,7 @@ import src.model.SessionDB;
 public final class OrdenDao implements Dao<Orden> {
 
     private final HashMap<Integer, Orden> ordenes = new HashMap<>();
-    
+
     /**
      * Singleton lazy initialization
      */
@@ -33,9 +33,9 @@ public final class OrdenDao implements Dao<Orden> {
     private OrdenDao() {
         dao.queryAll();
     }
-    
-    public static synchronized Dao getOrdenDao(){
-        if(dao == null){
+
+    public static synchronized Dao getOrdenDao() {
+        if (dao == null) {
             dao = new OrdenDao();
         }
         return dao;
@@ -83,19 +83,20 @@ public final class OrdenDao implements Dao<Orden> {
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-             PreparedStatement idpstmt =SessionDB.getConn().prepareStatement(queryId)) {
+                PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
             pstmt.setString(1, orden.getAperturaToDbString());
             pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
             pstmt.setFloat(3, orden.getTotal());
             pstmt.setInt(4, orden.getIdMesa());
             rows = pstmt.executeUpdate();
-            
+
             idpstmt.setString(1, orden.getAperturaToDbString());
             idpstmt.setInt(2, orden.getIdMesa());
-            ResultSet rs =  idpstmt.executeQuery();
-            if(rs.next())
+            ResultSet rs = idpstmt.executeQuery();
+            if (rs.next()) {
                 orden.setIdOrden(rs.getInt(1));
-            
+            }
+
             ordenes.put(orden.getIdOrden(), orden);
         } catch (SQLException ex) {
             Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
