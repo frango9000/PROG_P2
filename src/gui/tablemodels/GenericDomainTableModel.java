@@ -18,7 +18,6 @@ import javax.swing.table.TableModel;
  * @author NarF
  * @param <T>
  */
-
 public abstract class GenericDomainTableModel<T> implements TableModel {
 
     private EventListenerList listenerList;
@@ -26,8 +25,8 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     private final List<T> data;
 
     /**
-     * Crea un nuevo {@code GenericDomainTableModel} vacío, 
-     * sin datos ni identificadores para las columnas
+     * Crea un nuevo {@code GenericDomainTableModel} vacío, sin datos ni
+     * identificadores para las columnas
      */
     public GenericDomainTableModel() {
         data = new ArrayList<>();
@@ -36,11 +35,13 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     }
 
     /**
-     * Crea un nuevo {@code GenericDomainTableModel} sin datos
-     * con identificadores para las columnas.
+     * Crea un nuevo {@code GenericDomainTableModel} sin datos con
+     * identificadores para las columnas.
      *
-     * @param columnIdentifiers Los identificadores para las columnas de la tabla.
-     * @throws IllegalArgumentException Si {@code columnIdentifiers} es {@code null}.
+     * @param columnIdentifiers Los identificadores para las columnas de la
+     * tabla.
+     * @throws IllegalArgumentException Si {@code columnIdentifiers} es
+     * {@code null}.
      */
     public GenericDomainTableModel(List columnIdentifiers) {
         this();
@@ -54,7 +55,6 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     /* ***************** * 
      * Manejo de eventos *
      * ***************** */
-
     @Override
     public void addTableModelListener(TableModelListener l) {
         listenerList.add(TableModelListener.class, l);
@@ -66,18 +66,18 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     }
 
     /**
-     * Método conveniente para obtener obtener una lista con 
-     * los TableModelListeners suscriptos a nuestro modelo.
-     * NO es parte de la interfaz TableModel
-     */ 
+     * Método conveniente para obtener obtener una lista con los
+     * TableModelListeners suscriptos a nuestro modelo. NO es parte de la
+     * interfaz TableModel
+     */
     public TableModelListener[] getTableModelListeners() {
         return listenerList.getListeners(TableModelListener.class);
     }
 
     /**
-     * Método general para notificar a los {@code TableModelListeners} 
-     * que ha ocurrido un evento.
-     * Nota: Los listeners son notificados en orden inverso al de suscripción.
+     * Método general para notificar a los {@code TableModelListeners} que ha
+     * ocurrido un evento. Nota: Los listeners son notificados en orden inverso
+     * al de suscripción.
      */
     protected void notifyTableChanged(TableModelEvent e) {
         TableModelListener[] listeners = getTableModelListeners();
@@ -92,47 +92,47 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     protected void notifyTableHeaderChanged() {
         TableModelEvent e = new TableModelEvent(this, TableModelEvent.HEADER_ROW);
         notifyTableChanged(e);
-    }    
+    }
 
     /**
      * Notifica que han sido insertadas nuevas filas.
      *
      * @param firstRow El índice de la primera fila insertada.
      * @param lastRow El índice de la última fila insertada.
-     */    
+     */
     protected void notifyTableRowsInserted(int firstRow, int lastRow) {
         TableModelEvent e = new TableModelEvent(this, firstRow, lastRow, TableModelEvent.ALL_COLUMNS, TableModelEvent.INSERT);
         notifyTableChanged(e);
-    }    
+    }
 
     /**
      * Notifica que una o más filas en un rango han sido modificadas.
-     * 
+     *
      * @param firstRow El índice de la primera fila en el rango.
      * @param lastRow El índice de la última fila en el rango.
-     */    
+     */
     protected void notifyTableRowsUpdated(int firstRow, int lastRow) {
         TableModelEvent e = new TableModelEvent(this, firstRow, lastRow, TableModelEvent.ALL_COLUMNS, TableModelEvent.UPDATE);
         notifyTableChanged(e);
     }
-    
+
     /**
      * Notifica que una o más filas en un rango han sido borradas.
-     * 
+     *
      * @param firstRow El índice de la primera fila en el rango.
      * @param lastRow El índice de la última fila en el rango.
-     */        
+     */
     protected void notifyTableRowsDeleted(int firstRow, int lastRow) {
         TableModelEvent e = new TableModelEvent(this, firstRow, lastRow, TableModelEvent.ALL_COLUMNS, TableModelEvent.DELETE);
         notifyTableChanged(e);
     }
-    
+
     /**
      * Notifica que el valor de una celda ha cambiado.
-     * 
+     *
      * @param row El índice de la fila a la que pertenece la celda.
      * @param column El índice de la columna a la que pertenece la celda.
-     */    
+     */
     protected void notifyTableCellUpdated(int row, int column) {
         TableModelEvent e = new TableModelEvent(this, row, row, column);
     }
@@ -140,7 +140,6 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     /* ***************************************************** * 
      * Información del TableModel para el armado de la tabla *
      * ***************************************************** */
-
     @Override
     public int getRowCount() {
         return data.size();
@@ -167,10 +166,10 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
 
     /* ********************* * 
      * Manipulación de datos *
-     * ********************* */ 
-
+     * ********************* */
     /**
      * Agrega un nuevo objeto de dominio como fila al final del table model.
+     *
      * @param domainObject El objeto de dominio.
      */
     public void addRow(T domainObject) {
@@ -181,6 +180,7 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
 
     /**
      * Agrega varios objetos de dominio como filas al final del table model.
+     *
      * @param domainObjects Los objetos de dominio
      */
     public void addRows(List<T> domainObjects) {
@@ -193,9 +193,9 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     }
 
     /**
-     * Inserta un objeto de dominio como fila en el table model, en un 
-     * número de fila específico.
-     * 
+     * Inserta un objeto de dominio como fila en el table model, en un número de
+     * fila específico.
+     *
      * @param domainObject El objeto de dominio.
      * @param rowIndex El número de fila.
      */
@@ -205,12 +205,13 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     }
 
     /**
-     * Notifica que un objeto de dominio ha cambiado, causando
-     * una notificación en cascada hacia los listeners suscriptos.
+     * Notifica que un objeto de dominio ha cambiado, causando una notificación
+     * en cascada hacia los listeners suscriptos.
+     *
      * @param domainObject El objeto de dominio
      */
     public void notifyDomainObjectUpdated(T domainObject) {
-        T[] elements = (T[])data.toArray();
+        T[] elements = (T[]) data.toArray();
         for (int i = 0; i < elements.length; i++) {
             if (elements[i] == domainObject) {
                 notifyTableRowsUpdated(i, i);
@@ -220,6 +221,7 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
 
     /**
      * Elimina un objeto de dominio del table model.
+     *
      * @param domainObject El objeto de dominio a eliminar.
      */
     public void deleteRow(T domainObject) {
@@ -231,10 +233,9 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     }
 
     /**
-     * Elimina una fila del table model según un índice.
-     * Nota: NO remueve todas las ocurrencias del objeto 
-     * de dominio asociado al número de fila, sólo la indicada 
-     * por el parámetro {@code rowIndex}
+     * Elimina una fila del table model según un índice. Nota: NO remueve todas
+     * las ocurrencias del objeto de dominio asociado al número de fila, sólo la
+     * indicada por el parámetro {@code rowIndex}
      *
      * @param rowIndex El número de fila a eliminar.
      */
@@ -249,7 +250,8 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
      *
      * @param firstRow La primera fila a eliminar (inclusive).
      * @param lastRow La última fila a eliminar (inclusive).
-     * @throws IllegalArgumentException Si {@code firstRow < 0} ó {@code lastRow < 0} ó {@code firstRow > lastRow}.
+     * @throws IllegalArgumentException Si {@code firstRow < 0} ó
+     * {@code lastRow < 0} ó {@code firstRow > lastRow}.
      */
     public void deleteRows(int firstRow, int lastRow) {
         if (firstRow < 0 || lastRow < 0 || firstRow > lastRow) {
@@ -275,17 +277,18 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
 
     /**
      * Devuelve un objeto de dominio basado en un número de fila.
+     *
      * @param rowIndex El número de la fila.
      * @return Un objeto de dominio.
      */
     public T getDomainObject(int rowIndex) {
         return data.get(rowIndex);
-    }    
+    }
 
     /**
-     * Devuelve una sublista de objetos de dominio comprendida en
-     * el rango {@code [firstRow, lastRow]}.
-     * 
+     * Devuelve una sublista de objetos de dominio comprendida en el rango
+     * {@code [firstRow, lastRow]}.
+     *
      * @param firstRow La primera fila del rango (inclusive).
      * @param lastRow La última fila del rango (inclusive).
      * @return Una sublista con objetos de dominio.
@@ -302,8 +305,9 @@ public abstract class GenericDomainTableModel<T> implements TableModel {
     }
 
     /**
-     * Establece los identificadores de las columnas para este table model, 
+     * Establece los identificadores de las columnas para este table model,
      * notificando a los listeners.
+     *
      * @param columnIdentifiers Los nuevos identificadores de columnas.
      */
     public void setColumnIdentifiers(List columnIdentifiers) {

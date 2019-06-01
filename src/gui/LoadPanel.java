@@ -22,12 +22,13 @@ public class LoadPanel extends javax.swing.JPanel {
 
     public JPanel cards;
     public CardLayout layout;
-    
+
     private final String title;
     private final boolean newdb;
 
     /**
      * Creates new form Start
+     *
      * @param newdb
      */
     public LoadPanel(boolean newdb) {
@@ -35,14 +36,15 @@ public class LoadPanel extends javax.swing.JPanel {
         this.cards = MainFrame.getCards();
         layout = (CardLayout) cards.getLayout();
         initComponents();
-        
-        if(newdb){
-            title ="Nueva";
-        }else title = "Cargar";
+
+        if (newdb) {
+            title = "Nueva";
+        } else {
+            title = "Cargar";
+        }
         jLabelTitle.setText(title);
         jBtnCargar.setText(title);
-        
-        
+
         jTextFieldBrowse.setText(System.getProperty("user.dir") + "\\src\\src\\resources");
 
     }
@@ -181,18 +183,18 @@ public class LoadPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     private void jBtnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarActionPerformed
-        if(newdb){            
+        if (newdb) {
             newDb();
-        }else
+        } else {
             loadDb();
+        }
     }//GEN-LAST:event_jBtnCargarActionPerformed
 
     private void newDb() {
         // TODO add your handling code here:
         //layout.show(cards, MainFrame.NEWDBPANEL);
-        
+
         if (jTextFieldBrowse.getText().trim().length() > 0) {
             File newfile = null;
             do {
@@ -201,14 +203,14 @@ public class LoadPanel extends javax.swing.JPanel {
                     break;
                 }
                 File file = new File(jTextFieldBrowse.getText());
-                
+
                 String dir = file.getAbsolutePath();
                 if (file.isFile()) {
                     String full = file.getAbsolutePath();
                     dir = full.substring(0, full.lastIndexOf("/"));
                 }
                 newfile = new File(dir + "/" + nombre + ".db");
-                
+
                 if (!newfile.exists()) {
                     break;
                 } else {
@@ -216,7 +218,7 @@ public class LoadPanel extends javax.swing.JPanel {
                     newfile = null;
                 }
             } while (true);
-            
+
             if (newfile != null) {
                 SessionDB.setDbFile(newfile);
                 System.out.println("Initializing DB...");
@@ -229,7 +231,7 @@ public class LoadPanel extends javax.swing.JPanel {
                 jTextFieldBrowse.setText(newfile.getAbsolutePath());
                 setStatusLabels();
                 JOptionPane.showMessageDialog(this, "DB creada correctamente", "Nueva DB", JOptionPane.INFORMATION_MESSAGE);
-                
+
             } else {
                 JOptionPane.showMessageDialog(this, "Creacion cancelada", "Cargando DB", JOptionPane.ERROR_MESSAGE);
             }
@@ -237,13 +239,14 @@ public class LoadPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Elige una ruta", "Cargando DB", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     private void loadDb() {
         // TODO add your handling code here:
         if (jTextFieldBrowse.getText().trim().length() > 0) {
             File loadfile = new File(jTextFieldBrowse.getText());
             if (loadfile.exists()) {
                 SessionDB.setDbFile(loadfile);
-                
+
                 if (SessionDB.isValid()) {
                     MainFrame.setCard("Start");
                 } else {

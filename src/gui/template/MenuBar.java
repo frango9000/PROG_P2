@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui;
+package src.gui.template;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;

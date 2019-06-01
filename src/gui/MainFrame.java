@@ -5,6 +5,8 @@
  */
 package src.gui;
 
+import src.gui.template.MenuBar;
+import src.gui.editor.MesasTablePanel;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import javax.swing.JMenuBar;
@@ -21,9 +23,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     public final static String LOADPANEL = "Load Card";
     public final static String NEWPANEL = "New Card";
-    
+
     public final static String MAINMENUPANEL = "Main Menu Card";
-    
+
     public final static String EDITMESAS = "Edit Mesas Card";
     public final static String PAISESPANEL = "Paises Card";
     public final static String AUTORESPANEL = "Autores Card";
@@ -59,7 +61,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         JPanel newcard = new LoadPanel(true);
         cards.add(newcard, NEWPANEL);
-        
+
         cards.add(new MesasTablePanel(), EDITMESAS);
 
         cardLayout.show(cards, "START");
@@ -113,7 +115,7 @@ public class MainFrame extends javax.swing.JFrame {
         menu.jMenuItemNueva.addActionListener(e -> setCard(NEWPANEL));
         menu.jMenuItemEditMesas.addActionListener(e -> {
             setCard(EDITMESAS);
-                });
+        });
     }
 
     public static void setCard(String cardName) {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui;
+package src.gui.editor;
 
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
@@ -227,7 +227,7 @@ public final class MesaFrame extends javax.swing.JFrame {
                     Mesa mesa = MesaDao.getInstance().get(Integer.parseInt(id));
                     mesa.setMesa(mesaStr);
                     mesa.setCapacidad(Integer.parseInt(cap));
-                    if(MesaDao.getInstance().update(mesa) > 0){
+                    if (MesaDao.getInstance().update(mesa) > 0) {
                         this.dispose();
                         JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     } else {

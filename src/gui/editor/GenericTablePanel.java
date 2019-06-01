@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui.template;
+package src.gui.editor;
 
 import src.gui.tablemodels.GenericDomainTableModel;
-
 
 /**
  *
@@ -25,10 +24,10 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
     protected void init() {
         initComponents();
     }
-    
-    protected void setModel(GenericDomainTableModel model){
+
+    protected void setModel(GenericDomainTableModel model) {
         jTable.setModel(model);
-        this.model=model;
+        this.model = model;
     }
 
     /**

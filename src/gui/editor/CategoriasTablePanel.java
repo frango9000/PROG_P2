@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui;
+package src.gui.editor;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import src.dao.MesaDao;
-import src.gui.template.GenericTablePanel;
+import src.gui.MainFrame;
 import src.gui.tablemodels.MesasTableModel;
 import src.model.Mesa;
 
@@ -16,16 +16,14 @@ import src.model.Mesa;
  *
  * @author NarF
  */
-public class MesasTablePanel extends GenericTablePanel {
+public class CategoriasTablePanel extends GenericTablePanel {
 
-    public MesasTablePanel() {
-        super("Mesas");
-        
-                
+    public CategoriasTablePanel() {
+        super("Categorias");
+
         MesasTableModel tm = new MesasTableModel();
         setModel(tm);
-        
-        
+
         if (jTable.getColumnModel().getColumnCount() > 0) {
             jTable.getColumnModel().getColumn(0).setMinWidth(30);
             jTable.getColumnModel().getColumn(0).setMaxWidth(30);
@@ -37,18 +35,18 @@ public class MesasTablePanel extends GenericTablePanel {
     public void refreshTable() {
         MesaDao md = MesaDao.getInstance();
         HashMap<Integer, Mesa> mesas = md.queryAll();
-        
+
         model.clearTableModelData();
-        
-        mesas.forEach((id, mesa) -> model.addRow(mesa) );
+
+        mesas.forEach((id, mesa) -> model.addRow(mesa));
     }
 
     @Override
-    public void editAction() {        
+    public void editAction() {
         int selectedRow = jTable.getSelectedRow();
         if (selectedRow > -1) {
             java.awt.EventQueue.invokeLater(() -> {
-                int id = (int)jTable.getValueAt(selectedRow, 0);
+                int id = (int) jTable.getValueAt(selectedRow, 0);
                 new MesaFrame(id).setVisible(true);
             });
         } else {
@@ -62,10 +60,10 @@ public class MesasTablePanel extends GenericTablePanel {
     }
 
     @Override
-    public void addAction() {       
-            java.awt.EventQueue.invokeLater(() -> {
-                new MesaFrame().setVisible(true);
-            });
+    public void addAction() {
+        java.awt.EventQueue.invokeLater(() -> {
+            new MesaFrame().setVisible(true);
+        });
     }
 
     @Override
@@ -87,6 +85,5 @@ public class MesasTablePanel extends GenericTablePanel {
         }
         refreshTable();
     }
-    
-    
+
 }
