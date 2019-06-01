@@ -5,7 +5,7 @@
  */
 package src.dao;
 
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  *
@@ -14,11 +14,11 @@ import java.util.Map;
  */
 public interface Dao<T> {
 
-    Map<Integer, T> queryAll();
+    HashMap<Integer, T> queryAll();
 
     T get(int id);
 
-    Map<Integer, T> getAll();
+    HashMap<Integer, T> getAll();
 
     int insert(T objecT);
 

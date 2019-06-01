@@ -41,7 +41,7 @@ public final class ProductoDao implements Dao<Producto> {
     }
 
     @Override
-    public Map<Integer, Producto> queryAll() {
+    public HashMap<Integer, Producto> queryAll() {
         productos.clear();
         String sql = "SELECT * FROM productos";
         if (SessionDB.connect()) {
@@ -67,7 +67,7 @@ public final class ProductoDao implements Dao<Producto> {
     }
 
     @Override
-    public Map<Integer, Producto> getAll() {
+    public HashMap<Integer, Producto> getAll() {
         return productos;
     }
 

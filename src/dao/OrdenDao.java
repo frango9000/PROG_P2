@@ -42,7 +42,7 @@ public final class OrdenDao implements Dao<Orden> {
     }
 
     @Override
-    public Map<Integer, Orden> queryAll() {
+    public HashMap<Integer, Orden> queryAll() {
         ordenes.clear();
         String sql = "SELECT * FROM ordenes";
         if (SessionDB.connect()) {
@@ -72,7 +72,7 @@ public final class OrdenDao implements Dao<Orden> {
     }
 
     @Override
-    public Map<Integer, Orden> getAll() {
+    public HashMap<Integer, Orden> getAll() {
         return ordenes;
     }
 

@@ -41,7 +41,7 @@ public final class CategoriaDao implements Dao<Categoria> {
     }
 
     @Override
-    public Map<Integer, Categoria> queryAll() {
+    public HashMap<Integer, Categoria> queryAll() {
         categorias.clear();
         String sql = "SELECT * FROM categorias";
         if (SessionDB.connect()) {
@@ -67,7 +67,7 @@ public final class CategoriaDao implements Dao<Categoria> {
     }
 
     @Override
-    public Map<Integer, Categoria> getAll() {
+    public HashMap<Integer, Categoria> getAll() {
         return categorias;
     }
 

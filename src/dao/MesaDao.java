@@ -41,7 +41,7 @@ public final class MesaDao implements Dao<Mesa> {
     }
 
     @Override
-    public Map<Integer, Mesa> queryAll() {
+    public HashMap<Integer, Mesa> queryAll() {
         mesas.clear();
         String sql = "SELECT * FROM mesas";
         if (SessionDB.connect()) {
@@ -71,7 +71,7 @@ public final class MesaDao implements Dao<Mesa> {
     }
 
     @Override
-    public Map<Integer, Mesa> getAll() {
+    public HashMap<Integer, Mesa> getAll() {
         return mesas;
     }
 
