@@ -23,6 +23,13 @@ public class Producto {
         this.idCategoria = idCategoria;
     }
 
+    public Producto(String producto, float precio, int idCategoria) {
+        this.producto = producto;
+        this.precio = precio;
+        this.idCategoria = idCategoria;
+    }
+
+    
     public int getIdProducto() {
         return idProducto;
     }

@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import src.gui.editor.CategoriasTablePanel;
+import src.gui.editor.ProductosTablePanel;
 
 /**
  *
@@ -29,6 +30,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public final static String EDITMESAS = "Edit Mesas Card";
     public final static String EDITCATEGORIAS = "Edit Categorias Card";
+    public final static String EDITPRODUCTOS = "Edit Productos Card";
     public final static String PAISESPANEL = "Paises Card";
     public final static String AUTORESPANEL = "Autores Card";
     public final static String EDITORIALESPANEL = "Editoriales Card";
@@ -66,6 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         cards.add(new MesasTablePanel(), EDITMESAS);
         cards.add(new CategoriasTablePanel(), EDITCATEGORIAS);
+        cards.add(new ProductosTablePanel(),EDITPRODUCTOS);
 
         cardLayout.show(cards, "START");
         this.setContentPane(cards);
@@ -118,6 +121,7 @@ public class MainFrame extends javax.swing.JFrame {
         menu.jMenuItemNueva.addActionListener(e -> setCard(NEWPANEL));
         menu.jMenuItemEditMesas.addActionListener(e -> setCard(EDITMESAS));
         menu.jMenuItemEditCategorias.addActionListener(e -> setCard(EDITCATEGORIAS));
+        menu.jMenuItemEditProductos.addActionListener(e -> setCard(EDITPRODUCTOS));
         
     }
 
