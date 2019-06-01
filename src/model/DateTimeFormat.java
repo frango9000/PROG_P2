@@ -14,8 +14,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateTimeFormat {
 
-    static final String USER_FORMAT = "HH:mm:ss dd-MM-uuuu";
-    static final String DB_FORMAT = "uuuu-MM-dd HH:mm:ss.SSS";
+    public static final String USER_FORMAT = "HH:mm:ss dd-MM-uuuu";
+    public static final String USER_TIME_FORMAT = "HH:mm:ss";
+    public static final String USER_DATE_FORMAT = "dd-MM-uuuu";
+    public static final String DB_FORMAT = "uuuu-MM-dd HH:mm:ss.SSS";
 
     public static String toDbString(LocalDateTime datetime) {
         return datetime.format(DateTimeFormatter.ofPattern(DB_FORMAT));

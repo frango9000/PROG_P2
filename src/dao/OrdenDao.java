@@ -78,7 +78,7 @@ public final class OrdenDao implements Dao<Orden> {
     @Override
     public int insert(Orden orden) {
         String sql = "INSERT INTO ordenes VALUES(NULL, ?, ?, ?, ?)";
-        String queryId = "SELECT idOrden FROM ordenes WHERE apertura = ?, and idMesa = ?";
+        String queryId = "SELECT idOrden FROM ordenes WHERE apertura = ? and idMesa = ?";
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
@@ -137,6 +137,7 @@ public final class OrdenDao implements Dao<Orden> {
         int rows = 0;
         try (Statement stmt = SessionDB.getConn().createStatement()) {
             rows = stmt.executeUpdate(sql);
+            System.out.println(sql);
         } catch (SQLException ex) {
             Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

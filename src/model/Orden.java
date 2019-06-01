@@ -35,6 +35,14 @@ public class Orden {
         cierre = null;
     }
 
+    public Orden(LocalDateTime apertura, LocalDateTime cierre, float total, int idMesa) {
+        this.apertura = apertura;
+        this.cierre = cierre;
+        this.total = total;
+        this.idMesa = idMesa;
+    }
+    
+
     public int getIdOrden() {
         return idOrden;
     }
@@ -78,9 +86,26 @@ public class Orden {
     public void setApertura(LocalDateTime apertura) {
         this.apertura = apertura;
     }
+    
+    public void setAperturaUser(String userFormat){
+        setApertura(LocalDateTime.parse(userFormat, DateTimeFormatter.ofPattern(DateTimeFormat.USER_FORMAT)));
+    }
+    
+    public void setAperturaDB(String dbFormat){
+        setApertura(LocalDateTime.parse(dbFormat, DateTimeFormatter.ofPattern(DateTimeFormat.DB_FORMAT)));
+    }
+
 
     public void setCierre(LocalDateTime cierre) {
         this.cierre = cierre;
+    }
+    
+    public void setCierreUser(String userFormat){
+        setCierre(LocalDateTime.parse(userFormat, DateTimeFormatter.ofPattern(DateTimeFormat.USER_FORMAT)));
+    }
+    
+    public void setCierreDB(String dbFormat){
+        setCierre(LocalDateTime.parse(dbFormat, DateTimeFormatter.ofPattern(DateTimeFormat.DB_FORMAT)));
     }
 
     public void setTotal(float total) {

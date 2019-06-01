@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui.template;
+package src.gui;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,10 +20,11 @@ public final class MenuBar extends JMenuBar {
     public JMenu jMenuEditar;
     public JMenu jMenuInicio;
     public JMenuItem jMenuItemCargar;
-    public JMenuItem jMenuItemEditCategorias;
     public JMenuItem jMenuItemCocina;
     public JMenuItem jMenuItemEditMesas;
+    public JMenuItem jMenuItemEditCategorias;
     public JMenuItem jMenuItemEditProductos;
+    public JMenuItem jMenuItemEditOrdenes;
     public JMenuItem jMenuItemInformacion;
     public JMenuItem jMenuItemMesas;
     public JMenuItem jMenuItemNueva;
@@ -51,6 +52,7 @@ public final class MenuBar extends JMenuBar {
         jMenuItemEditMesas = new JMenuItem();
         jMenuItemEditProductos = new JMenuItem();
         jMenuItemEditCategorias = new JMenuItem();
+        jMenuItemEditOrdenes = new JMenuItem();
         jMenuMas = new JMenu();
         jMenuItemInformacion = new JMenuItem();
 
@@ -87,6 +89,9 @@ public final class MenuBar extends JMenuBar {
 
         jMenuItemEditCategorias.setText("Categorias");
         jMenuEditar.add(jMenuItemEditCategorias);
+        
+        jMenuItemEditOrdenes.setText("Ordenes");
+        jMenuEditar.add(jMenuItemEditOrdenes);
 
         jMenuVer.add(jMenuEditar);
 
