@@ -20,6 +20,7 @@ public class MainFrame extends javax.swing.JFrame {
     private static CardLayout cardLayout;
 
     public final static String LOADPANEL = "Load Card";
+    public final static String NEWPANEL = "New Card";
     public final static String MAINMENUPANEL = "Main Menu Card";
     public final static String GENEROSPANEL = "Generos Card";
     public final static String PAISESPANEL = "Paises Card";
@@ -49,10 +50,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
-        cards.add(new JPanel(), "START");
+        cards.add(new JPanel(), "Start");
 
-        JPanel loadcard = new LoadPanel();
+        JPanel loadcard = new LoadPanel(false);
         cards.add(loadcard, LOADPANEL);
+
+        JPanel newcard = new LoadPanel(true);
+        cards.add(newcard, NEWPANEL);
 
         cardLayout.show(cards, "START");
         this.setContentPane(cards);
@@ -102,7 +106,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void setMenuActions() {
         menu.jMenuItemSalir.addActionListener(e -> this.dispose());
         menu.jMenuItemCargar.addActionListener(e -> setCard(LOADPANEL));
-        menu.jMenuItemNueva.addActionListener(e -> setCard(LOADPANEL));
+        menu.jMenuItemNueva.addActionListener(e -> setCard(NEWPANEL));
 
     }
 

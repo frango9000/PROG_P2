@@ -201,7 +201,6 @@ public final class SessionDB {
         ArrayList<String> tables = listTables();
         StringBuilder tablesString = new StringBuilder();
         tables.forEach(cnsmr -> tablesString.append(cnsmr).append("\n"));
-        System.out.println(tables.toString());
         String model = "mesas\n"
                 + "categorias\n"
                 + "ordenes\n"
