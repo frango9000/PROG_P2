@@ -30,7 +30,6 @@ public final class MesaDao implements Dao<Mesa> {
     private static MesaDao dao;
 
     private MesaDao() {
-//        dao.queryAll();
     }
 
     public static synchronized MesaDao getInstance() {

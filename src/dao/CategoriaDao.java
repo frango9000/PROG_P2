@@ -30,7 +30,6 @@ public final class CategoriaDao implements Dao<Categoria> {
     private static CategoriaDao dao;
 
     private CategoriaDao() {
-        dao.queryAll();
     }
 
     public static synchronized CategoriaDao getInstance() {

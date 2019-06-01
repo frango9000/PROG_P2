@@ -29,6 +29,14 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
         jTable.setModel(model);
         this.model = model;
     }
+    
+    protected void setMainColsSize(){
+        if (jTable.getColumnModel().getColumnCount() > 0) {
+            jTable.getColumnModel().getColumn(0).setMinWidth(30);
+            jTable.getColumnModel().getColumn(0).setMaxWidth(30);
+            jTable.getColumnModel().getColumn(1).setMinWidth(130);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

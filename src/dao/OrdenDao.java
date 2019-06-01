@@ -31,7 +31,6 @@ public final class OrdenDao implements Dao<Orden> {
     private static OrdenDao dao;
 
     private OrdenDao() {
-        dao.queryAll();
     }
 
     public static synchronized OrdenDao getInstance() {

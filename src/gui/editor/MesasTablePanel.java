@@ -23,22 +23,13 @@ public class MesasTablePanel extends GenericTablePanel {
 
         MesasTableModel tm = new MesasTableModel();
         setModel(tm);
-
-        if (jTable.getColumnModel().getColumnCount() > 0) {
-            jTable.getColumnModel().getColumn(0).setMinWidth(30);
-            jTable.getColumnModel().getColumn(0).setMaxWidth(30);
-            jTable.getColumnModel().getColumn(1).setMinWidth(130);
-        }
+        setMainColsSize();
     }
 
     @Override
     public void refreshTable() {
-        MesaDao md = MesaDao.getInstance();
-        HashMap<Integer, Mesa> mesas = md.queryAll();
-
         model.clearTableModelData();
-
-        mesas.forEach((id, mesa) -> model.addRow(mesa));
+        MesaDao.getInstance().queryAll().forEach((id, mesa) -> model.addRow(mesa));
     }
 
     @Override

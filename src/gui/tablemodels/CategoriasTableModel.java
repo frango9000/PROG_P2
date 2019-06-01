@@ -6,13 +6,13 @@
 package src.gui.tablemodels;
 
 import java.util.Arrays;
-import src.model.Mesa;
+import src.model.Categoria;
 
 /**
  *
  * @author NarF
  */
-public class CategoriasTableModel extends GenericDomainTableModel<Mesa> {
+public class CategoriasTableModel extends GenericDomainTableModel<Categoria> {
 
     public CategoriasTableModel() {
         super(Arrays.asList(new Object[]{"id", "Categoria"}));
@@ -36,12 +36,12 @@ public class CategoriasTableModel extends GenericDomainTableModel<Mesa> {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Mesa mesa = getDomainObject(rowIndex);
+        Categoria categoria = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                return mesa.getIdMesa();
+                return categoria.getIdCategoria();
             case 1:
-                return mesa.getMesa();
+                return categoria.getCategoria();
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);
         }
@@ -49,13 +49,13 @@ public class CategoriasTableModel extends GenericDomainTableModel<Mesa> {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        Mesa mesa = getDomainObject(rowIndex);
+        Categoria categoria = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                mesa.setIdMesa((Integer) value);
+                categoria.setIdCategoria((Integer) value);
                 break;
             case 1:
-                mesa.setMesa((String) value);
+                categoria.setCategoria((String) value);
                 break;
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);

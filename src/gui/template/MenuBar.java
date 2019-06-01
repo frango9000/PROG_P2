@@ -20,7 +20,7 @@ public final class MenuBar extends JMenuBar {
     public JMenu jMenuEditar;
     public JMenu jMenuInicio;
     public JMenuItem jMenuItemCargar;
-    public JMenuItem jMenuItemCategorias;
+    public JMenuItem jMenuItemEditCategorias;
     public JMenuItem jMenuItemCocina;
     public JMenuItem jMenuItemEditMesas;
     public JMenuItem jMenuItemEditProductos;
@@ -50,7 +50,7 @@ public final class MenuBar extends JMenuBar {
         jMenuEditar = new JMenu();
         jMenuItemEditMesas = new JMenuItem();
         jMenuItemEditProductos = new JMenuItem();
-        jMenuItemCategorias = new JMenuItem();
+        jMenuItemEditCategorias = new JMenuItem();
         jMenuMas = new JMenu();
         jMenuItemInformacion = new JMenuItem();
 
@@ -85,8 +85,8 @@ public final class MenuBar extends JMenuBar {
         jMenuItemEditProductos.setText("Productos");
         jMenuEditar.add(jMenuItemEditProductos);
 
-        jMenuItemCategorias.setText("Categorias");
-        jMenuEditar.add(jMenuItemCategorias);
+        jMenuItemEditCategorias.setText("Categorias");
+        jMenuEditar.add(jMenuItemEditCategorias);
 
         jMenuVer.add(jMenuEditar);
 

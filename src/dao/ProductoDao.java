@@ -30,7 +30,6 @@ public final class ProductoDao implements Dao<Producto> {
     private static ProductoDao productoDao;
 
     private ProductoDao() {
-        productoDao.queryAll();
     }
 
     public static synchronized ProductoDao getInstance() {
