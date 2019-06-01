@@ -27,13 +27,13 @@ public final class CategoriaDao implements Dao<Categoria> {
     /**
      * Singleton lazy initialization
      */
-    private static Dao dao;
+    private static CategoriaDao dao;
 
     private CategoriaDao() {
         dao.queryAll();
     }
 
-    public static synchronized Dao getCategoriaDao() {
+    public static synchronized CategoriaDao getInstance() {
         if (dao == null) {
             dao = new CategoriaDao();
         }

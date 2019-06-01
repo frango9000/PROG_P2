@@ -28,13 +28,13 @@ public final class OrdenDao implements Dao<Orden> {
     /**
      * Singleton lazy initialization
      */
-    private static Dao dao;
+    private static OrdenDao dao;
 
     private OrdenDao() {
         dao.queryAll();
     }
 
-    public static synchronized Dao getOrdenDao() {
+    public static synchronized OrdenDao getInstance() {
         if (dao == null) {
             dao = new OrdenDao();
         }

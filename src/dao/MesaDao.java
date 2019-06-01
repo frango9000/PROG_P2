@@ -27,13 +27,13 @@ public final class MesaDao implements Dao<Mesa> {
     /**
      * Singleton lazy initialization
      */
-    private static Dao dao;
+    private static MesaDao dao;
 
     private MesaDao() {
-        dao.queryAll();
+//        dao.queryAll();
     }
 
-    public static synchronized Dao getOrdenDao() {
+    public static synchronized MesaDao getInstance() {
         if (dao == null) {
             dao = new MesaDao();
         }

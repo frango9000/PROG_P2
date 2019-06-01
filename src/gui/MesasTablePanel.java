@@ -5,8 +5,11 @@
  */
 package src.gui;
 
+import java.util.HashMap;
+import src.dao.MesaDao;
 import src.gui.template.GenericTablePanel;
 import src.gui.template.MesasTableModel;
+import src.model.Mesa;
 
 /**
  *
@@ -20,11 +23,16 @@ public class MesasTablePanel extends GenericTablePanel {
                 
         MesasTableModel tm = new MesasTableModel();
         setModel(tm);
-        refreshTable();
     }
 
     @Override
     public void refreshTable() {
+        MesaDao md = MesaDao.getInstance();
+        HashMap<Integer, Mesa> mesas = md.queryAll();
+        
+        model.clearTableModelData();
+        
+        mesas.forEach((id, mesa) -> model.addRow(mesa) );
     }
 
     @Override

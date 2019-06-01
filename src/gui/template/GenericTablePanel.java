@@ -5,11 +5,6 @@
  */
 package src.gui.template;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import src.gui.MainFrame;
 
 /**
  *
@@ -18,7 +13,7 @@ import src.gui.MainFrame;
 public abstract class GenericTablePanel extends javax.swing.JPanel {
 
     protected String nombre;
-    public TableModel model;
+    public GenericDomainTableModel model;
 
     public GenericTablePanel(String nombre) {
         this.nombre = nombre;
@@ -29,7 +24,7 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
         initComponents();
     }
     
-    protected void setModel(TableModel model){
+    protected void setModel(GenericDomainTableModel model){
         jTable.setModel(model);
         this.model=model;
     }
@@ -80,6 +75,7 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable);
         if (jTable.getColumnModel().getColumnCount() > 0) {

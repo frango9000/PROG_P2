@@ -27,13 +27,13 @@ public final class ProductoDao implements Dao<Producto> {
     /**
      * Singleton lazy initialization
      */
-    private static Dao productoDao;
+    private static ProductoDao productoDao;
 
     private ProductoDao() {
         productoDao.queryAll();
     }
 
-    public static synchronized Dao getProductoDao() {
+    public static synchronized ProductoDao getInstance() {
         if (productoDao == null) {
             productoDao = new ProductoDao();
         }

@@ -16,10 +16,13 @@ import src.model.Mesa;
 public class MesasTableModel extends GenericDomainTableModel<Mesa> {
 
     public MesasTableModel() {
-        super(Arrays.asList(new Object[]{"id", "Mesa", "Capacidad"}));
+        super(Arrays.asList(new Object[]{"id", "Mesa", "Capacidad"}));        
     }
 
 
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return false;
+    }
     
     @Override
     public Class<?> getColumnClass(int columnIndex) {
