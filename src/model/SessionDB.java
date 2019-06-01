@@ -21,11 +21,14 @@ import java.util.logging.Logger;
  *
  * @author fsancheztemprano
  */
-public abstract class SessionDB {
+public final class SessionDB {
 
     private static Connection conn;
-    private static final String DB_URL = "jdbc:sqlite:PROG_P2/resources/host.db";
-    private static final File DB_FILE = new File(DB_URL);
+    private static String dbUrl = "jdbc:sqlite:PROG_P2/resources/host.db";
+    private static File dbFile = new File(dbUrl);
+
+    private SessionDB() {
+    }
 
     /**
      * Getter para la clase Conexion
@@ -36,6 +39,16 @@ public abstract class SessionDB {
         return conn;
     }
 
+    public static void setDbUrl(String dbUrl) {
+        dbUrl = "jdbc:sqlite:" + dbUrl;
+        dbFile = new File(dbUrl);
+    }
+
+    public static void setDbFile(File dbFile) {
+        SessionDB.dbFile = dbFile;
+        dbUrl = "jdbc:sqlite:" + dbFile.getAbsolutePath();
+    }
+
     /**
      * devuelve true si, el archivo con el que fue inicializado esta clase,
      * existe
@@ -43,19 +56,19 @@ public abstract class SessionDB {
      * @return BOOLEAN
      */
     public static boolean exists() {
-        return DB_FILE.exists();
+        return dbFile.exists();
     }
 
     /**
      * establece la conexion a la DB
-     * 
+     *
      * @return true si la conexion fue establecida correctamente
      */
     public static boolean connect() {
         boolean success = false;
         conn = null;
         try {
-            conn = DriverManager.getConnection(DB_URL);
+            conn = DriverManager.getConnection(dbUrl);
             System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
             success = true;
         } catch (SQLException e) {
@@ -127,8 +140,8 @@ public abstract class SessionDB {
         ArrayList<String> tablenames = listTables();
         tablenames.forEach((name) -> System.out.println(name));
     }
-    
-    public static boolean crearTablas(){
+
+    public static boolean crearTablas() {
         boolean success = false;
         File sql = new File("src/src/model/Tables.sql");
         StringBuilder sqlcmd = new StringBuilder();
@@ -139,17 +152,61 @@ public abstract class SessionDB {
             String multicmd = sqlcmd.toString();
             String[] cmds = multicmd.split(";");
             SessionDB.connect();
-            try(Statement stmt = SessionDB.getConn().createStatement()){
-                for(String cmd : cmds)
+            try (Statement stmt = SessionDB.getConn().createStatement()) {
+                for (String cmd : cmds) {
                     stmt.addBatch(cmd);
+                }
                 stmt.executeBatch();
                 success = true;
             }
-        } catch (FileNotFoundException | SQLException ex) {
-            Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } catch (FileNotFoundException | SQLException ignored) {
+        } finally {
             SessionDB.close();
         }
         return success;
+    }
+    
+        public static boolean insertarDemoData() {
+        boolean success = false;
+        File sql = new File("src/src/model/DemoData.sql");
+        StringBuilder sqlcmd = new StringBuilder();
+        try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))) {
+            while (scan.hasNext()) {
+                sqlcmd.append(scan.nextLine()).append("\n");
+            }
+            String multicmd = sqlcmd.toString();
+            String[] cmds = multicmd.split(";");
+            SessionDB.connect();
+            try (Statement stmt = SessionDB.getConn().createStatement()) {
+                for (String cmd : cmds) {
+                    stmt.addBatch(cmd);
+                }
+                stmt.executeBatch();
+                success = true;
+            }
+        } catch (FileNotFoundException | SQLException ignored) {
+        } finally {
+            SessionDB.close();
+        }
+        return success;
+    }
+        
+    /**
+     * devuelve true si la estructura de la DB activa es valida (coincide con la
+     * inicializada)
+     *
+     * @return true si es valida
+     */
+    public static boolean isValid() {
+        ArrayList<String> tables = listTables();
+        StringBuilder tablesString = new StringBuilder();
+        tables.forEach(cnsmr -> tablesString.append(cnsmr).append("\n"));
+        System.out.println(tables.toString());
+        String model = "mesas\n"
+                + "categorias\n"
+                + "ordenes\n"
+                + "productos\n"
+                + "servidos\n";
+        return model.matches(tablesString.toString());
     }
 }
