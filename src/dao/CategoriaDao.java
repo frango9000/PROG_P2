@@ -84,6 +84,7 @@ public final class CategoriaDao implements Dao<Categoria> {
             idpstmt.setString(1, categoria.getCategoria());
             ResultSet rs = idpstmt.executeQuery();
             if (rs.next()) {
+                categoria.setIdCategoria(rs.getInt(1));
                 categorias.put(categoria.getIdCategoria(), categoria);
             }
 

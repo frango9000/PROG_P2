@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import src.model.Producto;
@@ -87,9 +86,9 @@ public final class ProductoDao implements Dao<Producto> {
             ResultSet rs = idpstmt.executeQuery();
             if (rs.next()) {
                 producto.setIdProducto(rs.getInt(1));
+                productos.put(producto.getIdProducto(), producto);
             }
 
-            productos.put(producto.getIdProducto(), producto);
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

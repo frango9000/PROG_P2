@@ -90,9 +90,9 @@ public final class MesaDao implements Dao<Mesa> {
             ResultSet rs = idpstmt.executeQuery();
             if (rs.next()) {
                 mesa.setIdMesa(rs.getInt(1));
+                mesas.put(mesa.getIdMesa(), mesa);
             }
 
-            mesas.put(mesa.getIdMesa(), mesa);
         } catch (SQLException ex) {
             Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

@@ -94,9 +94,9 @@ public final class OrdenDao implements Dao<Orden> {
             ResultSet rs = idpstmt.executeQuery();
             if (rs.next()) {
                 orden.setIdOrden(rs.getInt(1));
+                ordenes.put(orden.getIdOrden(), orden);
             }
 
-            ordenes.put(orden.getIdOrden(), orden);
         } catch (SQLException ex) {
             Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

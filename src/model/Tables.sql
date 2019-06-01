@@ -36,9 +36,10 @@ CREATE TABLE IF NOT EXISTS productos (
                         );
 
 CREATE TABLE IF NOT EXISTS servidos (
+                            idServido INTEGER,
                             idOrden INTEGER,
                             idProducto INTEGER,
-                                PRIMARY KEY (idOrden, idProducto),
+                                PRIMARY KEY (idServido, idOrden, idProducto),
                                 FOREIGN KEY (idOrden) REFERENCES ordenes(idOrden),
                                 FOREIGN KEY (idProducto) REFERENCES productos(idProducto)
                         );
