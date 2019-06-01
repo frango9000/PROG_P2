@@ -9,7 +9,7 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 import src.dao.MesaDao;
 import src.gui.template.GenericTablePanel;
-import src.gui.template.MesasTableModel;
+import src.gui.tablemodels.MesasTableModel;
 import src.model.Mesa;
 
 /**

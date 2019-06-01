@@ -19,7 +19,6 @@ import src.model.StaticHelpers;
 public final class MesaFrame extends javax.swing.JFrame {
 
     String nombre = "";
-//    BiblioSQL biblioSQL = BiblioSQL.getOpenInstance();
 
     public MesaFrame() {
         nombre = "Mesa";

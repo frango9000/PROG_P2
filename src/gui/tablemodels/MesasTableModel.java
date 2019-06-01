@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui.template;
+package src.gui.tablemodels;
 
+import src.gui.tablemodels.GenericDomainTableModel;
 import java.util.Arrays;
 import src.model.Mesa;
 

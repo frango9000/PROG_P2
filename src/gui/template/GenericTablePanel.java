@@ -5,6 +5,8 @@
  */
 package src.gui.template;
 
+import src.gui.tablemodels.GenericDomainTableModel;
+
 
 /**
  *
