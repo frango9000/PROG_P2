@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS categorias (
 
 CREATE TABLE IF NOT EXISTS ordenes (
                             idOrden INTEGER PRIMARY KEY,
-                            apertura TEXT NOT NULL,
+                            apertura TEXT,
                             cierre TEXT,
                             total REAL NOT NULL,
                             idMesa INTEGER NOT NULL REFERENCES mesas (idMesa)

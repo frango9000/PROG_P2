@@ -23,6 +23,13 @@ public class MesasTablePanel extends GenericTablePanel {
                 
         MesasTableModel tm = new MesasTableModel();
         setModel(tm);
+        
+        
+        if (jTable.getColumnModel().getColumnCount() > 0) {
+            jTable.getColumnModel().getColumn(0).setMinWidth(30);
+            jTable.getColumnModel().getColumn(0).setMaxWidth(30);
+            jTable.getColumnModel().getColumn(1).setMinWidth(130);
+        }
     }
 
     @Override
@@ -36,8 +43,13 @@ public class MesasTablePanel extends GenericTablePanel {
     }
 
     @Override
-    public void editAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editAction() {        
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    Mesa mesa = (Mesa)model.getDomainObject(jTable.getSelectedRow());
+                    new MesaFrame(mesa).setVisible(true);
+                }
+            });
     }
 
     @Override
@@ -46,8 +58,12 @@ public class MesasTablePanel extends GenericTablePanel {
     }
 
     @Override
-    public void addAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addAction() {       
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new MesaFrame().setVisible(true);
+                }
+            });
     }
 
     @Override
