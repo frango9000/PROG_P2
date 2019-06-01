@@ -104,4 +104,30 @@ public class Orden {
         return "Orden{" + "idOrden=" + idOrden + ", apertura=" + apertura + ", cierre=" + cierre + ", total=" + total + ", idMesa=" + idMesa + '}';
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + this.idOrden;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Orden other = (Orden) obj;
+        if (this.idOrden != other.idOrden) {
+            return false;
+        }
+        return true;
+    }
+    
+
 }

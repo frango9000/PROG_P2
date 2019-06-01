@@ -182,15 +182,6 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         //TODO add your handling code here:
-//        int selectedRow = jTable.getSelectedRow();
-//        if (selectedRow > -1) {
-//            int id = (int) jTable.getValueAt(selectedRow, 0);
-//            System.out.println(id);
-//            JFrame j = new GeneroFrame(id);
-//            j.setVisible(true);
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Elige un " + nombre + " a editar", nombre + "s", JOptionPane.ERROR_MESSAGE);
-//        }
         editAction();
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -204,7 +195,6 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-//        MainFrame.setCard(MainFrame.MAINMENUPANEL);
         backAction();
     }//GEN-LAST:event_btnVolverActionPerformed
 
@@ -212,8 +202,6 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-//        JFrame j = new GeneroFrame(null);
-//        j.setVisible(true);
         addAction();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -221,21 +209,6 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-//        if (jTable.getSelectedRow() > -1) {
-//            int idSelected = (int) jTable.getValueAt(jTable.getSelectedRow(), 0);
-//            String nameSelected = biblioSQL.getGeneros().get(idSelected);
-//            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el " + nombre + ": ", "Eliminando " + nombre + "", JOptionPane.YES_NO_OPTION);
-//            if (i == 0) {
-//                if (biblioSQL.deleteGenero(idSelected) > 0) {
-//                    JOptionPane.showMessageDialog(this, nombre + " eliminado: " + nameSelected, nombre + " Eliminado", JOptionPane.INFORMATION_MESSAGE);
-//                } else {
-//                    JOptionPane.showMessageDialog(this, nombre + " NO eliminado: " + nameSelected, nombre + " Eliminado", JOptionPane.ERROR_MESSAGE);
-//                }
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Elige un " + nombre + " a eliminar", nombre, JOptionPane.ERROR_MESSAGE);
-//        }
-//        refreshTable();
         deleteAction();
     }//GEN-LAST:event_btnDeleteActionPerformed
 

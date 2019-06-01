@@ -58,4 +58,30 @@ public class Mesa {
     public String toString() {
         return "Mesa{" + "idMesa=" + idMesa + ", mesa=" + mesa + ", capacidad=" + capacidad + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + this.idMesa;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Mesa other = (Mesa) obj;
+        if (this.idMesa != other.idMesa) {
+            return false;
+        }
+        return true;
+    }
+    
 }

@@ -6,6 +6,7 @@
 package src.gui;
 
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import src.dao.MesaDao;
 import src.gui.template.GenericTablePanel;
 import src.gui.template.MesasTableModel;
@@ -44,33 +45,48 @@ public class MesasTablePanel extends GenericTablePanel {
 
     @Override
     public void editAction() {        
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    Mesa mesa = (Mesa)model.getDomainObject(jTable.getSelectedRow());
-                    new MesaFrame(mesa).setVisible(true);
-                }
+        int selectedRow = jTable.getSelectedRow();
+        if (selectedRow > -1) {
+            java.awt.EventQueue.invokeLater(() -> {
+                int id = (int)jTable.getValueAt(selectedRow, 0);
+                new MesaFrame(id).setVisible(true);
             });
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige una " + nombre + " a editar", nombre + "s", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @Override
     public void backAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MainFrame.setCard("Start");
     }
 
     @Override
     public void addAction() {       
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new MesaFrame().setVisible(true);
-                }
+            java.awt.EventQueue.invokeLater(() -> {
+                new MesaFrame().setVisible(true);
             });
     }
 
     @Override
     public void deleteAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int selectedRow = jTable.getSelectedRow();
+        if (selectedRow > -1) {
+            int idSelected = (int) jTable.getValueAt(selectedRow, 0);
+            String nameSelected = (String) jTable.getValueAt(selectedRow, 1);
+            int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar la " + nombre + ": " + nameSelected, "Eliminando " + nombre + "", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                if (MesaDao.getInstance().delete(idSelected) > 0) {
+                    JOptionPane.showMessageDialog(this, nombre + " eliminado: " + nameSelected, nombre + " Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, nombre + " NO eliminado: " + nameSelected, nombre + " Eliminado", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Elige una " + nombre + " a eliminar", nombre, JOptionPane.ERROR_MESSAGE);
+        }
+        refreshTable();
     }
-    
     
     
 }
