@@ -52,7 +52,7 @@ public final class CategoriaDao implements Dao<Categoria> {
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
@@ -89,7 +89,7 @@ public final class CategoriaDao implements Dao<Categoria> {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
         } finally {
             SessionDB.close();
         }
@@ -107,7 +107,7 @@ public final class CategoriaDao implements Dao<Categoria> {
             pstmt.setInt(2, categoria.getIdCategoria());
             rows = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }
@@ -127,7 +127,7 @@ public final class CategoriaDao implements Dao<Categoria> {
         try (Statement stmt = SessionDB.getConn().createStatement()) {
             rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }

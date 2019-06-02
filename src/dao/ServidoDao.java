@@ -52,7 +52,7 @@ public final class ServidoDao implements Dao<Servido> {
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
@@ -90,7 +90,7 @@ public final class ServidoDao implements Dao<Servido> {
                 servidos.put(servido.getIdServido(), servido);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
         } finally {
             SessionDB.close();
         }
@@ -109,7 +109,7 @@ public final class ServidoDao implements Dao<Servido> {
             pstmt.setInt(3, servido.getIdServido());
             rows = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }
@@ -129,7 +129,7 @@ public final class ServidoDao implements Dao<Servido> {
         try (Statement stmt = SessionDB.getConn().createStatement()) {
             rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }
@@ -149,7 +149,7 @@ public final class ServidoDao implements Dao<Servido> {
                     productos.add(rs.getInt(1));
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }

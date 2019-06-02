@@ -57,7 +57,7 @@ public final class OrdenDao implements Dao<Orden> {
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
@@ -98,7 +98,7 @@ public final class OrdenDao implements Dao<Orden> {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
         } finally {
             SessionDB.close();
         }
@@ -118,7 +118,7 @@ public final class OrdenDao implements Dao<Orden> {
             pstmt.setInt(5, orden.getIdOrden());
             rows = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }
@@ -139,7 +139,7 @@ public final class OrdenDao implements Dao<Orden> {
             rows = stmt.executeUpdate(sql);
             System.out.println(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }

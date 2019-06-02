@@ -51,7 +51,7 @@ public final class ProductoDao implements Dao<Producto> {
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
@@ -90,7 +90,7 @@ public final class ProductoDao implements Dao<Producto> {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
         } finally {
             SessionDB.close();
         }
@@ -109,7 +109,7 @@ public final class ProductoDao implements Dao<Producto> {
             pstmt.setInt(4, producto.getIdProducto());
             rows = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }
@@ -129,7 +129,7 @@ public final class ProductoDao implements Dao<Producto> {
         try (Statement stmt = SessionDB.getConn().createStatement()) {
             rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }

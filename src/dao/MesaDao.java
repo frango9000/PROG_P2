@@ -56,7 +56,7 @@ public final class MesaDao implements Dao<Mesa> {
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
@@ -94,7 +94,7 @@ public final class MesaDao implements Dao<Mesa> {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
         } finally {
             SessionDB.close();
         }
@@ -112,7 +112,7 @@ public final class MesaDao implements Dao<Mesa> {
             pstmt.setInt(3, mesa.getIdMesa());
             rows = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }
@@ -132,7 +132,7 @@ public final class MesaDao implements Dao<Mesa> {
         try (Statement stmt = SessionDB.getConn().createStatement()) {
             rows = stmt.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }
