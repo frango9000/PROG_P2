@@ -38,7 +38,7 @@ public class OrdenTablePanel extends GenericTablePanel {
                 new OrdenFrame(id).setVisible(true);
             });
         } else {
-            JOptionPane.showMessageDialog(this, "Elige un " + nombre + " a editar", nombre + "s", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Elige una " + nombre + " a editar", nombre + "es", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -57,9 +57,9 @@ public class OrdenTablePanel extends GenericTablePanel {
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar la " + nombre + ": " + idSelected, "Eliminando " + nombre + "", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 if (OrdenDao.getInstance().delete(idSelected) > 0) {
-                    JOptionPane.showMessageDialog(this, nombre + " eliminado: " + idSelected, nombre + " Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, nombre + " eliminada: " + idSelected, nombre + " Eliminada", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, nombre + " NO eliminado: " + idSelected, nombre + " Eliminado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, nombre + " NO eliminada: " + idSelected, nombre + " Eliminada", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
