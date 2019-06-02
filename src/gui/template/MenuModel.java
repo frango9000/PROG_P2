@@ -61,6 +61,7 @@ public class MenuModel extends javax.swing.JFrame {
         jMenuBar1.add(jMenuInicio);
 
         jMenuVer.setText("Ver");
+        jMenuVer.setEnabled(false);
 
         jMenuItemMesas.setText("Mesas");
         jMenuVer.add(jMenuItemMesas);

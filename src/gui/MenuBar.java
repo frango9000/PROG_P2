@@ -30,7 +30,7 @@ public final class MenuBar extends JMenuBar {
     public JMenuItem jMenuItemNueva;
     public JMenuItem jMenuItemSalir;
     public JMenu jMenuMas;
-    public JMenu jMenuVer;
+    static public JMenu jMenuVer;
     private JPopupMenu.Separator jSeparator1;
     private JPopupMenu.Separator jSeparator2;
 
@@ -72,6 +72,7 @@ public final class MenuBar extends JMenuBar {
         this.add(jMenuInicio);
 
         jMenuVer.setText("Ver");
+        jMenuVer.setEnabled(false);
 
         jMenuItemMesas.setText("Mesas");
         jMenuVer.add(jMenuItemMesas);

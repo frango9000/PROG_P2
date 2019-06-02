@@ -10,9 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import src.dao.CategoriaDao;
 
 /**
  * Clase Session se encagra de mantener la informacion de una conexion a una DB
@@ -141,54 +143,54 @@ public final class SessionDB {
         tablenames.forEach((name) -> System.out.println(name));
     }
 
-    public static boolean crearTablas() {
-        boolean success = false;
-        File sql = new File("src/src/model/Tables.sql");
+    public static int crearTablas() {
+        int rows = 0;
+        File sqlFile = new File("src/src/model/Tables.sql");
         StringBuilder sqlcmd = new StringBuilder();
-        try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))) {
+        try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sqlFile)))) {
             while (scan.hasNext()) {
                 sqlcmd.append(scan.nextLine()).append("\n");
             }
             String multicmd = sqlcmd.toString();
             String[] cmds = multicmd.split(";");
             SessionDB.connect();
-            try (Statement stmt = SessionDB.getConn().createStatement()) {
-                for (String cmd : cmds) {
-                    stmt.addBatch(cmd);
+            for (String cmd : cmds) {
+                try (Statement stmt = SessionDB.getConn().createStatement()) {
+                    rows += stmt.executeUpdate(cmd.trim());
+                } catch (SQLException ex) {
+                    Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, cmd, ex);
                 }
-                stmt.executeBatch();
-                success = true;
             }
-        } catch (FileNotFoundException | SQLException ignored) {
+        } catch (FileNotFoundException ignored) {
         } finally {
             SessionDB.close();
         }
-        return success;
+        return rows;
     }
 
-    public static boolean insertarDemoData() {
-        boolean success = false;
-        File sql = new File("src/src/model/DemoData.sql");
+    public static int insertarDemoData() {
+        int rows = 0;
+        File sqlFile = new File("src/src/model/DemoData.sql");
         StringBuilder sqlcmd = new StringBuilder();
-        try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sql)))) {
+        try (Scanner scan = new Scanner(new BufferedInputStream(new FileInputStream(sqlFile)))) {
             while (scan.hasNext()) {
                 sqlcmd.append(scan.nextLine()).append("\n");
             }
             String multicmd = sqlcmd.toString();
             String[] cmds = multicmd.split(";");
             SessionDB.connect();
-            try (Statement stmt = SessionDB.getConn().createStatement()) {
-                for (String cmd : cmds) {
-                    stmt.addBatch(cmd);
+            for (String cmd : cmds) {
+                try (Statement stmt = SessionDB.getConn().createStatement()) {
+                    stmt.executeUpdate(cmd.trim());
+                } catch (SQLException ex) {
+                    Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, cmd, ex);
                 }
-                stmt.executeBatch();
-                success = true;
             }
-        } catch (FileNotFoundException | SQLException ignored) {
+        } catch (FileNotFoundException ignored) {
         } finally {
             SessionDB.close();
         }
-        return success;
+        return rows;
     }
 
     /**
@@ -201,9 +203,9 @@ public final class SessionDB {
         ArrayList<String> tables = listTables();
         StringBuilder tablesString = new StringBuilder();
         tables.forEach(cnsmr -> tablesString.append(cnsmr).append("\n"));
-        String model = "mesas\n"
-                + "categorias\n"
+        String model = "categorias\n"
                 + "ordenes\n"
+                + "mesas\n"
                 + "productos\n"
                 + "servidos\n";
         return model.matches(tablesString.toString());

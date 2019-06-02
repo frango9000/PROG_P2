@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import src.model.DateTimeFormat;
@@ -48,7 +47,7 @@ public final class OrdenDao implements Dao<Orden> {
             try (Statement ps = SessionDB.getConn().createStatement()) {
                 ResultSet rs = ps.executeQuery(sql);
                 while (rs.next()) {
-                    Orden orden = new Orden(rs.getInt(1), rs.getString(2), rs.getFloat(4), rs.getInt(5));
+                    Orden orden = new Orden(rs.getInt(1), rs.getString(2), rs.getFloat(4));
                     String cierre = rs.getString(3);
                     if (!rs.wasNull()) {
                         orden.setCierre(DateTimeFormat.dbStringToLocalDateTime(cierre));
@@ -77,8 +76,8 @@ public final class OrdenDao implements Dao<Orden> {
 
     @Override
     public int insert(Orden orden) {
-        String sql = "INSERT INTO ordenes VALUES(NULL, ?, ?, ?, ?)";
-        String queryId = "SELECT idOrden FROM ordenes WHERE apertura = ? and idMesa = ?";
+        String sql = "INSERT INTO ordenes VALUES(NULL, ?, ?, ?)";
+        String queryId = "SELECT MAX(idOrden) FROM ordenes WHERE apertura = ?";
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
@@ -86,11 +85,9 @@ public final class OrdenDao implements Dao<Orden> {
             pstmt.setString(1, orden.getAperturaToDbString());
             pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
             pstmt.setFloat(3, orden.getTotal());
-            pstmt.setInt(4, orden.getIdMesa());
             rows = pstmt.executeUpdate();
 
             idpstmt.setString(1, orden.getAperturaToDbString());
-            idpstmt.setInt(2, orden.getIdMesa());
             ResultSet rs = idpstmt.executeQuery();
             if (rs.next()) {
                 orden.setIdOrden(rs.getInt(1));
@@ -107,15 +104,14 @@ public final class OrdenDao implements Dao<Orden> {
 
     @Override
     public int update(Orden orden) {
-        String sql = "UPDATE ordenes SET apertura = ?, cierre = ?, total = ?, idMesa = ? WHERE idOrden = ?";
+        String sql = "UPDATE ordenes SET apertura = ?, cierre = ?, total = ? WHERE idOrden = ?";
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
             pstmt.setString(1, orden.getAperturaToDbString());
             pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
             pstmt.setFloat(3, orden.getTotal());
-            pstmt.setInt(4, orden.getIdMesa());
-            pstmt.setInt(5, orden.getIdOrden());
+            pstmt.setInt(4, orden.getIdOrden());
             rows = pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
@@ -132,7 +128,7 @@ public final class OrdenDao implements Dao<Orden> {
 
     @Override
     public int delete(int id) {
-        String sql = "DELETE FROM mesas WHERE idMesa = '" + id + "'";
+        String sql = "DELETE FROM ordenes WHERE idOrden = '" + id + "'";
         SessionDB.connect();
         int rows = 0;
         try (Statement stmt = SessionDB.getConn().createStatement()) {

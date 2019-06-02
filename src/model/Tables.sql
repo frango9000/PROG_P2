@@ -9,12 +9,6 @@
  */
 
 
-CREATE TABLE IF NOT EXISTS mesas (
-                            idMesa INTEGER PRIMARY KEY,
-                            mesa TEXT NOT NULL UNIQUE,
-                            capacidad INTEGER NOT NULL
-                        );
-
 CREATE TABLE IF NOT EXISTS categorias (
                             idCategoria INTEGER PRIMARY KEY,
                             categoria TEXT NOT NULL UNIQUE
@@ -24,8 +18,14 @@ CREATE TABLE IF NOT EXISTS ordenes (
                             idOrden INTEGER PRIMARY KEY,
                             apertura TEXT NOT NULL,
                             cierre TEXT,
-                            total REAL NOT NULL,
-                            idMesa INTEGER NOT NULL REFERENCES mesas (idMesa)
+                            total REAL NOT NULL
+                        );
+
+CREATE TABLE IF NOT EXISTS mesas (
+                            idMesa INTEGER PRIMARY KEY,
+                            mesa TEXT NOT NULL UNIQUE,
+                            capacidad INTEGER NOT NULL,
+                            idOrden INTEGER NOT NULL REFERENCES ordenes (idOrden)
                         );
 
 CREATE TABLE IF NOT EXISTS productos (

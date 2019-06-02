@@ -34,7 +34,8 @@ public final class MesaFrame extends javax.swing.JFrame {
         this();
         jTextFieldID.setText(mesa.getIdMesa() + "");
         jTextFieldName.setText(mesa.getMesa());
-        jTextFieldName1.setText(mesa.getCapacidad() + "");
+        jTextFieldCapacidad.setText(mesa.getCapacidad() + "");
+        jTextFieldIdOrden.setText(mesa.getIdOrden() + "");
     }
 
     public MesaFrame(int id) {
@@ -58,8 +59,10 @@ public final class MesaFrame extends javax.swing.JFrame {
         jTextFieldID = new javax.swing.JTextField();
         nameLabel = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
-        jTextFieldName1 = new javax.swing.JTextField();
+        jTextFieldCapacidad = new javax.swing.JTextField();
         nameLabel1 = new javax.swing.JLabel();
+        jLabelIdOrden = new javax.swing.JLabel();
+        jTextFieldIdOrden = new javax.swing.JTextField();
         jBtnCancel = new javax.swing.JButton();
         jBtnAccept = new javax.swing.JButton();
 
@@ -82,29 +85,37 @@ public final class MesaFrame extends javax.swing.JFrame {
 
         jTextFieldName.setMinimumSize(new java.awt.Dimension(100, 24));
 
-        jTextFieldName1.setMinimumSize(new java.awt.Dimension(100, 24));
+        jTextFieldCapacidad.setMinimumSize(new java.awt.Dimension(100, 24));
 
         nameLabel1.setText("Capacidad");
+
+        jLabelIdOrden.setText("idOrden");
+
+        jTextFieldIdOrden.setMinimumSize(new java.awt.Dimension(100, 24));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabelIdOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldIdOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(nameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldName1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jTextFieldCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
@@ -121,7 +132,11 @@ public final class MesaFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelIdOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldIdOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -148,11 +163,11 @@ public final class MesaFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(titleLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 120, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jBtnAccept)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnCancel))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -162,7 +177,7 @@ public final class MesaFrame extends javax.swing.JFrame {
                 .addComponent(titleLabel)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnCancel)
                     .addComponent(jBtnAccept)))
@@ -174,7 +189,7 @@ public final class MesaFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +212,7 @@ public final class MesaFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
+            .addGap(0, 280, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -212,27 +227,33 @@ public final class MesaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = jTextFieldID.getText().trim();
         String mesaStr = jTextFieldName.getText().trim();
-        String cap = jTextFieldName1.getText().trim();
+        String cap = jTextFieldCapacidad.getText().trim();
+        String idOrden = jTextFieldIdOrden.getText().trim();
         if (mesaStr.length() > 0) {
             if (cap.length() > 0 && StaticHelpers.isInteger(cap) && Integer.parseInt(cap) > 0) {
-                if (id.length() == 0) { // id vacio = objeto nuevo
-                    Mesa mesa = new Mesa(mesaStr, Integer.parseInt(cap));
-                    if (MesaDao.getInstance().insert(mesa) > 0) {
-                        this.dispose();
-                        JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                if(idOrden.length() > 0 && StaticHelpers.isInteger(idOrden) && Integer.parseInt(idOrden)>-1){
+                    if (id.length() == 0) { // id vacio = objeto nuevo
+                        Mesa mesa = new Mesa(mesaStr, Integer.parseInt(cap), Integer.parseInt(idOrden));
+                        if (MesaDao.getInstance().insert(mesa) > 0) {
+                            this.dispose();
+                            JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                        Mesa mesa = MesaDao.getInstance().get(Integer.parseInt(id));
+                        mesa.setMesa(mesaStr);
+                        mesa.setCapacidad(Integer.parseInt(cap));
+                        mesa.setIdOrden(Integer.parseInt(idOrden));
+                        if (MesaDao.getInstance().update(mesa) > 0) {
+                            this.dispose();
+                            JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
-                } else {
-                    Mesa mesa = MesaDao.getInstance().get(Integer.parseInt(id));
-                    mesa.setMesa(mesaStr);
-                    mesa.setCapacidad(Integer.parseInt(cap));
-                    if (MesaDao.getInstance().update(mesa) > 0) {
-                        this.dispose();
-                        JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
-                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "idOrden de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Capacidad de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);
@@ -251,12 +272,14 @@ public final class MesaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel idLabel;
     public javax.swing.JButton jBtnAccept;
     public javax.swing.JButton jBtnCancel;
+    private javax.swing.JLabel jLabelIdOrden;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField jTextFieldCapacidad;
     private javax.swing.JTextField jTextFieldID;
+    private javax.swing.JTextField jTextFieldIdOrden;
     private javax.swing.JTextField jTextFieldName;
-    private javax.swing.JTextField jTextFieldName1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameLabel1;
     private javax.swing.JLabel titleLabel;

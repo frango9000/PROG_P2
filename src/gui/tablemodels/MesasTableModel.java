@@ -15,7 +15,7 @@ import src.model.Mesa;
 public class MesasTableModel extends GenericDomainTableModel<Mesa> {
 
     public MesasTableModel() {
-        super(Arrays.asList(new Object[]{"id", "Mesa", "Capacidad"}));
+        super(Arrays.asList(new Object[]{"id", "Mesa", "Capacidad", "idOrden"}));
     }
 
     @Override
@@ -32,6 +32,8 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
                 return String.class;
             case 2:
                 return Integer.class;
+            case 3:
+                return Integer.class;
         }
         throw new ArrayIndexOutOfBoundsException(columnIndex);
     }
@@ -46,6 +48,8 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
                 return mesa.getMesa();
             case 2:
                 return mesa.getCapacidad();
+            case 3:
+                return mesa.getIdOrden();
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);
         }
@@ -63,6 +67,9 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
                 break;
             case 2:
                 mesa.setCapacidad((Integer) value);
+                break;
+            case 3:
+                mesa.setIdOrden((Integer) value);
                 break;
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);

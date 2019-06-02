@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import src.model.Mesa;
@@ -47,11 +46,7 @@ public final class MesaDao implements Dao<Mesa> {
             try (Statement ps = SessionDB.getConn().createStatement()) {
                 ResultSet rs = ps.executeQuery(sql);
                 while (rs.next()) {
-                    Mesa mesa = new Mesa(rs.getInt(1), rs.getString(2));
-                    int capacidad = rs.getInt(3);
-                    if (!rs.wasNull()) {
-                        mesa.setCapacidad(capacidad);
-                    }
+                    Mesa mesa = new Mesa(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
                     mesas.put(mesa.getIdMesa(), mesa);
                 }
                 System.out.println(sql);
@@ -76,7 +71,7 @@ public final class MesaDao implements Dao<Mesa> {
 
     @Override
     public int insert(Mesa mesa) {
-        String sql = "INSERT INTO mesas VALUES(NULL, ?, ?)";
+        String sql = "INSERT INTO mesas VALUES(NULL, ?, ?, ?)";
         String queryId = "SELECT idMesa FROM mesas WHERE mesa = ?";
         SessionDB.connect();
         int rows = 0;
@@ -84,6 +79,7 @@ public final class MesaDao implements Dao<Mesa> {
                 PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
             pstmt.setString(1, mesa.getMesa());
             pstmt.setInt(2, mesa.getCapacidad());
+            pstmt.setInt(3, mesa.getIdOrden());
             rows = pstmt.executeUpdate();
 
             idpstmt.setString(1, mesa.getMesa());
@@ -92,7 +88,6 @@ public final class MesaDao implements Dao<Mesa> {
                 mesa.setIdMesa(rs.getInt(1));
                 mesas.put(mesa.getIdMesa(), mesa);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
         } finally {
@@ -103,13 +98,14 @@ public final class MesaDao implements Dao<Mesa> {
 
     @Override
     public int update(Mesa mesa) {
-        String sql = "UPDATE mesas SET mesa = ?, capacidad = ? WHERE idMesa = ?";
+        String sql = "UPDATE mesas SET mesa = ?, capacidad = ?, idOrden = ? WHERE idMesa = ?";
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
             pstmt.setString(1, mesa.getMesa());
             pstmt.setInt(2, mesa.getCapacidad());
-            pstmt.setInt(3, mesa.getIdMesa());
+            pstmt.setInt(3, mesa.getIdOrden());
+            pstmt.setInt(4, mesa.getIdMesa());
             rows = pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, sql, ex);

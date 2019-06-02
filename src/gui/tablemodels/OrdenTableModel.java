@@ -15,7 +15,7 @@ import src.model.Orden;
 public class OrdenTableModel extends GenericDomainTableModel<Orden> {
 
     public OrdenTableModel() {
-        super(Arrays.asList(new Object[]{"id", "Apertura", "Cierre", "Total", "idMesa"}));
+        super(Arrays.asList(new Object[]{"id", "Apertura", "Cierre", "Total"}));
     }
 
     @Override
@@ -34,8 +34,6 @@ public class OrdenTableModel extends GenericDomainTableModel<Orden> {
                 return String.class;
             case 3:
                 return Float.class;
-            case 4:
-                return Integer.class;
         }
         throw new ArrayIndexOutOfBoundsException(columnIndex);
     }
@@ -55,8 +53,6 @@ public class OrdenTableModel extends GenericDomainTableModel<Orden> {
                     return orden.getCierreToUserString();
             case 3:
                 return orden.getTotal();
-            case 4:
-                return orden.getIdMesa();
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);
         }
@@ -77,9 +73,6 @@ public class OrdenTableModel extends GenericDomainTableModel<Orden> {
                 break;
             case 3:
                 orden.setTotal((Float) value);
-                break;
-            case 4:
-                orden.setIdMesa((Integer) value);
                 break;
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);

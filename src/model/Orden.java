@@ -18,28 +18,24 @@ public class Orden {
     private LocalDateTime apertura;
     private LocalDateTime cierre;
     private float total;
-    private int idMesa;
 
-    public Orden(int idMesa) {
-        this.idMesa = idMesa;
+    public Orden() {
         apertura = LocalDateTime.now();
         total = 0f;
         cierre = null;
     }
 
-    public Orden(int idOrden, String dbDateTime, float total, int idMesa) {
+    public Orden(int idOrden, String dbDateTime, float total) {
         this.idOrden = idOrden;
         this.apertura = LocalDateTime.parse(dbDateTime, DateTimeFormatter.ofPattern(DateTimeFormat.DB_FORMAT));
         this.total = total;
-        this.idMesa = idMesa;
         cierre = null;
     }
 
-    public Orden(LocalDateTime apertura, LocalDateTime cierre, float total, int idMesa) {
+    public Orden(LocalDateTime apertura, LocalDateTime cierre, float total) {
         this.apertura = apertura;
         this.cierre = cierre;
         this.total = total;
-        this.idMesa = idMesa;
     }
     
 
@@ -75,10 +71,6 @@ public class Orden {
         return total;
     }
 
-    public int getIdMesa() {
-        return idMesa;
-    }
-
     public void setIdOrden(int idOrden) {
         this.idOrden = idOrden;
     }
@@ -112,10 +104,6 @@ public class Orden {
         this.total = total;
     }
 
-    public void setIdMesa(int idMesa) {
-        this.idMesa = idMesa;
-    }
-
     public void cerrarMesa() {
         cierre = LocalDateTime.now();
     }
@@ -126,7 +114,7 @@ public class Orden {
 
     @Override
     public String toString() {
-        return "Orden{" + "idOrden=" + idOrden + ", apertura=" + apertura + ", cierre=" + cierre + ", total=" + total + ", idMesa=" + idMesa + '}';
+        return "Orden{" + "idOrden=" + idOrden + ", apertura=" + apertura + ", cierre=" + cierre + ", total=" + total + '}';
     }
 
     @Override

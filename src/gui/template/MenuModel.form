@@ -31,6 +31,7 @@
         <Menu class="javax.swing.JMenu" name="jMenuVer">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ver"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemMesas">

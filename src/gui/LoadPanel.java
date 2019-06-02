@@ -6,7 +6,6 @@
 package src.gui;
 
 import java.awt.CardLayout;
-import java.awt.HeadlessException;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -228,10 +227,14 @@ public class LoadPanel extends javax.swing.JPanel {
                     System.out.println("Inserting Demo Data...");
                     SessionDB.insertarDemoData();
                 }
-                jTextFieldBrowse.setText(newfile.getAbsolutePath());
-                setStatusLabels();
-                JOptionPane.showMessageDialog(this, "DB creada correctamente", "Nueva DB", JOptionPane.INFORMATION_MESSAGE);
-
+                if(SessionDB.isValid()){
+                    MenuBar.jMenuVer.setEnabled(true);
+                    JOptionPane.showMessageDialog(this, "DB creada correctamente", "Nueva DB", JOptionPane.INFORMATION_MESSAGE);
+                    MainFrame.setCard("Start");
+                } else {
+                    MenuBar.jMenuVer.setEnabled(false);
+                    JOptionPane.showMessageDialog(this, "DB invalida. Contacta con el desarrollador.", "Cargando DB", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Creacion cancelada", "Cargando DB", JOptionPane.ERROR_MESSAGE);
             }
@@ -248,8 +251,10 @@ public class LoadPanel extends javax.swing.JPanel {
                 SessionDB.setDbFile(loadfile);
 
                 if (SessionDB.isValid()) {
+                    MenuBar.jMenuVer.setEnabled(true);
                     MainFrame.setCard("Start");
                 } else {
+                    MenuBar.jMenuVer.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "DB Invalida", "Cargando DB", JOptionPane.ERROR_MESSAGE);
                 }
             } else {

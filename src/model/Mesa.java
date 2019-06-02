@@ -14,25 +14,19 @@ public class Mesa {
     private int idMesa;
     private String mesa;
     private int capacidad;
+    private int idOrden;
 
-    public Mesa(String mesa) {
-        this.mesa = mesa;
-    }
-
-    public Mesa(String mesa, int capacidad) {
+    public Mesa(String mesa, int capacidad, int idOrden) {
         this.mesa = mesa;
         this.capacidad = capacidad;
+        this.idOrden = idOrden;
     }
 
-    public Mesa(int idMesa, String mesa) {
-        this.idMesa = idMesa;
-        this.mesa = mesa;
-    }
-
-    public Mesa(int idMesa, String mesa, int capacidad) {
+    public Mesa(int idMesa, String mesa, int capacidad, int idOrden) {
         this.idMesa = idMesa;
         this.mesa = mesa;
         this.capacidad = capacidad;
+        this.idOrden = idOrden;
     }
 
     public int getIdMesa() {
@@ -45,6 +39,14 @@ public class Mesa {
 
     public int getCapacidad() {
         return capacidad;
+    }
+
+    public int getIdOrden() {
+        return idOrden;
+    }
+
+    public void setIdOrden(int idOrden) {
+        this.idOrden = idOrden;
     }
 
     public void setIdMesa(int idMesa) {
@@ -61,7 +63,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return "Mesa{" + "idMesa=" + idMesa + ", mesa=" + mesa + ", capacidad=" + capacidad + '}';
+        return "Mesa{" + "idMesa=" + idMesa + ", mesa=" + mesa + ", capacidad=" + capacidad + ", idOrden=" + idOrden + '}';
     }
 
     @Override
