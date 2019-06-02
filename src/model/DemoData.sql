@@ -23,7 +23,13 @@ INSERT INTO mesas VALUES( 1, 'Mesa 1',    4, 10),
                         (13, 'Terraza 1', 4, 15),
                         (14, 'Terraza 2', 4, 0),
                         (15, 'Terraza 3', 8, 16),
-                        (16, 'Terraza 4', 8, 0);
+                        (16, 'Terraza 4', 8, 0),
+                        (17, 'Extra 1',    4, 0),
+                        (18, 'Extra 2',    4, 0),
+                        (19, 'Extra 3',    2, 0),
+                        (20, 'Extra 4',    2, 0),
+                        (21, 'Extra 5',    4, 0),
+                        (22, 'Extra 6',    4, 0);
 
 INSERT INTO categorias VALUES(1, 'Categoria 1'),
                              (2, 'Categoria 2'),
@@ -33,7 +39,7 @@ INSERT INTO categorias VALUES(1, 'Categoria 1'),
                              (6, 'Categoria 6'),
                              (7, 'Categoria 7'),
                              (8, 'Categoria 8'),
-                             (9, 'Categoria 9');
+                             (9, 'Descatalogados');
 
 iNSERT INTO productos VALUES( 1, 'Producto 1', 3.50, 1),
                             ( 2, 'Producto 2', 4.50, 1),
