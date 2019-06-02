@@ -64,7 +64,7 @@ public class ProductosTablePanel extends GenericTablePanel {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Elige una " + nombre + " a eliminar", nombre, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Elige un " + nombre + " a eliminar", nombre, JOptionPane.ERROR_MESSAGE);
         }
         refreshTable();
     }

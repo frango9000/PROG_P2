@@ -254,7 +254,7 @@ public final class MesaFrame extends javax.swing.JFrame {
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "idOrden de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "idOrden de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Capacidad de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);

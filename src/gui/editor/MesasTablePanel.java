@@ -58,9 +58,9 @@ public class MesasTablePanel extends GenericTablePanel {
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar la " + nombre + ": " + nameSelected, "Eliminando " + nombre + "", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 if (MesaDao.getInstance().delete(idSelected) > 0) {
-                    JOptionPane.showMessageDialog(this, nombre + " eliminado: " + nameSelected, nombre + " Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, nombre + " eliminada: " + nameSelected, nombre + " Eliminada", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, nombre + " NO eliminado: " + nameSelected, nombre + " Eliminado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, nombre + " NO eliminada: " + nameSelected, nombre + " Eliminada", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {

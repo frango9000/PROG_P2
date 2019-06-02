@@ -268,7 +268,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Nombre de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Total de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnAcceptActionPerformed
 

@@ -235,10 +235,10 @@ public final class ServidoFrame extends javax.swing.JFrame {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Capacidad de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ID de orden del producto " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Nombre de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ID del producto " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBtnAcceptActionPerformed
 
