@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS categorias (
                         );
 
 CREATE TABLE IF NOT EXISTS ordenes (
-                            idOrden INTEGER PRIMARY KEY,
+                            idOrden INTEGER PRIMARY KEY AUTOINCREMENT,
                             apertura TEXT NOT NULL,
                             cierre TEXT,
                             total REAL NOT NULL
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS productos (
                         );
 
 CREATE TABLE IF NOT EXISTS servidos (
-                            idServido INTEGER PRIMARY KEY,
+                            idServido INTEGER PRIMARY KEY AUTOINCREMENT,
                             idOrden INTEGER NOT NULL,
                             idProducto INTEGER NOT NULL,
                                 FOREIGN KEY (idOrden) REFERENCES ordenes(idOrden),

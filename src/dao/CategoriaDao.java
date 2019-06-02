@@ -72,23 +72,19 @@ public final class CategoriaDao implements Dao<Categoria> {
     @Override
     public int insert(Categoria categoria) {
         String sql = "INSERT INTO categorias VALUES(NULL, ?)";
-        String queryId = "SELECT idCategoria FROM categorias WHERE categoria = ?";
         SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-                PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
+        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
             pstmt.setString(1, categoria.getCategoria());
             rows = pstmt.executeUpdate();
 
-            idpstmt.setString(1, categoria.getCategoria());
-            ResultSet rs = idpstmt.executeQuery();
+            ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 categoria.setIdCategoria(rs.getInt(1));
                 categorias.put(categoria.getIdCategoria(), categoria);
             }
-
         } catch (SQLException ex) {
-            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
+            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }

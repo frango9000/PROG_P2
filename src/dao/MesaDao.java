@@ -72,24 +72,21 @@ public final class MesaDao implements Dao<Mesa> {
     @Override
     public int insert(Mesa mesa) {
         String sql = "INSERT INTO mesas VALUES(NULL, ?, ?, ?)";
-        String queryId = "SELECT idMesa FROM mesas WHERE mesa = ?";
         SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-                PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
+        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
             pstmt.setString(1, mesa.getMesa());
             pstmt.setInt(2, mesa.getCapacidad());
             pstmt.setInt(3, mesa.getIdOrden());
             rows = pstmt.executeUpdate();
 
-            idpstmt.setString(1, mesa.getMesa());
-            ResultSet rs = idpstmt.executeQuery();
+            ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 mesa.setIdMesa(rs.getInt(1));
                 mesas.put(mesa.getIdMesa(), mesa);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
+            Logger.getLogger(MesaDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }

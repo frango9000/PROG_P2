@@ -72,25 +72,21 @@ public final class ProductoDao implements Dao<Producto> {
     @Override
     public int insert(Producto producto) {
         String sql = "INSERT INTO productos VALUES(NULL, ?, ?, ?)";
-        String queryId = "SELECT idProducto FROM productos WHERE producto = ?";
         SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-                PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
+        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
             pstmt.setString(1, producto.getProducto());
             pstmt.setInt(2, producto.getIdCategoria());
             pstmt.setFloat(3, producto.getPrecio());
             rows = pstmt.executeUpdate();
 
-            idpstmt.setString(1, producto.getProducto());
-            ResultSet rs = idpstmt.executeQuery();
+            ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 producto.setIdProducto(rs.getInt(1));
                 productos.put(producto.getIdProducto(), producto);
             }
-
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
+            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }

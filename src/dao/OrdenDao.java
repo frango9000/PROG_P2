@@ -77,25 +77,21 @@ public final class OrdenDao implements Dao<Orden> {
     @Override
     public int insert(Orden orden) {
         String sql = "INSERT INTO ordenes VALUES(NULL, ?, ?, ?)";
-        String queryId = "SELECT MAX(idOrden) FROM ordenes WHERE apertura = ?";
         SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-                PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
+        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
             pstmt.setString(1, orden.getAperturaToDbString());
             pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
             pstmt.setFloat(3, orden.getTotal());
             rows = pstmt.executeUpdate();
 
-            idpstmt.setString(1, orden.getAperturaToDbString());
-            ResultSet rs = idpstmt.executeQuery();
+            ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 orden.setIdOrden(rs.getInt(1));
                 ordenes.put(orden.getIdOrden(), orden);
             }
-
         } catch (SQLException ex) {
-            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
+            Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }

@@ -73,24 +73,20 @@ public final class ServidoDao implements Dao<Servido> {
     @Override
     public int insert(Servido servido) {
         String sql = "INSERT INTO servidos VALUES(NULL, ?, ?)";
-        String queryId = "SELECT MAX(idServido) FROM servidos WHERE idOrden = ? and idProducto = ?";
         SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
-             PreparedStatement idpstmt = SessionDB.getConn().prepareStatement(queryId)) {
+        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
             pstmt.setInt(1, servido.getIdOrden());
             pstmt.setInt(2, servido.getIdProducto());
             rows = pstmt.executeUpdate();
 
-            idpstmt.setInt(1, servido.getIdOrden());
-            idpstmt.setInt(2, servido.getIdProducto());
-            ResultSet rs = idpstmt.executeQuery();
+            ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 servido.setIdServido(rs.getInt(1));
                 servidos.put(servido.getIdServido(), servido);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql+"\n"+queryId, ex);
+            Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
             SessionDB.close();
         }
