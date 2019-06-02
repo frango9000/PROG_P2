@@ -5,8 +5,6 @@
  */
 package src.model;
 
-import src.dao.ProductoDao;
-
 /**
  *
  * @author NarF
@@ -31,7 +29,6 @@ public class Producto {
         this.idCategoria = idCategoria;
     }
 
-    
     public int getIdProducto() {
         return idProducto;
     }

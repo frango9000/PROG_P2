@@ -10,7 +10,7 @@ package src.model;
  * @author NarF
  */
 public class Servido {
-    
+
     private int idServido;
     private int idOrden;
     private int idProducto;
@@ -79,9 +79,5 @@ public class Servido {
         }
         return true;
     }
-    
-    
-    
-    
-    
+
 }

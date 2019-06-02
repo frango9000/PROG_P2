@@ -16,6 +16,7 @@ import src.model.StaticHelpers;
  * @author NarF
  */
 public final class ServidoFrame extends javax.swing.JFrame {
+
     private Servido servido;
     private String nombre = "";
 
@@ -32,9 +33,9 @@ public final class ServidoFrame extends javax.swing.JFrame {
     public ServidoFrame(Servido servido) {
         this();
         this.servido = servido;
-        jTextFieldID.setText(servido.getIdServido()+ "");
-        jTextFieldIdOrden.setText(servido.getIdOrden()+ "");
-        jTextFieldIdProducto.setText(servido.getIdProducto()+ "");
+        jTextFieldID.setText(servido.getIdServido() + "");
+        jTextFieldIdOrden.setText(servido.getIdOrden() + "");
+        jTextFieldIdProducto.setText(servido.getIdProducto() + "");
     }
 
     public ServidoFrame(int id) {

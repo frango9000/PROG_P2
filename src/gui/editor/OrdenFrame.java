@@ -20,13 +20,13 @@ public final class OrdenFrame extends javax.swing.JFrame {
 
     private String nombre = "";
     private Orden orden;
-    
+
     public OrdenFrame() {
         nombre = "Orden";
         setMinimumSize(new Dimension(350, 275));
         setTitle(nombre);
         initComponents();
-        
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         aperturaPicker.getDatePicker().getSettings().setFormatForDatesCommonEra(DateTimeFormat.USER_DATE_FORMAT);
@@ -53,7 +53,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
         aperturaPicker.getDatePicker().setDate(orden.getApertura().toLocalDate());
         aperturaPicker.getTimePicker().setTime(orden.getApertura().toLocalTime());
 
-        if(orden.getCierre() != null){
+        if (orden.getCierre() != null) {
             cierrePicker.getDatePicker().setDate(orden.getCierre().toLocalDate());
             cierrePicker.getTimePicker().setTime(orden.getCierre().toLocalTime());
         }

@@ -19,9 +19,9 @@ public class PanelMesa extends javax.swing.JPanel {
         initComponents();
     }
 
-        public void cerrarMesa(int idMesa){      
+    public void cerrarMesa(int idMesa) {
     }
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -269,9 +269,8 @@ public class PanelMesa extends javax.swing.JPanel {
     }//GEN-LAST:event_volverSalaActionPerformed
 
     private void cobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobrarActionPerformed
-        
-    }//GEN-LAST:event_cobrarActionPerformed
 
+    }//GEN-LAST:event_cobrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bebidas;

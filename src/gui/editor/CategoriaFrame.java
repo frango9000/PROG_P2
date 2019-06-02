@@ -18,6 +18,7 @@ public final class CategoriaFrame extends javax.swing.JFrame {
 
     private String nombre = "";
     private Categoria categoria;
+
     public CategoriaFrame() {
         nombre = "Categoria";
         setMinimumSize(new Dimension(350, 275));

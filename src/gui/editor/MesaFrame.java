@@ -17,6 +17,7 @@ import src.model.StaticHelpers;
  * @author NarF
  */
 public final class MesaFrame extends javax.swing.JFrame {
+
     private Mesa mesa;
     private String nombre = "";
 
@@ -232,7 +233,7 @@ public final class MesaFrame extends javax.swing.JFrame {
         String idOrden = jTextFieldIdOrden.getText().trim();
         if (mesaStr.length() > 0) {
             if (cap.length() > 0 && StaticHelpers.isInteger(cap) && Integer.parseInt(cap) > 0) {
-                if(idOrden.length() > 0 && StaticHelpers.isInteger(idOrden) && Integer.parseInt(idOrden)>-1){
+                if (idOrden.length() > 0 && StaticHelpers.isInteger(idOrden) && Integer.parseInt(idOrden) > -1) {
                     if (id.length() == 0) { // id vacio = objeto nuevo
                         mesa = new Mesa(mesaStr, Integer.parseInt(cap), Integer.parseInt(idOrden));
                         if (MesaDao.getInstance().insert(mesa) > 0) {
@@ -252,7 +253,7 @@ public final class MesaFrame extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "idOrden de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {

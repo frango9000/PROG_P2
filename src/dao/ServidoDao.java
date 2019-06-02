@@ -131,8 +131,7 @@ public final class ServidoDao implements Dao<Servido> {
         }
         return rows;
     }
-    
-    
+
     public ArrayList<Integer> getIdsProductos(int idOrden) {
         ArrayList<Integer> productos = new ArrayList<>();
         String sql = "SELECT idProducto FROM servidos WHERE idOrden = '" + idOrden + "'";

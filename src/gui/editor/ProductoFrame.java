@@ -35,9 +35,9 @@ public final class ProductoFrame extends javax.swing.JFrame {
         this.producto = producto;
         jTextFieldID.setText(producto.getIdProducto() + "");
         jTextFieldName.setText(producto.getProducto());
-        jTextFieldPrecio.setText(producto.getPrecio()+ "");
-        jTextFieldCategoria.setText(producto.getIdCategoria()+"");
-        
+        jTextFieldPrecio.setText(producto.getPrecio() + "");
+        jTextFieldCategoria.setText(producto.getIdCategoria() + "");
+
     }
 
     public ProductoFrame(int id) {
@@ -233,7 +233,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
         String cat = jTextFieldCategoria.getText().trim();
         if (productoStr.length() > 0) {
             if (cat.length() > 0 && StaticHelpers.isInteger(cat) && Integer.parseInt(cat) > 0) {
-                if(cat.length() > 0 && StaticHelpers.isFloat(cat) ){
+                if (cat.length() > 0 && StaticHelpers.isFloat(cat)) {
                     if (id.length() == 0) { // id vacio = objeto nuevo
                         producto = new Producto(productoStr, Float.parseFloat(precio), Integer.parseInt(cat));
                         if (ProductoDao.getInstance().insert(producto) > 0) {
@@ -253,7 +253,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
 //                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
 //                        }
                     }
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "Precio de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {

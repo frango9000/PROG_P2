@@ -91,10 +91,10 @@ public final class MenuBar extends JMenuBar {
 
         jMenuItemEditCategorias.setText("Categorias");
         jMenuEditar.add(jMenuItemEditCategorias);
-        
+
         jMenuItemEditOrdenes.setText("Ordenes");
         jMenuEditar.add(jMenuItemEditOrdenes);
-        
+
         jMenuItemEditServidos.setText("Servidos");
         jMenuEditar.add(jMenuItemEditServidos);
 

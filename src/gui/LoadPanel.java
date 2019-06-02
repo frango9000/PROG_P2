@@ -24,9 +24,8 @@ public class LoadPanel extends javax.swing.JPanel {
 
     private final String title;
     private final boolean newdb;
-    
-    
-       private JFileChooser chooser = new JFileChooser();
+
+    private JFileChooser chooser = new JFileChooser();
 
     /**
      * Creates new form Start
@@ -235,7 +234,7 @@ public class LoadPanel extends javax.swing.JPanel {
                     System.out.println("Inserting Demo Data...");
                     SessionDB.insertarDemoData();
                 }
-                if(SessionDB.isValid()){
+                if (SessionDB.isValid()) {
                     MenuBar.jMenuVer.setEnabled(true);
                     MainFrame.setCard(MainFrame.MAINMENUPANEL);
                     JOptionPane.showMessageDialog(this, "DB creada correctamente", "Nueva DB", JOptionPane.INFORMATION_MESSAGE);

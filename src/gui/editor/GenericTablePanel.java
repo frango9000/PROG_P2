@@ -30,8 +30,8 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
         jTable.setModel(model);
         this.model = model;
     }
-    
-    protected void setMainColsSize(){
+
+    protected void setMainColsSize() {
         if (jTable.getColumnModel().getColumnCount() > 0) {
             jTable.getColumnModel().getColumn(0).setMinWidth(30);
             jTable.getColumnModel().getColumn(0).setMaxWidth(30);
@@ -208,7 +208,7 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
         backAction();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    public void backAction(){
+    public void backAction() {
         MainFrame.setCard(MainFrame.MAINMENUPANEL);
     }
 

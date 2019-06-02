@@ -37,7 +37,6 @@ public class Orden {
         this.cierre = cierre;
         this.total = total;
     }
-    
 
     public int getIdOrden() {
         return idOrden;
@@ -78,25 +77,24 @@ public class Orden {
     public void setApertura(LocalDateTime apertura) {
         this.apertura = apertura;
     }
-    
-    public void setAperturaUser(String userFormat){
+
+    public void setAperturaUser(String userFormat) {
         setApertura(LocalDateTime.parse(userFormat, DateTimeFormatter.ofPattern(DateTimeFormat.USER_FORMAT)));
     }
-    
-    public void setAperturaDB(String dbFormat){
+
+    public void setAperturaDB(String dbFormat) {
         setApertura(LocalDateTime.parse(dbFormat, DateTimeFormatter.ofPattern(DateTimeFormat.DB_FORMAT)));
     }
-
 
     public void setCierre(LocalDateTime cierre) {
         this.cierre = cierre;
     }
-    
-    public void setCierreUser(String userFormat){
+
+    public void setCierreUser(String userFormat) {
         setCierre(LocalDateTime.parse(userFormat, DateTimeFormatter.ofPattern(DateTimeFormat.USER_FORMAT)));
     }
-    
-    public void setCierreDB(String dbFormat){
+
+    public void setCierreDB(String dbFormat) {
         setCierre(LocalDateTime.parse(dbFormat, DateTimeFormatter.ofPattern(DateTimeFormat.DB_FORMAT)));
     }
 

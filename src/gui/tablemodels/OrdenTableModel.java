@@ -47,10 +47,11 @@ public class OrdenTableModel extends GenericDomainTableModel<Orden> {
             case 1:
                 return orden.getAperturaToUserString();
             case 2:
-                if(orden.getCierre() == null)
+                if (orden.getCierre() == null) {
                     return "";
-                else
+                } else {
                     return orden.getCierreToUserString();
+                }
             case 3:
                 return orden.getTotal();
             default:

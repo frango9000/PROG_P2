@@ -7,16 +7,12 @@ package src.gui;
 
 import src.gui.prod.PanelMesa;
 
-
-
 /**
  *
  * @author Emili
  */
 public class PanelPrincipal extends javax.swing.JPanel {
-    
-    
-    
+
     boolean[] estadoMesas = new boolean[20];
     int idOrden = 0;
 
@@ -25,14 +21,14 @@ public class PanelPrincipal extends javax.swing.JPanel {
      */
     public PanelPrincipal() {
         for (int i = 0; i < estadoMesas.length; i++) {
-            estadoMesas[i] = false;           
+            estadoMesas[i] = false;
         }
 
         initComponents();
     }
-    
-    public void abrirMesa(int idMesa){
-        idOrden+=1;
+
+    public void abrirMesa(int idMesa) {
+        idOrden += 1;
         estadoMesas[idMesa] = true;
         PanelMesa pm = new PanelMesa(idMesa, idOrden);
         pm.setVisible(true);
@@ -520,12 +516,11 @@ public class PanelPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_extra2ActionPerformed
 
     private void mesa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mesa1ActionPerformed
-        int idMesa = 1;      
-        if (estadoMesas[idMesa] == false){ 
-           abrirMesa(idMesa);         
-       }
+        int idMesa = 1;
+        if (estadoMesas[idMesa] == false) {
+            abrirMesa(idMesa);
+        }
     }//GEN-LAST:event_mesa1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Mesa7;

@@ -7,7 +7,6 @@ package src.gui.editor;
 
 import javax.swing.JOptionPane;
 import src.dao.ServidoDao;
-import src.gui.MainFrame;
 import src.gui.tablemodels.ServidosTableModel;
 
 /**
