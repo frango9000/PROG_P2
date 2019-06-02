@@ -5,12 +5,10 @@
  */
 package src.gui.editor;
 
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import src.dao.MesaDao;
 import src.gui.MainFrame;
 import src.gui.tablemodels.MesasTableModel;
-import src.model.Mesa;
 
 /**
  *
@@ -43,11 +41,6 @@ public class MesasTablePanel extends GenericTablePanel {
         } else {
             JOptionPane.showMessageDialog(this, "Elige una " + nombre + " a editar", nombre + "s", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    @Override
-    public void backAction() {
-        MainFrame.setCard("Start");
     }
 
     @Override

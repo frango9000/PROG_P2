@@ -44,11 +44,6 @@ public class ServidosTablePanel extends GenericTablePanel {
     }
 
     @Override
-    public void backAction() {
-        MainFrame.setCard("Start");
-    }
-
-    @Override
     public void addAction() {
         java.awt.EventQueue.invokeLater(() -> {
             new ServidoFrame().setVisible(true);

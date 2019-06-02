@@ -5,6 +5,7 @@
  */
 package src.gui.editor;
 
+import src.gui.MainFrame;
 import src.gui.tablemodels.GenericDomainTableModel;
 
 /**
@@ -207,7 +208,9 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
         backAction();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    public abstract void backAction();
+    public void backAction(){
+        MainFrame.setCard(MainFrame.MAINMENUPANEL);
+    }
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:

@@ -16,8 +16,8 @@ import src.model.StaticHelpers;
  * @author NarF
  */
 public final class ServidoFrame extends javax.swing.JFrame {
-
-    String nombre = "";
+    private Servido servido;
+    private String nombre = "";
 
     public ServidoFrame() {
         nombre = "Servido";
@@ -31,6 +31,7 @@ public final class ServidoFrame extends javax.swing.JFrame {
 
     public ServidoFrame(Servido servido) {
         this();
+        this.servido = servido;
         jTextFieldID.setText(servido.getIdServido()+ "");
         jTextFieldIdOrden.setText(servido.getIdOrden()+ "");
         jTextFieldIdProducto.setText(servido.getIdProducto()+ "");
@@ -215,7 +216,7 @@ public final class ServidoFrame extends javax.swing.JFrame {
         if (ordenStr.length() > 0 && StaticHelpers.isInteger(ordenStr) && Integer.parseInt(ordenStr) > 0) {
             if (prodStr.length() > 0 && StaticHelpers.isInteger(prodStr) && Integer.parseInt(prodStr) > 0) {
                 if (id.length() == 0) { // id vacio = objeto nuevo
-                    Servido servido = new Servido(Integer.parseInt(ordenStr), Integer.parseInt(prodStr));
+                    servido = new Servido(Integer.parseInt(ordenStr), Integer.parseInt(prodStr));
                     if (ServidoDao.getInstance().insert(servido) > 0) {
                         this.dispose();
                         JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -223,7 +224,6 @@ public final class ServidoFrame extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     }
                 } else {
-                    Servido servido = ServidoDao.getInstance().get(Integer.parseInt(id));
                     servido.setIdOrden(Integer.parseInt(ordenStr));
                     servido.setIdProducto(Integer.parseInt(prodStr));
                     if (ServidoDao.getInstance().update(servido) > 0) {

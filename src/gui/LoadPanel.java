@@ -24,6 +24,9 @@ public class LoadPanel extends javax.swing.JPanel {
 
     private final String title;
     private final boolean newdb;
+    
+    
+       private JFileChooser chooser = new JFileChooser();
 
     /**
      * Creates new form Start
@@ -38,8 +41,10 @@ public class LoadPanel extends javax.swing.JPanel {
 
         if (newdb) {
             title = "Nueva";
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         } else {
             title = "Cargar";
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         }
         jLabelTitle.setText(title);
         jBtnCargar.setText(title);
@@ -65,10 +70,7 @@ public class LoadPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabStatus = new javax.swing.JLabel();
-        jLabNumProductos = new javax.swing.JLabel();
-        jLabNumMesas = new javax.swing.JLabel();
         jLabFileSize = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         jBtnCargar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(400, 240));
@@ -76,6 +78,8 @@ public class LoadPanel extends javax.swing.JPanel {
         jLabelTitle.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitle.setText("Cargar BD");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jBtnBrowse.setText("Buscar");
         jBtnBrowse.addActionListener(new java.awt.event.ActionListener() {
@@ -94,44 +98,51 @@ public class LoadPanel extends javax.swing.JPanel {
         jLabel6.setText("Tamaño:");
         jLabel6.setMaximumSize(null);
 
+        jLabStatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabStatus.setMaximumSize(new java.awt.Dimension(100, 100));
+        jLabStatus.setMinimumSize(new java.awt.Dimension(100, 100));
+
+        jLabFileSize.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabFileSize.setMaximumSize(new java.awt.Dimension(100, 100));
+        jLabFileSize.setMinimumSize(new java.awt.Dimension(100, 100));
+
         jBtnCargar.setText("Cargar");
         jBtnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCargarActionPerformed(evt);
             }
         });
-        jPanel2.add(jBtnCargar);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldBrowse)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnBrowse))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabNumProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabNumMesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldBrowse)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                    .addComponent(jLabFileSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabFileSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(198, 198, 198))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jBtnCargar)
+                            .addComponent(jBtnBrowse))))
+                .addGap(9, 9, 9))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtnBrowse, jBtnCargar});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel3, jLabel6});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -140,35 +151,34 @@ public class LoadPanel extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtnBrowse))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabNumProductos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabNumMesas)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabFileSize, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabFileSize, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jBtnCargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabNumMesas, jLabNumProductos, jLabStatus, jLabel3});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabFileSize, jLabStatus, jLabel3, jLabel6});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtnBrowse, jTextFieldBrowse});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,23 +187,21 @@ public class LoadPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarActionPerformed
         if (newdb) {
-            newDb();
+            newButtonAction();
         } else {
-            loadDb();
+            loadButtonAction();
         }
     }//GEN-LAST:event_jBtnCargarActionPerformed
 
-    private void newDb() {
+    private void newButtonAction() {
         // TODO add your handling code here:
-        //layout.show(cards, MainFrame.NEWDBPANEL);
-
         if (jTextFieldBrowse.getText().trim().length() > 0) {
             File newfile = null;
             do {
@@ -229,8 +237,8 @@ public class LoadPanel extends javax.swing.JPanel {
                 }
                 if(SessionDB.isValid()){
                     MenuBar.jMenuVer.setEnabled(true);
+                    MainFrame.setCard(MainFrame.MAINMENUPANEL);
                     JOptionPane.showMessageDialog(this, "DB creada correctamente", "Nueva DB", JOptionPane.INFORMATION_MESSAGE);
-                    MainFrame.setCard("Start");
                 } else {
                     MenuBar.jMenuVer.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "DB invalida. Contacta con el desarrollador.", "Cargando DB", JOptionPane.ERROR_MESSAGE);
@@ -243,7 +251,7 @@ public class LoadPanel extends javax.swing.JPanel {
         }
     }
 
-    private void loadDb() {
+    private void loadButtonAction() {
         // TODO add your handling code here:
         if (jTextFieldBrowse.getText().trim().length() > 0) {
             File loadfile = new File(jTextFieldBrowse.getText());
@@ -252,7 +260,7 @@ public class LoadPanel extends javax.swing.JPanel {
 
                 if (SessionDB.isValid()) {
                     MenuBar.jMenuVer.setEnabled(true);
-                    MainFrame.setCard("Start");
+                    MainFrame.setCard(MainFrame.MAINMENUPANEL);
                 } else {
                     MenuBar.jMenuVer.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "DB Invalida", "Cargando DB", JOptionPane.ERROR_MESSAGE);
@@ -267,13 +275,11 @@ public class LoadPanel extends javax.swing.JPanel {
 
     private void jBtnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBrowseActionPerformed
         // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chooser.setCurrentDirectory(new File(jTextFieldBrowse.getText()));
 
         if (chooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
             jTextFieldBrowse.setText(chooser.getSelectedFile().getAbsolutePath());
-            if (chooser.getSelectedFile().isFile()) {
+            if (!newdb) {
                 setStatusLabels();
             }
         }
@@ -290,25 +296,20 @@ public class LoadPanel extends javax.swing.JPanel {
             jLabStatus.setText(ok);
         } else {
             jLabStatus.setText(err);
-            jLabNumMesas.setText("");
-            jLabNumProductos.setText("");
-            jLabFileSize.setText(byteSizeFormatter(file.length()) + " bytes");
         }
+        jLabFileSize.setText(byteSizeFormatter(file.length()) + " bytes");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnBrowse;
     private javax.swing.JButton jBtnCargar;
     private javax.swing.JLabel jLabFileSize;
-    private javax.swing.JLabel jLabNumMesas;
-    private javax.swing.JLabel jLabNumProductos;
     private javax.swing.JLabel jLabStatus;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextFieldBrowse;
     // End of variables declaration//GEN-END:variables
 

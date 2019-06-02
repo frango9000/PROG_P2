@@ -10,11 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import src.dao.CategoriaDao;
 
 /**
  * Clase Session se encagra de mantener la informacion de una conexion a una DB
@@ -26,8 +24,8 @@ import src.dao.CategoriaDao;
 public final class SessionDB {
 
     private static Connection conn;
-    private static String dbUrl = "jdbc:sqlite:src/src/resources/host.db";
-    private static File dbFile = new File(dbUrl);
+    private static String dbUrl = "jdbc:sqlite:"+System.getProperty("user.dir") + "\\src\\src\\resources\\host.db";
+    private static File dbFile = new File(dbUrl.substring(14));
 
     private SessionDB() {
     }
@@ -41,14 +39,22 @@ public final class SessionDB {
         return conn;
     }
 
-    public static void setDbUrl(String dbUrl) {
-        dbUrl = "jdbc:sqlite:" + dbUrl;
-        dbFile = new File(dbUrl);
+    public static void setDbUrl(String url) {
+        dbUrl = "jdbc:sqlite:" + url;
+        dbFile = new File(url);
     }
 
     public static void setDbFile(File dbFile) {
         SessionDB.dbFile = dbFile;
         dbUrl = "jdbc:sqlite:" + dbFile.getAbsolutePath();
+    }
+
+    public static String getDbUrl() {
+        return dbUrl;
+    }
+
+    public static File getDbFile() {
+        return dbFile;
     }
 
     /**

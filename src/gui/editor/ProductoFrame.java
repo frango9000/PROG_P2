@@ -17,7 +17,8 @@ import src.model.StaticHelpers;
  */
 public final class ProductoFrame extends javax.swing.JFrame {
 
-    String nombre = "";
+    private String nombre = "";
+    private Producto producto;
 
     public ProductoFrame() {
         nombre = "Producto";
@@ -31,6 +32,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
 
     public ProductoFrame(Producto producto) {
         this();
+        this.producto = producto;
         jTextFieldID.setText(producto.getIdProducto() + "");
         jTextFieldName.setText(producto.getProducto());
         jTextFieldPrecio.setText(producto.getPrecio()+ "");
@@ -233,7 +235,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
             if (cat.length() > 0 && StaticHelpers.isInteger(cat) && Integer.parseInt(cat) > 0) {
                 if(cat.length() > 0 && StaticHelpers.isFloat(cat) ){
                     if (id.length() == 0) { // id vacio = objeto nuevo
-                        Producto producto = new Producto(productoStr,Float.parseFloat(precio), Integer.parseInt(cat));
+                        producto = new Producto(productoStr, Float.parseFloat(precio), Integer.parseInt(cat));
                         if (ProductoDao.getInstance().insert(producto) > 0) {
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -241,16 +243,15 @@ public final class ProductoFrame extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
-                        Producto producto = ProductoDao.getInstance().get(Integer.parseInt(id));
                         producto.setProducto(productoStr);
                         producto.setPrecio(Float.parseFloat(precio));
                         producto.setIdCategoria(Integer.parseInt(cat));
-                        if (ProductoDao.getInstance().update(producto) > 0) {
-                            this.dispose();
-                            JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
-                        }
+//                        if (ProductoDao.getInstance().update(producto) > 0) {
+//                            this.dispose();
+//                            JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
+//                        } else {
+//                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
+//                        }
                     }
                 }else{
                     JOptionPane.showMessageDialog(this, "Precio de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);

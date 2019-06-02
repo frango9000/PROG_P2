@@ -5,6 +5,8 @@
  */
 package src.model;
 
+import src.dao.ProductoDao;
+
 /**
  *
  * @author NarF
@@ -52,6 +54,7 @@ public class Producto {
 
     public void setProducto(String producto) {
         this.producto = producto;
+////        ProductoDao.getInstance().update(this);  //Emilio
     }
 
     public void setPrecio(float precio) {

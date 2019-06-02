@@ -18,8 +18,9 @@ import src.model.StaticHelpers;
  */
 public final class OrdenFrame extends javax.swing.JFrame {
 
-    String nombre = "";
-
+    private String nombre = "";
+    private Orden orden;
+    
     public OrdenFrame() {
         nombre = "Orden";
         setMinimumSize(new Dimension(350, 275));
@@ -45,6 +46,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
 
     public OrdenFrame(Orden orden) {
         this();
+        this.orden = orden;
 
         jTextFieldID.setText(orden.getIdOrden() + "");
 
@@ -247,7 +249,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
         String total = jTextFieldTotal.getText().trim();
         if (total.length() > 0 && StaticHelpers.isFloat(total)) {
             if (id.length() == 0) { // id vacio = objeto nuevo
-                Orden orden = new Orden(aperturaPicker.getDateTimePermissive(), cierrePicker.getDateTimeStrict(), Float.parseFloat(total));
+                orden = new Orden(aperturaPicker.getDateTimePermissive(), cierrePicker.getDateTimeStrict(), Float.parseFloat(total));
                 if (OrdenDao.getInstance().insert(orden) > 0) {
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -255,7 +257,6 @@ public final class OrdenFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
-                Orden orden = OrdenDao.getInstance().get(Integer.parseInt(id));
                 orden.setApertura(aperturaPicker.getDateTimePermissive());
                 orden.setCierre(cierrePicker.getDateTimeStrict());
                 orden.setTotal(Float.parseFloat(total));

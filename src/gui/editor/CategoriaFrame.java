@@ -8,7 +8,6 @@ package src.gui.editor;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import src.dao.CategoriaDao;
-import src.dao.MesaDao;
 import src.model.Categoria;
 
 /**
@@ -17,8 +16,8 @@ import src.model.Categoria;
  */
 public final class CategoriaFrame extends javax.swing.JFrame {
 
-    String nombre = "";
-
+    private String nombre = "";
+    private Categoria categoria;
     public CategoriaFrame() {
         nombre = "Categoria";
         setMinimumSize(new Dimension(350, 275));
@@ -31,6 +30,7 @@ public final class CategoriaFrame extends javax.swing.JFrame {
 
     public CategoriaFrame(Categoria categoria) {
         this();
+        this.categoria = categoria;
         jTextFieldID.setText(categoria.getIdCategoria() + "");
         jTextFieldName.setText(categoria.getCategoria());
     }
@@ -198,7 +198,7 @@ public final class CategoriaFrame extends javax.swing.JFrame {
         String catStr = jTextFieldName.getText().trim();
         if (catStr.length() > 0) {
             if (id.length() == 0) { // id vacio = objeto nuevo
-                Categoria categoria = new Categoria(catStr);
+                categoria = new Categoria(catStr);
                 if (CategoriaDao.getInstance().insert(categoria) > 0) {
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -206,7 +206,6 @@ public final class CategoriaFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
-                Categoria categoria = CategoriaDao.getInstance().get(Integer.parseInt(id));
                 categoria.setCategoria(catStr);
                 if (CategoriaDao.getInstance().update(categoria) > 0) {
                     this.dispose();

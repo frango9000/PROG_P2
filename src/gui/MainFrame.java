@@ -8,12 +8,12 @@ package src.gui;
 import src.gui.editor.MesasTablePanel;
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import src.gui.editor.CategoriasTablePanel;
 import src.gui.editor.OrdenTablePanel;
 import src.gui.editor.ProductosTablePanel;
 import src.gui.editor.ServidosTablePanel;
+import src.model.SessionDB;
 
 /**
  *
@@ -43,7 +43,33 @@ public class MainFrame extends javax.swing.JFrame {
     private static MenuBar menu;
 
     public MainFrame() {
-        initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Table Manager");
+        setMinimumSize(new Dimension(200, 200));
+
+        cardLayout = new CardLayout();
+        cards = new JPanel(cardLayout);
+        setContentPane(cards);
+        
+        menu = new MenuBar();
+        setJMenuBar(menu);
+        
+        initCards();
+        
+        if(SessionDB.exists()){
+            if(SessionDB.isValid()){
+                MenuBar.jMenuVer.setEnabled(true);
+                cardLayout.show(cards, MAINMENUPANEL);
+            }
+        }
+        else cardLayout.show(cards, NEWPANEL);
+            
+
+
+        setMenuActions();
+
+        pack();
+        this.setLocationRelativeTo(null);
     }
 
     public static JPanel getCards() {
@@ -54,38 +80,18 @@ public class MainFrame extends javax.swing.JFrame {
         return cardLayout;
     }
 
-    private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Table Manager");
-        setMinimumSize(new Dimension(600, 350));
-
-        cardLayout = new CardLayout();
-        cards = new JPanel(cardLayout);
-        cards.add(new JPanel(), "Start");
-
-        JPanel loadcard = new LoadPanel(false);
-        cards.add(loadcard, LOADPANEL);
-
-        JPanel newcard = new LoadPanel(true);
-        cards.add(newcard, NEWPANEL);
+    private void initCards(){
+        cards.add(new LoadPanel(false), LOADPANEL);
+        cards.add(new LoadPanel(true), NEWPANEL);
+        
+        cards.add(new PanelPrincipal(), MAINMENUPANEL);
 
         cards.add(new MesasTablePanel(), EDITMESAS);
         cards.add(new CategoriasTablePanel(), EDITCATEGORIAS);
         cards.add(new ProductosTablePanel(),EDITPRODUCTOS);
         cards.add(new OrdenTablePanel(),EDITORDENES);
         cards.add(new ServidosTablePanel(),EDITSERVIDOS);
-
-        cardLayout.show(cards, "START");
-        this.setContentPane(cards);
-
-        menu = new MenuBar();
-        setJMenuBar(menu);
-
-        setMenuActions();
-
-        pack();
-        this.setLocationRelativeTo(null);
+        
     }
 
     /**

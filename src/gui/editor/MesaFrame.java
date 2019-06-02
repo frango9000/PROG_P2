@@ -17,8 +17,8 @@ import src.model.StaticHelpers;
  * @author NarF
  */
 public final class MesaFrame extends javax.swing.JFrame {
-
-    String nombre = "";
+    private Mesa mesa;
+    private String nombre = "";
 
     public MesaFrame() {
         nombre = "Mesa";
@@ -32,6 +32,7 @@ public final class MesaFrame extends javax.swing.JFrame {
 
     public MesaFrame(Mesa mesa) {
         this();
+        this.mesa = mesa;
         jTextFieldID.setText(mesa.getIdMesa() + "");
         jTextFieldName.setText(mesa.getMesa());
         jTextFieldCapacidad.setText(mesa.getCapacidad() + "");
@@ -233,7 +234,7 @@ public final class MesaFrame extends javax.swing.JFrame {
             if (cap.length() > 0 && StaticHelpers.isInteger(cap) && Integer.parseInt(cap) > 0) {
                 if(idOrden.length() > 0 && StaticHelpers.isInteger(idOrden) && Integer.parseInt(idOrden)>-1){
                     if (id.length() == 0) { // id vacio = objeto nuevo
-                        Mesa mesa = new Mesa(mesaStr, Integer.parseInt(cap), Integer.parseInt(idOrden));
+                        mesa = new Mesa(mesaStr, Integer.parseInt(cap), Integer.parseInt(idOrden));
                         if (MesaDao.getInstance().insert(mesa) > 0) {
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
@@ -241,7 +242,6 @@ public final class MesaFrame extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                         }
                     } else {
-                        Mesa mesa = MesaDao.getInstance().get(Integer.parseInt(id));
                         mesa.setMesa(mesaStr);
                         mesa.setCapacidad(Integer.parseInt(cap));
                         mesa.setIdOrden(Integer.parseInt(idOrden));
