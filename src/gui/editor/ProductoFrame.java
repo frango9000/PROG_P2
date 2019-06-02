@@ -22,9 +22,9 @@ public final class ProductoFrame extends javax.swing.JFrame {
     public ProductoFrame() {
         nombre = "Producto";
         setMinimumSize(new Dimension(350, 275));
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(nombre);
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         this.setLocationRelativeTo(null);
     }

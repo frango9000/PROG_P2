@@ -22,9 +22,9 @@ public final class CategoriaFrame extends javax.swing.JFrame {
     public CategoriaFrame() {
         nombre = "Categoria";
         setMinimumSize(new Dimension(350, 275));
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(nombre);
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         this.setLocationRelativeTo(null);
     }

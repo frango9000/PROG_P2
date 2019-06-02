@@ -73,7 +73,7 @@ public final class ServidoDao implements Dao<Servido> {
     @Override
     public int insert(Servido servido) {
         String sql = "INSERT INTO servidos VALUES(NULL, ?, ?)";
-        String queryId = "SELECT idServido FROM servidos WHERE idOrden = ? and idProducto = ?";
+        String queryId = "SELECT MAX(idServido) FROM servidos WHERE idOrden = ? and idProducto = ?";
         SessionDB.connect();
         int rows = 0;
         try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql);
@@ -85,7 +85,7 @@ public final class ServidoDao implements Dao<Servido> {
             idpstmt.setInt(1, servido.getIdOrden());
             idpstmt.setInt(2, servido.getIdProducto());
             ResultSet rs = idpstmt.executeQuery();
-            if (rs.last()) {
+            if (rs.next()) {
                 servido.setIdServido(rs.getInt(1));
                 servidos.put(servido.getIdServido(), servido);
             }

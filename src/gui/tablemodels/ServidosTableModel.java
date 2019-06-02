@@ -6,16 +6,16 @@
 package src.gui.tablemodels;
 
 import java.util.Arrays;
-import src.model.Mesa;
+import src.model.Servido;
 
 /**
  *
  * @author NarF
  */
-public class MesasTableModel extends GenericDomainTableModel<Mesa> {
+public class ServidosTableModel extends GenericDomainTableModel<Servido> {
 
-    public MesasTableModel() {
-        super(Arrays.asList(new Object[]{"id", "Mesa", "Capacidad"}));
+    public ServidosTableModel() {
+        super(Arrays.asList(new Object[]{"id", "idOrden", "idProducto"}));
     }
 
     @Override
@@ -29,7 +29,7 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
             case 0:
                 return Integer.class;
             case 1:
-                return String.class;
+                return Integer.class;
             case 2:
                 return Integer.class;
         }
@@ -38,14 +38,14 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Mesa mesa = getDomainObject(rowIndex);
+        Servido servido = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                return mesa.getIdMesa();
+                return servido.getIdServido();
             case 1:
-                return mesa.getMesa();
+                return servido.getIdOrden();
             case 2:
-                return mesa.getCapacidad();
+                return servido.getIdProducto();
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);
         }
@@ -53,16 +53,16 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        Mesa mesa = getDomainObject(rowIndex);
+        Servido servido = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                mesa.setIdMesa((Integer) value);
+                servido.setIdServido((Integer) value);
                 break;
             case 1:
-                mesa.setMesa((String) value);
+                servido.setIdOrden((Integer) value);
                 break;
             case 2:
-                mesa.setCapacidad((Integer) value);
+                servido.setIdProducto((Integer) value);
                 break;
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);

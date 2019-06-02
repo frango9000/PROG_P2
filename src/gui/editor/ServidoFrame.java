@@ -7,38 +7,37 @@ package src.gui.editor;
 
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
-import src.dao.MesaDao;
-import src.model.Mesa;
+import src.dao.ServidoDao;
+import src.model.Servido;
 import src.model.StaticHelpers;
-//import src.model.BiblioSQL;
 
 /**
  *
  * @author NarF
  */
-public final class MesaFrame extends javax.swing.JFrame {
+public final class ServidoFrame extends javax.swing.JFrame {
 
     String nombre = "";
 
-    public MesaFrame() {
-        nombre = "Mesa";
+    public ServidoFrame() {
+        nombre = "Servido";
         setMinimumSize(new Dimension(350, 275));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(nombre);
         initComponents();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         this.setLocationRelativeTo(null);
     }
 
-    public MesaFrame(Mesa mesa) {
+    public ServidoFrame(Servido servido) {
         this();
-        jTextFieldID.setText(mesa.getIdMesa() + "");
-        jTextFieldName.setText(mesa.getMesa());
-        jTextFieldName1.setText(mesa.getCapacidad() + "");
+        jTextFieldID.setText(servido.getIdServido()+ "");
+        jTextFieldIdOrden.setText(servido.getIdOrden()+ "");
+        jTextFieldIdProducto.setText(servido.getIdProducto()+ "");
     }
 
-    public MesaFrame(int id) {
-        this(MesaDao.getInstance().getAll().get(id));
+    public ServidoFrame(int id) {
+        this(ServidoDao.getInstance().getAll().get(id));
     }
 
     /**
@@ -57,8 +56,8 @@ public final class MesaFrame extends javax.swing.JFrame {
         idLabel = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
         nameLabel = new javax.swing.JLabel();
-        jTextFieldName = new javax.swing.JTextField();
-        jTextFieldName1 = new javax.swing.JTextField();
+        jTextFieldIdOrden = new javax.swing.JTextField();
+        jTextFieldIdProducto = new javax.swing.JTextField();
         nameLabel1 = new javax.swing.JLabel();
         jBtnCancel = new javax.swing.JButton();
         jBtnAccept = new javax.swing.JButton();
@@ -78,13 +77,13 @@ public final class MesaFrame extends javax.swing.JFrame {
         jTextFieldID.setEditable(false);
         jTextFieldID.setMinimumSize(new java.awt.Dimension(100, 24));
 
-        nameLabel.setText(nombre);
+        nameLabel.setText("idOrden");
 
-        jTextFieldName.setMinimumSize(new java.awt.Dimension(100, 24));
+        jTextFieldIdOrden.setMinimumSize(new java.awt.Dimension(100, 24));
 
-        jTextFieldName1.setMinimumSize(new java.awt.Dimension(100, 24));
+        jTextFieldIdProducto.setMinimumSize(new java.awt.Dimension(100, 24));
 
-        nameLabel1.setText("Capacidad");
+        nameLabel1.setText("idProducto");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -96,7 +95,7 @@ public final class MesaFrame extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(nameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldName1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jTextFieldIdProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -104,7 +103,7 @@ public final class MesaFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jTextFieldIdOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
@@ -117,11 +116,11 @@ public final class MesaFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldIdOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldIdProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -211,23 +210,23 @@ public final class MesaFrame extends javax.swing.JFrame {
     private void jBtnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAcceptActionPerformed
         // TODO add your handling code here:
         String id = jTextFieldID.getText().trim();
-        String mesaStr = jTextFieldName.getText().trim();
-        String cap = jTextFieldName1.getText().trim();
-        if (mesaStr.length() > 0) {
-            if (cap.length() > 0 && StaticHelpers.isInteger(cap) && Integer.parseInt(cap) > 0) {
+        String ordenStr = jTextFieldIdOrden.getText().trim();
+        String prodStr = jTextFieldIdProducto.getText().trim();
+        if (ordenStr.length() > 0 && StaticHelpers.isInteger(ordenStr) && Integer.parseInt(ordenStr) > 0) {
+            if (prodStr.length() > 0 && StaticHelpers.isInteger(prodStr) && Integer.parseInt(prodStr) > 0) {
                 if (id.length() == 0) { // id vacio = objeto nuevo
-                    Mesa mesa = new Mesa(mesaStr, Integer.parseInt(cap));
-                    if (MesaDao.getInstance().insert(mesa) > 0) {
+                    Servido servido = new Servido(Integer.parseInt(ordenStr), Integer.parseInt(prodStr));
+                    if (ServidoDao.getInstance().insert(servido) > 0) {
                         this.dispose();
                         JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     }
                 } else {
-                    Mesa mesa = MesaDao.getInstance().get(Integer.parseInt(id));
-                    mesa.setMesa(mesaStr);
-                    mesa.setCapacidad(Integer.parseInt(cap));
-                    if (MesaDao.getInstance().update(mesa) > 0) {
+                    Servido servido = ServidoDao.getInstance().get(Integer.parseInt(id));
+                    servido.setIdOrden(Integer.parseInt(ordenStr));
+                    servido.setIdProducto(Integer.parseInt(prodStr));
+                    if (ServidoDao.getInstance().update(servido) > 0) {
                         this.dispose();
                         JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -255,8 +254,8 @@ public final class MesaFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextFieldID;
-    private javax.swing.JTextField jTextFieldName;
-    private javax.swing.JTextField jTextFieldName1;
+    private javax.swing.JTextField jTextFieldIdOrden;
+    private javax.swing.JTextField jTextFieldIdProducto;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameLabel1;
     private javax.swing.JLabel titleLabel;

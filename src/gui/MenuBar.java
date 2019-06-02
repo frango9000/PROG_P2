@@ -8,7 +8,6 @@ package src.gui;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 /**
@@ -25,6 +24,7 @@ public final class MenuBar extends JMenuBar {
     public JMenuItem jMenuItemEditCategorias;
     public JMenuItem jMenuItemEditProductos;
     public JMenuItem jMenuItemEditOrdenes;
+    public JMenuItem jMenuItemEditServidos;
     public JMenuItem jMenuItemInformacion;
     public JMenuItem jMenuItemMesas;
     public JMenuItem jMenuItemNueva;
@@ -53,6 +53,7 @@ public final class MenuBar extends JMenuBar {
         jMenuItemEditProductos = new JMenuItem();
         jMenuItemEditCategorias = new JMenuItem();
         jMenuItemEditOrdenes = new JMenuItem();
+        jMenuItemEditServidos = new JMenuItem();
         jMenuMas = new JMenu();
         jMenuItemInformacion = new JMenuItem();
 
@@ -92,6 +93,9 @@ public final class MenuBar extends JMenuBar {
         
         jMenuItemEditOrdenes.setText("Ordenes");
         jMenuEditar.add(jMenuItemEditOrdenes);
+        
+        jMenuItemEditServidos.setText("Servidos");
+        jMenuEditar.add(jMenuItemEditServidos);
 
         jMenuVer.add(jMenuEditar);
 
