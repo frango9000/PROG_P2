@@ -25,7 +25,7 @@ public class LoadPanel extends javax.swing.JPanel {
     private final String title;
     private final boolean newdb;
 
-    private JFileChooser chooser = new JFileChooser();
+    private final JFileChooser chooser = new JFileChooser();
 
     /**
      * Creates new form Start
