@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.JButton;
 import src.dao.MesaDao;
 import src.gui.prod.MesaViewFrame;
-import src.gui.prod.PanelMesa;
 
 /**
  *
@@ -26,11 +25,12 @@ public class PanelPrincipal extends PanelPrincipalGui {
     }
 
     void setActions() {
+        MesaDao.getInstance().queryAll();
         for (int i = 0; i < listaMesas.size(); i++) {
             final int k = i;
             listaMesas.get(i).addActionListener(e -> {
                 java.awt.EventQueue.invokeLater(() -> {
-                    new MesaViewFrame(new PanelMesa(MesaDao.getInstance().queryAll().get(k + 1))).setVisible(true);
+                    new MesaViewFrame(MesaDao.getInstance().get(k + 1)).setVisible(true);
                 });
             });
         }
