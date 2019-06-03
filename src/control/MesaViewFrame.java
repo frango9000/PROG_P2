@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui.prod;
+package src.control;
 
+import src.gui.PanelMesaGui;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import src.gui.tablemodels.ProductosSimpleTableModel;

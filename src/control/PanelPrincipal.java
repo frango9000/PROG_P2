@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.JButton;
 import src.dao.MesaDao;
 import src.gui.PanelPrincipalGui;
-import src.gui.prod.MesaViewFrame;
 
 /**
  *
