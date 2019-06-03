@@ -15,6 +15,7 @@ public class Mesa {
     private String mesa;
     private int capacidad;
     private int idOrden;
+    private Orden orden;
 
     public Mesa(String mesa, int capacidad, int idOrden) {
         this.mesa = mesa;
