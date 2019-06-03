@@ -82,7 +82,6 @@ public final class OrdenDao extends AbstractDao<Orden> {
                     }
                     table.put(orden.getIdOrden(), orden);
                     ordenesTemp.put(orden.getIdOrden(), orden);
-                    System.out.println(orden);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);

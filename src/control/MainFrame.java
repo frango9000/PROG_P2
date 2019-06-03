@@ -8,6 +8,9 @@ package src.control;
 import src.gui.editor.MesasTablePanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import src.dao.CategoriaDao;
+import src.dao.MesaDao;
+import src.dao.ProductoDao;
 import src.gui.editor.CategoriasTablePanel;
 import src.gui.editor.OrdenTablePanel;
 import src.gui.editor.ProductosTablePanel;
@@ -57,6 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (SessionDB.exists()) {
             if (SessionDB.isValid()) {
+                initialQuery();
                 MenuBar.jMenuVer.setEnabled(true);
                 cardLayout.show(cards, MAINMENUPANEL);
             }
@@ -90,6 +94,13 @@ public class MainFrame extends javax.swing.JFrame {
         cards.add(new OrdenTablePanel(), EDITORDENES);
         cards.add(new ServidosTablePanel(), EDITSERVIDOS);
 
+    }
+
+    private static void initialQuery() {
+        MesaDao.getInstance().queryAll();
+        CategoriaDao.getInstance().queryAll();
+        ProductoDao.getInstance().queryAll();
+        MesaDao.getInstance().getOrdenesActivas();
     }
 
     public void setMenuActions() {
