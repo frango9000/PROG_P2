@@ -23,7 +23,7 @@ public interface IDao<T extends IIdentifiable> {
     HashMap<Integer, T> queryAll();
 
     T get(int id);
-    
+
     ArrayList<T> getSome(int... ids);
 
     HashMap<Integer, T> getMapOf(int... ids);

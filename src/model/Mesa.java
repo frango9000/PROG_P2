@@ -30,6 +30,14 @@ public class Mesa implements IIdentifiable {
         this.idOrden = idOrden;
     }
 
+    public Orden getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Orden orden) {
+        this.orden = orden;
+    }
+
     public int getIdMesa() {
         return idMesa;
     }

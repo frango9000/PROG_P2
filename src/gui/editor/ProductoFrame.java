@@ -7,7 +7,9 @@ package src.gui.editor;
 
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import src.dao.CategoriaDao;
 import src.dao.ProductoDao;
+import src.model.Categoria;
 import src.model.Producto;
 import src.model.StaticHelpers;
 
@@ -27,6 +29,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        CategoriaDao.getInstance().getAll().forEach((id, cat) -> jComboBoxCategoria.addItem(cat));
         this.setLocationRelativeTo(null);
     }
 
@@ -36,7 +39,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
         jTextFieldID.setText(producto.getIdProducto() + "");
         jTextFieldName.setText(producto.getProducto());
         jTextFieldPrecio.setText(producto.getPrecio() + "");
-        jTextFieldCategoria.setText(producto.getIdCategoria() + "");
+        jComboBoxCategoria.setSelectedItem(producto.getCategoria());
 
     }
 
@@ -63,8 +66,8 @@ public final class ProductoFrame extends javax.swing.JFrame {
         jTextFieldName = new javax.swing.JTextField();
         jTextFieldPrecio = new javax.swing.JTextField();
         nameLabel1 = new javax.swing.JLabel();
-        jTextFieldCategoria = new javax.swing.JTextField();
         nameLabel2 = new javax.swing.JLabel();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
         jBtnCancel = new javax.swing.JButton();
         jBtnAccept = new javax.swing.JButton();
 
@@ -91,8 +94,6 @@ public final class ProductoFrame extends javax.swing.JFrame {
 
         nameLabel1.setText("Precio");
 
-        jTextFieldCategoria.setMinimumSize(new java.awt.Dimension(100, 24));
-
         nameLabel2.setText("Categoria");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -105,11 +106,11 @@ public final class ProductoFrame extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(nameLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBoxCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(nameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jTextFieldPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -138,8 +139,8 @@ public final class ProductoFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         jBtnCancel.setText("Cancelar");
@@ -230,34 +231,29 @@ public final class ProductoFrame extends javax.swing.JFrame {
         String id = jTextFieldID.getText().trim();
         String productoStr = jTextFieldName.getText().trim();
         String precio = jTextFieldPrecio.getText().trim();
-        String cat = jTextFieldCategoria.getText().trim();
         if (productoStr.length() > 0) {
-            if (cat.length() > 0 && StaticHelpers.isInteger(cat) && Integer.parseInt(cat) > 0) {
-                if (cat.length() > 0 && StaticHelpers.isFloat(cat)) {
-                    if (id.length() == 0) { // id vacio = objeto nuevo
-                        producto = new Producto(productoStr, Float.parseFloat(precio), Integer.parseInt(cat));
-                        if (ProductoDao.getInstance().insert(producto) > 0) {
-                            this.dispose();
-                            JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
-                        }
+            if (precio.length() > 0 && StaticHelpers.isFloat(precio)) {
+                if (id.length() == 0) { // id vacio = objeto nuevo
+                    producto = new Producto(productoStr, Float.parseFloat(precio), (Categoria) jComboBoxCategoria.getSelectedItem());
+                    if (ProductoDao.getInstance().insert(producto) > 0) {
+                        this.dispose();
+                        JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        producto.setProducto(productoStr);
-                        producto.setPrecio(Float.parseFloat(precio));
-                        producto.setIdCategoria(Integer.parseInt(cat));
-//                        if (ProductoDao.getInstance().update(producto) > 0) {
-//                            this.dispose();
-//                            JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
-//                        } else {
-//                            JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
-//                        }
+                        JOptionPane.showMessageDialog(this, "Insercion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Precio de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                    producto.setProducto(productoStr);
+                    producto.setPrecio(Float.parseFloat(precio));
+                    producto.setCategoria((Categoria) jComboBoxCategoria.getSelectedItem());
+                    if (ProductoDao.getInstance().update(producto) > 0) {
+                        this.dispose();
+                        JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Modificacion rechazada", nombre, JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Categoria de " + nombre + " invalida", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Precio de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Nombre de " + nombre + " invalido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -273,10 +269,10 @@ public final class ProductoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel idLabel;
     public javax.swing.JButton jBtnAccept;
     public javax.swing.JButton jBtnCancel;
+    private javax.swing.JComboBox<Categoria> jComboBoxCategoria;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextFieldCategoria;
     private javax.swing.JTextField jTextFieldID;
     private javax.swing.JTextField jTextFieldName;
     private javax.swing.JTextField jTextFieldPrecio;

@@ -10,7 +10,7 @@ package src.model;
  * @author NarF
  */
 public interface IIdentifiable {
-    
+
     public int getId();
-    
+
 }

@@ -74,16 +74,17 @@ public final class SessionDB {
      */
     public static boolean connect() {
         boolean success = false;
-            try {
-                if(conn == null || (conn != null || conn.isClosed())){
-                    conn = DriverManager.getConnection(dbUrl);
-                    System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
-                }else
-                    System.out.println("Connection to " + conn.getMetaData().getDriverName() + " already active.");
-                success = true;
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+        try {
+            if (conn == null || (conn != null || conn.isClosed())) {
+                conn = DriverManager.getConnection(dbUrl);
+                System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
+            } else {
+                System.out.println("Connection to " + conn.getMetaData().getDriverName() + " already active.");
             }
+            success = true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return success;
     }
 
@@ -95,7 +96,9 @@ public final class SessionDB {
             if (conn != null || !conn.isClosed()) {
                 conn.close();
                 System.out.println("Connection has been closed.");
-            }else System.out.println("Connection was already closed.");
+            } else {
+                System.out.println("Connection was already closed.");
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

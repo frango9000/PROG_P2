@@ -24,7 +24,6 @@ import src.model.SessionDB;
  */
 public final class ServidoDao extends AbstractDao<Servido> {
 
-
     /**
      * Singleton lazy initialization
      */
@@ -32,7 +31,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
 
     private ServidoDao() {
         TABLE_NAME = "servidos";
-        ID_COL_NAME ="idServidos";
+        ID_COL_NAME = "idServido";
     }
 
     public static synchronized ServidoDao getInstance() {
@@ -41,13 +40,14 @@ public final class ServidoDao extends AbstractDao<Servido> {
         }
         return dao;
     }
+
     @Override
     public Servido query(int id) {
         Servido servido = null;
         if (SessionDB.connect()) {
-            String sql = "SELECT * FROM "+TABLE_NAME+" WHERE "+ID_COL_NAME+" = '" + id + "'";
+            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + id + "'";
             try (Statement ps = SessionDB.getConn().createStatement();
-                ResultSet rs = ps.executeQuery(sql)) {
+                    ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
                     servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
                     table.put(servido.getIdServido(), servido);
@@ -65,13 +65,13 @@ public final class ServidoDao extends AbstractDao<Servido> {
     public HashMap<Integer, Servido> query(int... ids) {
         HashMap<Integer, Servido> servidosTemp = new HashMap<>();
         if (SessionDB.connect() && ids.length > 0) {
-            StringBuilder sql = new StringBuilder("SELECT * FROM "+TABLE_NAME+" WERE "+ID_COL_NAME+" IN( 0");
+            StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN( 0");
             for (int id : ids) {
                 sql.append(", ").append(id);
             }
             sql.append(" )");
             try (Statement ps = SessionDB.getConn().createStatement();
-                ResultSet rs = ps.executeQuery(sql.toString())) {
+                    ResultSet rs = ps.executeQuery(sql.toString())) {
                 while (rs.next()) {
                     Servido servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
                     table.put(servido.getIdServido(), servido);
@@ -90,9 +90,9 @@ public final class ServidoDao extends AbstractDao<Servido> {
     public HashMap<Integer, Servido> queryAll() {
         table.clear();
         if (SessionDB.connect()) {
-            String sql = "SELECT * FROM "+TABLE_NAME+"";
+            String sql = "SELECT * FROM " + TABLE_NAME + "";
             try (Statement ps = SessionDB.getConn().createStatement();
-                ResultSet rs = ps.executeQuery(sql) ){
+                    ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
                     Servido servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
                     table.put(servido.getIdServido(), servido);
@@ -110,8 +110,8 @@ public final class ServidoDao extends AbstractDao<Servido> {
     @Override
     public int insert(Servido servido) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "INSERT INTO "+TABLE_NAME+" VALUES(NULL, ?, ?)";
+        if (SessionDB.connect()) {
+            String sql = "INSERT INTO " + TABLE_NAME + " VALUES(NULL, ?, ?)";
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setInt(1, servido.getIdOrden());
                 pstmt.setInt(2, servido.getIdProducto());
@@ -135,8 +135,8 @@ public final class ServidoDao extends AbstractDao<Servido> {
     @Override
     public int update(Servido servido) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "UPDATE "+TABLE_NAME+" SET idOrden = ?, idProducto = ? WHERE "+ID_COL_NAME+" = ?";
+        if (SessionDB.connect()) {
+            String sql = "UPDATE " + TABLE_NAME + " SET idOrden = ?, idProducto = ? WHERE " + ID_COL_NAME + " = ?";
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setInt(1, servido.getIdOrden());
                 pstmt.setInt(2, servido.getIdProducto());
@@ -154,8 +154,8 @@ public final class ServidoDao extends AbstractDao<Servido> {
     @Override
     public int delete(Servido servido) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "DELETE FROM "+TABLE_NAME+" WHERE "+ID_COL_NAME+" = '" + servido.getId() + "'";
+        if (SessionDB.connect()) {
+            String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + servido.getId() + "'";
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 rows = stmt.executeUpdate(sql);
                 table.remove(servido.getId());
@@ -167,12 +167,11 @@ public final class ServidoDao extends AbstractDao<Servido> {
         }
         return rows;
     }
-    
-    
+
     public ArrayList<Integer> getIdsProductos(Orden orden) {
         ArrayList<Integer> productosIds = new ArrayList<>();
         if (SessionDB.connect()) {
-            String sql = "SELECT idProducto FROM "+TABLE_NAME+" WHERE idOrden = '" + orden.getIdOrden() + "'";
+            String sql = "SELECT idProducto FROM " + TABLE_NAME + " WHERE idOrden = '" + orden.getIdOrden() + "'";
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 ResultSet rs = stmt.executeQuery(sql);
                 while (rs.next()) {
@@ -186,7 +185,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
         }
         return productosIds;
     }
-    
+
     public ArrayList<Producto> getProductos(Orden orden) {
         int[] ids = getIdsProductos(orden).stream().mapToInt(Integer::intValue).toArray();
         return ProductoDao.getInstance().getSome(ids);

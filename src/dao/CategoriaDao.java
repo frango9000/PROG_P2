@@ -28,8 +28,8 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
     private static CategoriaDao dao;
 
     private CategoriaDao() {
-        TABLE_NAME = "servidos";
-        ID_COL_NAME ="idServidos";
+        TABLE_NAME = "categorias";
+        ID_COL_NAME = "idCategoria";
     }
 
     public static synchronized CategoriaDao getInstance() {
@@ -43,7 +43,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
     public Categoria query(int id) {
         Categoria categoria = null;
         if (SessionDB.connect()) {
-        String sql = "SELECT * FROM "+TABLE_NAME+" WHERE "+ID_COL_NAME+" = '" + id + "'";
+            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + id + "'";
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
@@ -63,7 +63,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
     public HashMap<Integer, Categoria> query(int... ids) {
         HashMap<Integer, Categoria> categoriasTemp = new HashMap<>();
         if (SessionDB.connect() && ids.length > 0) {
-            StringBuilder sql = new StringBuilder("SELECT * FROM "+TABLE_NAME+" WERE "+ID_COL_NAME+" IN( 0");
+            StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN( 0");
             for (int id : ids) {
                 sql.append(", ").append(id);
             }
@@ -88,7 +88,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
     public HashMap<Integer, Categoria> queryAll() {
         table.clear();
         if (SessionDB.connect()) {
-            String sql = "SELECT * FROM "+TABLE_NAME+"";
+            String sql = "SELECT * FROM " + TABLE_NAME + "";
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
@@ -108,8 +108,8 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
     @Override
     public int insert(Categoria categoria) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "INSERT INTO "+TABLE_NAME+" VALUES(NULL, ?)";
+        if (SessionDB.connect()) {
+            String sql = "INSERT INTO " + TABLE_NAME + " VALUES(NULL, ?)";
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setString(1, categoria.getCategoria());
                 rows = pstmt.executeUpdate();
@@ -132,8 +132,8 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
     @Override
     public int update(Categoria categoria) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "UPDATE "+TABLE_NAME+" SET categoria = ? WHERE "+ID_COL_NAME+" = ?";
+        if (SessionDB.connect()) {
+            String sql = "UPDATE " + TABLE_NAME + " SET categoria = ? WHERE " + ID_COL_NAME + " = ?";
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setString(1, categoria.getCategoria());
                 pstmt.setInt(2, categoria.getIdCategoria());
@@ -150,8 +150,8 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
     @Override
     public int delete(Categoria categoria) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "DELETE FROM "+TABLE_NAME+" WHERE "+ID_COL_NAME+" = '" + categoria.getId() + "'";
+        if (SessionDB.connect()) {
+            String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + categoria.getId() + "'";
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 rows = stmt.executeUpdate(sql);
                 table.remove(categoria.getId());

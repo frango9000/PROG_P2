@@ -28,7 +28,7 @@ public final class ProductoDao extends AbstractDao<Producto> {
 
     private ProductoDao() {
         TABLE_NAME = "productos";
-        ID_COL_NAME = "idProductos";
+        ID_COL_NAME = "idProducto";
     }
 
     public static synchronized ProductoDao getInstance() {
@@ -47,6 +47,7 @@ public final class ProductoDao extends AbstractDao<Producto> {
                     ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
                     producto = new Producto(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4));
+                    producto.setCategoria(CategoriaDao.getInstance().get(producto.getIdCategoria()));
                     table.put(producto.getIdProducto(), producto);
                 }
             } catch (SQLException ex) {
@@ -62,7 +63,7 @@ public final class ProductoDao extends AbstractDao<Producto> {
     public HashMap<Integer, Producto> query(int... ids) {
         HashMap<Integer, Producto> productosTemp = new HashMap<>();
         if (SessionDB.connect() && ids.length > 0) {
-            StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WERE " + ID_COL_NAME + " IN( 0");
+            StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN( 0");
             for (int id : ids) {
                 sql.append(", ").append(id);
             }
@@ -71,6 +72,7 @@ public final class ProductoDao extends AbstractDao<Producto> {
                     ResultSet rs = ps.executeQuery(sql.toString())) {
                 while (rs.next()) {
                     Producto producto = new Producto(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4));
+                    producto.setCategoria(CategoriaDao.getInstance().get(producto.getIdCategoria()));
                     table.put(producto.getIdProducto(), producto);
                     productosTemp.put(producto.getIdProducto(), producto);
                 }
@@ -92,6 +94,7 @@ public final class ProductoDao extends AbstractDao<Producto> {
                     ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
                     Producto producto = new Producto(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4));
+                    producto.setCategoria(CategoriaDao.getInstance().get(producto.getIdCategoria()));
                     table.put(producto.getIdProducto(), producto);
                 }
                 System.out.println(sql);
@@ -111,8 +114,8 @@ public final class ProductoDao extends AbstractDao<Producto> {
             String sql = "INSERT INTO " + TABLE_NAME + " VALUES(NULL, ?, ?, ?)";
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setString(1, producto.getProducto());
-                pstmt.setInt(2, producto.getIdCategoria());
-                pstmt.setFloat(3, producto.getPrecio());
+                pstmt.setFloat(2, producto.getPrecio());
+                pstmt.setInt(3, producto.getIdCategoria());
                 rows = pstmt.executeUpdate();
 
                 try (ResultSet rs = pstmt.getGeneratedKeys()) {

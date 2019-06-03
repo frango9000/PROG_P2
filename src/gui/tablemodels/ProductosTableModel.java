@@ -33,7 +33,7 @@ public class ProductosTableModel extends GenericDomainTableModel<Producto> {
             case 2:
                 return Float.class;
             case 3:
-                return Integer.class;
+                return String.class;
         }
         throw new ArrayIndexOutOfBoundsException(columnIndex);
     }
@@ -49,7 +49,7 @@ public class ProductosTableModel extends GenericDomainTableModel<Producto> {
             case 2:
                 return producto.getPrecio();
             case 3:
-                return producto.getIdCategoria();
+                return producto.getCategoria().toString();
             default:
                 throw new ArrayIndexOutOfBoundsException(columnIndex);
         }

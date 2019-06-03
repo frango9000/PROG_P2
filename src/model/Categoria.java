@@ -41,7 +41,7 @@ public class Categoria implements IIdentifiable {
 
     @Override
     public String toString() {
-        return "Categoria{" + "idCategoria=" + idCategoria + ", categoria=" + categoria + '}';
+        return categoria;
     }
 
     @Override

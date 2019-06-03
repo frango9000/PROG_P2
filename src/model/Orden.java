@@ -7,6 +7,7 @@ package src.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,10 +20,13 @@ public class Orden implements IIdentifiable {
     private LocalDateTime cierre;
     private float total;
 
+    private ArrayList<Producto> servidos;
+
     public Orden() {
         apertura = LocalDateTime.now();
         total = 0f;
         cierre = null;
+        servidos = new ArrayList<>();
     }
 
     public Orden(int idOrden, String dbDateTime, float total) {
@@ -36,6 +40,22 @@ public class Orden implements IIdentifiable {
         this.apertura = apertura;
         this.cierre = cierre;
         this.total = total;
+    }
+
+    public ArrayList<Producto> getServidos() {
+        return servidos;
+    }
+
+    public void setServidos(ArrayList<Producto> servidos) {
+        this.servidos = servidos;
+    }
+
+    public void addServido(Producto producto) {
+        servidos.add(producto);
+    }
+
+    public void addServidos(ArrayList<Producto> productos) {
+        servidos.addAll(productos);
     }
 
     public int getIdOrden() {

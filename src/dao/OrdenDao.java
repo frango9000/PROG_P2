@@ -27,9 +27,9 @@ public final class OrdenDao extends AbstractDao<Orden> {
      */
     private static OrdenDao dao;
 
-    private OrdenDao() {        
+    private OrdenDao() {
         TABLE_NAME = "ordenes";
-        ID_COL_NAME ="idOrdenes";
+        ID_COL_NAME = "idOrden";
     }
 
     public static synchronized OrdenDao getInstance() {
@@ -43,7 +43,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
     public Orden query(int id) {
         Orden orden = null;
         if (SessionDB.connect()) {
-        String sql = "SELECT * FROM "+TABLE_NAME+" WHERE "+ID_COL_NAME+" = '" + id + "'";
+            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + id + "'";
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
@@ -67,7 +67,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
     public HashMap<Integer, Orden> query(int... ids) {
         HashMap<Integer, Orden> ordenesTemp = new HashMap<>();
         if (SessionDB.connect() && ids.length > 0) {
-            StringBuilder sql = new StringBuilder("SELECT * FROM "+TABLE_NAME+" WERE "+ID_COL_NAME+" IN( 0");
+            StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN ( 0");
             for (int id : ids) {
                 sql.append(", ").append(id);
             }
@@ -82,6 +82,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                     }
                     table.put(orden.getIdOrden(), orden);
                     ordenesTemp.put(orden.getIdOrden(), orden);
+                    System.out.println(orden);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
@@ -96,9 +97,9 @@ public final class OrdenDao extends AbstractDao<Orden> {
     public HashMap<Integer, Orden> queryAll() {
         table.clear();
         if (SessionDB.connect()) {
-        String sql = "SELECT * FROM "+TABLE_NAME+"";
+            String sql = "SELECT * FROM " + TABLE_NAME + "";
             try (Statement ps = SessionDB.getConn().createStatement();
-                ResultSet rs = ps.executeQuery(sql)) {
+                    ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
                     Orden orden = new Orden(rs.getInt(1), rs.getString(2), rs.getFloat(4));
                     String cierre = rs.getString(3);
@@ -120,8 +121,8 @@ public final class OrdenDao extends AbstractDao<Orden> {
     @Override
     public int insert(Orden orden) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "INSERT INTO "+TABLE_NAME+" VALUES(NULL, ?, ?, ?)";
+        if (SessionDB.connect()) {
+            String sql = "INSERT INTO " + TABLE_NAME + " VALUES(NULL, ?, ?, ?)";
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setString(1, orden.getAperturaToDbString());
                 pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
@@ -146,8 +147,8 @@ public final class OrdenDao extends AbstractDao<Orden> {
     @Override
     public int update(Orden orden) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "UPDATE "+TABLE_NAME+" SET apertura = ?, cierre = ?, total = ? WHERE "+ID_COL_NAME+" = ?";
+        if (SessionDB.connect()) {
+            String sql = "UPDATE " + TABLE_NAME + " SET apertura = ?, cierre = ?, total = ? WHERE " + ID_COL_NAME + " = ?";
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setString(1, orden.getAperturaToDbString());
                 pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
@@ -166,8 +167,8 @@ public final class OrdenDao extends AbstractDao<Orden> {
     @Override
     public int delete(Orden orden) {
         int rows = 0;
-        if(SessionDB.connect()){
-            String sql = "DELETE FROM "+TABLE_NAME+" WHERE "+ID_COL_NAME+" = '" + orden.getId() + "'";
+        if (SessionDB.connect()) {
+            String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + orden.getId() + "'";
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 rows = stmt.executeUpdate(sql);
                 table.remove(orden.getId());

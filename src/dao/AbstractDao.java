@@ -14,15 +14,14 @@ import src.model.IIdentifiable;
  * @author NarF
  * @param <T>
  */
-public abstract class AbstractDao<T extends IIdentifiable> implements IDao<T>{
-    
+public abstract class AbstractDao<T extends IIdentifiable> implements IDao<T> {
+
     protected final HashMap<Integer, T> table = new HashMap<>();
     protected String TABLE_NAME;
     protected String ID_COL_NAME;
-    
 
     @Override
-    public T get(int id){
+    public T get(int id) {
         if (table.containsKey(id)) {
             return table.get(id);
         } else {
@@ -31,7 +30,7 @@ public abstract class AbstractDao<T extends IIdentifiable> implements IDao<T>{
     }
 
     @Override
-    public ArrayList<T> getSome(int... ids){
+    public ArrayList<T> getSome(int... ids) {
         query(ids);
         ArrayList<T> list = new ArrayList<>();
         for (int i = 0; i < ids.length; i++) {
@@ -43,9 +42,8 @@ public abstract class AbstractDao<T extends IIdentifiable> implements IDao<T>{
         return list;
     }
 
-    
     @Override
-    public HashMap<Integer, T> getMapOf(int... ids){
+    public HashMap<Integer, T> getMapOf(int... ids) {
         HashMap<Integer, T> filteredHashMap = new HashMap<>();
         ArrayList<Integer> idsToQuery = new ArrayList<>();
         for (int i = 0; i < ids.length; i++) {
@@ -63,15 +61,15 @@ public abstract class AbstractDao<T extends IIdentifiable> implements IDao<T>{
         }
         return filteredHashMap;
     }
-    
+
     @Override
-    public HashMap<Integer, T> getAll(){
+    public HashMap<Integer, T> getAll() {
         return table;
     }
 
     @Override
-    public int delete(int id){
-        return delete(table.get(id));        
+    public int delete(int id) {
+        return delete(table.get(id));
     }
-    
+
 }

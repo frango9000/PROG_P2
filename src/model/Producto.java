@@ -15,6 +15,7 @@ public class Producto implements IIdentifiable {
     private String producto;
     private float precio;
     private int idCategoria;
+    private Categoria categoria;
 
     public Producto(int idProducto, String producto, float precio, int idCategoria) {
         this.idProducto = idProducto;
@@ -27,6 +28,22 @@ public class Producto implements IIdentifiable {
         this.producto = producto;
         this.precio = precio;
         this.idCategoria = idCategoria;
+    }
+
+    public Producto(String producto, float precio, Categoria categoria) {
+        this.producto = producto;
+        this.precio = precio;
+        this.categoria = categoria;
+        setIdCategoria(categoria.getId());
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+        this.idCategoria = this.categoria.getId();
     }
 
     public int getIdProducto() {
