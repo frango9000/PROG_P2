@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import src.control.MainFrame;
 import src.model.Categoria;
 import src.model.SessionDB;
 
@@ -50,6 +51,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
                     categoria = new Categoria(rs.getInt(1), rs.getString(2));
                     table.put(categoria.getIdCategoria(), categoria);
                 }
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -75,6 +77,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
                     table.put(categoria.getIdCategoria(), categoria);
                     categoriasTemp.put(categoria.getIdCategoria(), categoria);
                 }
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
             } finally {
@@ -95,7 +98,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
                     Categoria categoria = new Categoria(rs.getInt(1), rs.getString(2));
                     table.put(categoria.getIdCategoria(), categoria);
                 }
-                System.out.println(sql);
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -120,6 +123,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
                         table.put(categoria.getIdCategoria(), categoria);
                     }
                 }
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -138,6 +142,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
                 pstmt.setString(1, categoria.getCategoria());
                 pstmt.setInt(2, categoria.getIdCategoria());
                 rows = pstmt.executeUpdate();
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -155,6 +160,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 rows = stmt.executeUpdate(sql);
                 table.remove(categoria.getId());
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {

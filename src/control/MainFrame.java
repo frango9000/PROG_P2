@@ -41,6 +41,10 @@ public class MainFrame extends javax.swing.JFrame {
     public final static String AUTORESPANEL = "Autores Card";
     public final static String EDITORIALESPANEL = "Editoriales Card";
     public final static String LIBROSPANEL = "Libros Card";
+    
+    public static boolean DEBUG = true;
+    public static boolean SQL_DEBUG = true;
+    public static boolean SQL_CONN = false;
 
     private static MenuBar menu;
 

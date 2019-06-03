@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import src.control.MainFrame;
 import src.model.DateTimeFormat;
 import src.model.Orden;
 import src.model.SessionDB;
@@ -54,6 +55,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                     }
                     table.put(orden.getIdOrden(), orden);
                 }
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -83,6 +85,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                     table.put(orden.getIdOrden(), orden);
                     ordenesTemp.put(orden.getIdOrden(), orden);
                 }
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
             } finally {
@@ -107,7 +110,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                     }
                     table.put(orden.getIdOrden(), orden);
                 }
-                System.out.println(sql);
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -134,6 +137,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                         table.put(orden.getIdOrden(), orden);
                     }
                 }
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -154,6 +158,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                 pstmt.setFloat(3, orden.getTotal());
                 pstmt.setInt(4, orden.getIdOrden());
                 rows = pstmt.executeUpdate();
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -171,6 +176,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 rows = stmt.executeUpdate(sql);
                 table.remove(orden.getId());
+                if(MainFrame.SQL_DEBUG)System.out.println(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {

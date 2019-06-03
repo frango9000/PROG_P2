@@ -53,7 +53,7 @@ public class MesaViewFrame extends JFrame {
             if (mesa.getIdOrden() == 0) {
                 setDisponible();
             } else {
-                //setOcupada(mesa);//TODO
+                setOcupada(mesa.getOrden());
             }
 
             setBtnActions();
@@ -62,7 +62,8 @@ public class MesaViewFrame extends JFrame {
 
         private void setOcupada(Orden orden) {
             jLabelEstado.setText("<html><b style=\"color:red;\">Ocupada</b></html>");
-            jLabelIdOrden.setText(orden.getIdOrden() + "");
+            jLabelIdOrden.setText(orden == null ? "" : orden.getId()+"");
+            System.out.println(orden);
 
             jButtonCobrar.setEnabled(true);
             jButtonCerrarMesa.setEnabled(true);

@@ -132,8 +132,10 @@ public class Orden implements IIdentifiable {
 
     @Override
     public String toString() {
-        return "Orden{" + "idOrden=" + idOrden + ", apertura=" + apertura + ", cierre=" + cierre + ", total=" + total + '}';
+        return "Orden{" + "idOrden=" + idOrden + ", apertura=" + apertura + ", cierre=" + cierre + ", total=" + total + (servidos==null? "" : servidos) + '}';
     }
+    
+
 
     @Override
     public int hashCode() {
