@@ -20,13 +20,12 @@ public class Orden implements IIdentifiable {
     private LocalDateTime cierre;
     private float total;
 
-    private ArrayList<Producto> servidos;
+    private ArrayList<Producto> servidos = new ArrayList<>();
 
     public Orden() {
         apertura = LocalDateTime.now();
         total = 0f;
         cierre = null;
-        servidos = new ArrayList<>();
     }
 
     public Orden(int idOrden, String dbDateTime, float total) {
@@ -122,7 +121,7 @@ public class Orden implements IIdentifiable {
         this.total = total;
     }
 
-    public void cerrarMesa() {
+    public void cerrarOrden() {
         cierre = LocalDateTime.now();
     }
 

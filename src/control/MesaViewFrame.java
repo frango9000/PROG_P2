@@ -21,6 +21,10 @@ import src.model.Orden;
 public class MesaViewFrame extends JFrame {
 
     private final JFrame me;
+    
+    private final ProductosSimpleTableModel productosModel = new ProductosSimpleTableModel();
+    private final ProductosSimpleTableModel servidosModel = new ProductosSimpleTableModel();
+    
 
     public MesaViewFrame(Mesa mesa) {
         super();
@@ -44,11 +48,9 @@ public class MesaViewFrame extends JFrame {
 
             jLabelTitle.setText(mesa.getMesa());
 
-            ProductosSimpleTableModel productos = new ProductosSimpleTableModel();
-            jTableProductos.setModel(productos);
+            jTableServidos.setModel(servidosModel);
 
-            ProductosSimpleTableModel servidos = new ProductosSimpleTableModel();
-            jTableProductos.setModel(servidos);
+            jTableProductos.setModel(productosModel);
 
             if (mesa.getIdOrden() == 0) {
                 setDisponible();
@@ -68,11 +70,16 @@ public class MesaViewFrame extends JFrame {
             jButtonCobrar.setEnabled(true);
             jButtonCerrarMesa.setEnabled(true);
             jButtonAbrir.setEnabled(false);
+            
+            servidosModel.clearTableModelData();
+            servidosModel.addRows(orden.getServidos());
+            
         }
 
         private void setDisponible() {
             jLabelEstado.setText("<html><b style=\"color:green;\">Disponible</b></html>");
             jLabelIdOrden.setText("");
+            servidosModel.clearTableModelData();
 
             jButtonCobrar.setEnabled(false);
             jButtonCerrarMesa.setEnabled(false);
@@ -81,16 +88,30 @@ public class MesaViewFrame extends JFrame {
 
         void setBtnActions() {
             jButtonBack.addActionListener(e -> me.dispose());
+            
             jButtonAbrir.addActionListener(e -> {
                 Orden orden = new Orden();
 
                 if (OrdenDao.getInstance().insert(orden) > 0) {
-                    System.out.println("OK");
+                    System.out.println("Nueva orden OK " + orden.getIdOrden());
                 }
 
                 mesa.setIdOrden(orden.getIdOrden());
+                mesa.setOrden(orden);
                 MesaDao.getInstance().update(mesa);
-
+                setOcupada(orden);
+            });
+            
+            jButtonCerrarMesa.addActionListener(e -> {
+                mesa.getOrden().cerrarOrden();
+                OrdenDao.getInstance().update(mesa.getOrden());
+                
+                mesa.setOrden(null);
+                mesa.setIdOrden(0);
+                MesaDao.getInstance().update(mesa);
+                
+                setDisponible();
+                
             });
         }
 
