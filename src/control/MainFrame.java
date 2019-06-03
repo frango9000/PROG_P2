@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui;
+package src.control;
 
 import src.gui.editor.MesasTablePanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import src.gui.LoadPanel;
+import src.gui.PanelPrincipal;
 import src.gui.editor.CategoriasTablePanel;
 import src.gui.editor.OrdenTablePanel;
 import src.gui.editor.ProductosTablePanel;
@@ -43,7 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Table Manager");
+        setTitle("El Chiringuito Playero");
         //setMinimumSize(new Dimension(200, 200));
 
         cardLayout = new CardLayout();
@@ -94,16 +96,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void setMenuActions() {
         menu.jMenuItemSalir.addActionListener(e -> this.dispose());
-        menu.jMenuItemCargar.addActionListener(e -> setCard(LOADPANEL));
-        menu.jMenuItemNueva.addActionListener(e -> setCard(NEWPANEL));
-
-        menu.jMenuItemMesas.addActionListener(e -> setCard(MAINMENUPANEL));
-
-        menu.jMenuItemEditMesas.addActionListener(e -> setCard(EDITMESAS));
-        menu.jMenuItemEditCategorias.addActionListener(e -> setCard(EDITCATEGORIAS));
-        menu.jMenuItemEditProductos.addActionListener(e -> setCard(EDITPRODUCTOS));
-        menu.jMenuItemEditOrdenes.addActionListener(e -> setCard(EDITORDENES));
-        menu.jMenuItemEditServidos.addActionListener(e -> setCard(EDITSERVIDOS));
 
     }
 

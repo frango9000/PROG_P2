@@ -58,4 +58,25 @@ public class StaticHelpers {
             return false;
         }
     }
+
+    /**
+     * Recursive Byte string formatter ex: 10000 = 10.000
+     *
+     * @param bytes string containing digits to be formated
+     * @return x.xxx.xxx.xxx style string
+     */
+    private static String byteSizeFormatter(String bytes) {
+        StringBuilder sb = new StringBuilder();
+        if (bytes.length() < 4) {
+            sb.insert(0, bytes);
+        } else {
+            sb.insert(0, "." + bytes.substring(bytes.length() - 3));
+            sb.insert(0, byteSizeFormatter(bytes.substring(0, bytes.length() - 3)));
+        }
+        return sb.toString();
+    }
+
+    public static String byteSizeFormatter(long bytes) {
+        return byteSizeFormatter(bytes + "");
+    }
 }

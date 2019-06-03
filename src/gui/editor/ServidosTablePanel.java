@@ -57,9 +57,9 @@ public class ServidosTablePanel extends GenericTablePanel {
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar el producto " + nombre + ": " + idSelected, "Eliminando el producto " + nombre + "", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 if (ServidoDao.getInstance().delete(idSelected) > 0) {
-                    JOptionPane.showMessageDialog(this,"Producto " + nombre + " eliminado: " + idSelected, nombre + " Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Producto " + nombre + " eliminado: " + idSelected, nombre + " Eliminado", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this,"Producto " + nombre + " NO eliminado: " + idSelected, nombre + " Eliminado", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Producto " + nombre + " NO eliminado: " + idSelected, nombre + " Eliminado", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {

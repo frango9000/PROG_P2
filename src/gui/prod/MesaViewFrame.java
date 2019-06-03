@@ -15,12 +15,14 @@ import src.model.Mesa;
  * @author NarF
  */
 public class MesaViewFrame extends JFrame {
+
     private final JFrame me;
+
     public MesaViewFrame(Mesa mesa) {
         super();
         me = this;
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Table Manager");
+        setTitle(mesa.getMesa());
         setMinimumSize(new Dimension(200, 200));
 
         setContentPane(new PanelMesa(mesa));
@@ -48,12 +50,12 @@ public class MesaViewFrame extends JFrame {
                 jLabelEstado.setText("<html><b style=\"color:red;\">Ocupada</b></html>");
                 jLabelIdOrden.setText(mesa.getIdOrden() + "");
             }
-            
+
             setBtnActions();
 
         }
-        
-        void setBtnActions(){
+
+        void setBtnActions() {
             jButtonBack.addActionListener(e -> me.dispose());
         }
 

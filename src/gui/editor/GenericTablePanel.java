@@ -5,7 +5,7 @@
  */
 package src.gui.editor;
 
-import src.gui.MainFrame;
+import src.control.MainFrame;
 import src.gui.tablemodels.GenericDomainTableModel;
 
 /**

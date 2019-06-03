@@ -5,16 +5,18 @@
  */
 package src.gui.template;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author NarF
  */
-public class MenuModel extends javax.swing.JFrame {
+public class MenuBarGuiModel extends JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public MenuModel() {
+    public MenuBarGuiModel() {
         initComponents();
     }
 
@@ -35,16 +37,17 @@ public class MenuModel extends javax.swing.JFrame {
         jMenuItemSalir = new javax.swing.JMenuItem();
         jMenuVer = new javax.swing.JMenu();
         jMenuItemMesas = new javax.swing.JMenuItem();
-        jMenuItemCocina = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuEditar = new javax.swing.JMenu();
         jMenuItemEditMesas = new javax.swing.JMenuItem();
         jMenuItemEditProductos = new javax.swing.JMenuItem();
-        jMenuItemCategorias = new javax.swing.JMenuItem();
+        jMenuItemEditCategorias = new javax.swing.JMenuItem();
+        jMenuItemEditOrdenes = new javax.swing.JMenuItem();
+        jMenuItemEditServidos = new javax.swing.JMenuItem();
         jMenuMas = new javax.swing.JMenu();
         jMenuItemInformacion = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jMenuInicio.setText("Inicio");
 
@@ -65,9 +68,6 @@ public class MenuModel extends javax.swing.JFrame {
 
         jMenuItemMesas.setText("Mesas");
         jMenuVer.add(jMenuItemMesas);
-
-        jMenuItemCocina.setText("Cocina");
-        jMenuVer.add(jMenuItemCocina);
         jMenuVer.add(jSeparator2);
 
         jMenuEditar.setText("Editar");
@@ -78,8 +78,14 @@ public class MenuModel extends javax.swing.JFrame {
         jMenuItemEditProductos.setText("Productos");
         jMenuEditar.add(jMenuItemEditProductos);
 
-        jMenuItemCategorias.setText("Categorias");
-        jMenuEditar.add(jMenuItemCategorias);
+        jMenuItemEditCategorias.setText("Categorias");
+        jMenuEditar.add(jMenuItemEditCategorias);
+
+        jMenuItemEditOrdenes.setText("Ordenes");
+        jMenuEditar.add(jMenuItemEditOrdenes);
+
+        jMenuItemEditServidos.setText("Servidos");
+        jMenuEditar.add(jMenuItemEditServidos);
 
         jMenuVer.add(jMenuEditar);
 
@@ -97,57 +103,22 @@ public class MenuModel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuModel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuModel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuModel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuModel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuModel().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuEditar;
     private javax.swing.JMenu jMenuInicio;
-    private javax.swing.JMenuItem jMenuItemCargar;
-    private javax.swing.JMenuItem jMenuItemCategorias;
-    private javax.swing.JMenuItem jMenuItemCocina;
-    private javax.swing.JMenuItem jMenuItemEditMesas;
-    private javax.swing.JMenuItem jMenuItemEditProductos;
-    private javax.swing.JMenuItem jMenuItemInformacion;
-    private javax.swing.JMenuItem jMenuItemMesas;
-    private javax.swing.JMenuItem jMenuItemNueva;
-    private javax.swing.JMenuItem jMenuItemSalir;
+    protected javax.swing.JMenuItem jMenuItemCargar;
+    protected javax.swing.JMenuItem jMenuItemEditCategorias;
+    protected javax.swing.JMenuItem jMenuItemEditMesas;
+    protected javax.swing.JMenuItem jMenuItemEditOrdenes;
+    protected javax.swing.JMenuItem jMenuItemEditProductos;
+    protected javax.swing.JMenuItem jMenuItemEditServidos;
+    protected javax.swing.JMenuItem jMenuItemInformacion;
+    protected javax.swing.JMenuItem jMenuItemMesas;
+    protected javax.swing.JMenuItem jMenuItemNueva;
+    protected javax.swing.JMenuItem jMenuItemSalir;
     private javax.swing.JMenu jMenuMas;
-    private javax.swing.JMenu jMenuVer;
+    public javax.swing.JMenu jMenuVer;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
