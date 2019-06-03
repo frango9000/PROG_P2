@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui;
+package src.control;
 
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
 import src.dao.MesaDao;
+import src.gui.PanelPrincipalGui;
 import src.gui.prod.MesaViewFrame;
 
 /**

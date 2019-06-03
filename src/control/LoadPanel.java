@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.gui;
+package src.control;
 
 import java.awt.CardLayout;
 import java.io.File;
@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import src.control.MainFrame;
 import src.control.MenuBar;
+import src.gui.LoadPanelGui;
 import src.model.SessionDB;
 import src.model.StaticHelpers;
 

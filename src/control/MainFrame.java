@@ -8,8 +8,6 @@ package src.control;
 import src.gui.editor.MesasTablePanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
-import src.gui.LoadPanel;
-import src.gui.PanelPrincipal;
 import src.gui.editor.CategoriasTablePanel;
 import src.gui.editor.OrdenTablePanel;
 import src.gui.editor.ProductosTablePanel;

@@ -6,7 +6,7 @@
 package src.control;
 
 import static src.control.MainFrame.*;
-import src.gui.editor.MenuBarGui;
+import src.gui.MenuBarGui;
 
 /**
  *
