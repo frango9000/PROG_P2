@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author NarF
  */
-public class Orden {
+public class Orden implements IIdentifiable {
 
     private int idOrden;
     private LocalDateTime apertura;
@@ -138,6 +138,11 @@ public class Orden {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int getId() {
+        return getIdOrden();
     }
 
 }

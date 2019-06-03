@@ -20,9 +20,7 @@ import src.model.SessionDB;
  *
  * @author NarF
  */
-public final class CategoriaDao implements Dao<Categoria> {
-
-    private final HashMap<Integer, Categoria> categorias = new HashMap<>();
+public final class CategoriaDao extends AbstractDao<Categoria> {
 
     /**
      * Singleton lazy initialization
@@ -30,6 +28,8 @@ public final class CategoriaDao implements Dao<Categoria> {
     private static CategoriaDao dao;
 
     private CategoriaDao() {
+        TABLE_NAME = "servidos";
+        ID_COL_NAME ="idServidos";
     }
 
     public static synchronized CategoriaDao getInstance() {
@@ -40,15 +40,60 @@ public final class CategoriaDao implements Dao<Categoria> {
     }
 
     @Override
-    public HashMap<Integer, Categoria> queryAll() {
-        categorias.clear();
-        String sql = "SELECT * FROM categorias";
+    public Categoria query(int id) {
+        Categoria categoria = null;
         if (SessionDB.connect()) {
-            try (Statement ps = SessionDB.getConn().createStatement()) {
-                ResultSet rs = ps.executeQuery(sql);
+        String sql = "SELECT * FROM "+TABLE_NAME+" WHERE "+ID_COL_NAME+" = '" + id + "'";
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql)) {
+                if (rs.next()) {
+                    categoria = new Categoria(rs.getInt(1), rs.getString(2));
+                    table.put(categoria.getIdCategoria(), categoria);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
+            }
+        }
+        return categoria;
+    }
+
+    @Override
+    public HashMap<Integer, Categoria> query(int... ids) {
+        HashMap<Integer, Categoria> categoriasTemp = new HashMap<>();
+        if (SessionDB.connect() && ids.length > 0) {
+            StringBuilder sql = new StringBuilder("SELECT * FROM "+TABLE_NAME+" WERE "+ID_COL_NAME+" IN( 0");
+            for (int id : ids) {
+                sql.append(", ").append(id);
+            }
+            sql.append(" )");
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql.toString())) {
                 while (rs.next()) {
-                    Categoria cat = new Categoria(rs.getInt(1), rs.getString(2));
-                    categorias.put(cat.getIdCategoria(), cat);
+                    Categoria categoria = new Categoria(rs.getInt(1), rs.getString(2));
+                    table.put(categoria.getIdCategoria(), categoria);
+                    categoriasTemp.put(categoria.getIdCategoria(), categoria);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
+            } finally {
+                SessionDB.close();
+            }
+        }
+        return categoriasTemp;
+    }
+
+    @Override
+    public HashMap<Integer, Categoria> queryAll() {
+        table.clear();
+        if (SessionDB.connect()) {
+            String sql = "SELECT * FROM "+TABLE_NAME+"";
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql)) {
+                while (rs.next()) {
+                    Categoria categoria = new Categoria(rs.getInt(1), rs.getString(2));
+                    table.put(categoria.getIdCategoria(), categoria);
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
@@ -57,91 +102,66 @@ public final class CategoriaDao implements Dao<Categoria> {
                 SessionDB.close();
             }
         }
-        return categorias;
-    }
-
-    @Override
-    public Categoria get(int idCategoria) {
-        return categorias.get(idCategoria);
-    }
-
-    @Override
-    public HashMap<Integer, Categoria> getAll() {
-        return categorias;
+        return table;
     }
 
     @Override
     public int insert(Categoria categoria) {
-        String sql = "INSERT INTO categorias VALUES(NULL, ?)";
-        SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-            pstmt.setString(1, categoria.getCategoria());
-            rows = pstmt.executeUpdate();
+        if(SessionDB.connect()){
+            String sql = "INSERT INTO "+TABLE_NAME+" VALUES(NULL, ?)";
+            try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
+                pstmt.setString(1, categoria.getCategoria());
+                rows = pstmt.executeUpdate();
 
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()) {
-                categoria.setIdCategoria(rs.getInt(1));
-                categorias.put(categoria.getIdCategoria(), categoria);
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        categoria.setIdCategoria(rs.getInt(1));
+                        table.put(categoria.getIdCategoria(), categoria);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
-        } finally {
-            SessionDB.close();
         }
         return rows;
     }
 
     @Override
     public int update(Categoria categoria) {
-
-        String sql = "UPDATE categorias SET categoria = ? WHERE idCategoria = ?";
-        SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-            pstmt.setString(1, categoria.getCategoria());
-            pstmt.setInt(2, categoria.getIdCategoria());
-            rows = pstmt.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
-        } finally {
-            SessionDB.close();
+        if(SessionDB.connect()){
+            String sql = "UPDATE "+TABLE_NAME+" SET categoria = ? WHERE "+ID_COL_NAME+" = ?";
+            try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
+                pstmt.setString(1, categoria.getCategoria());
+                pstmt.setInt(2, categoria.getIdCategoria());
+                rows = pstmt.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
+            }
         }
         return rows;
     }
 
     @Override
     public int delete(Categoria categoria) {
-        return delete(categoria.getIdCategoria());
-    }
-
-    @Override
-    public int delete(int id) {
-        String sql = "DELETE FROM categorias WHERE idCategoria = '" + id + "'";
-        SessionDB.connect();
         int rows = 0;
-        try (Statement stmt = SessionDB.getConn().createStatement()) {
-            rows = stmt.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
-        } finally {
-            SessionDB.close();
+        if(SessionDB.connect()){
+            String sql = "DELETE FROM "+TABLE_NAME+" WHERE "+ID_COL_NAME+" = '" + categoria.getId() + "'";
+            try (Statement stmt = SessionDB.getConn().createStatement()) {
+                rows = stmt.executeUpdate(sql);
+                table.remove(categoria.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
+            }
         }
         return rows;
     }
 
-    @Override
-    public Categoria query(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Categoria> query(int... ids) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Categoria> get(int... ids) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

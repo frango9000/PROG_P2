@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +19,7 @@ import src.model.SessionDB;
  *
  * @author NarF
  */
-public final class ProductoDao implements Dao<Producto> {
-
-    private final HashMap<Integer, Producto> productos = new HashMap<>();
+public final class ProductoDao extends AbstractDao<Producto> {
 
     /**
      * Singleton lazy initialization
@@ -30,6 +27,8 @@ public final class ProductoDao implements Dao<Producto> {
     private static ProductoDao productoDao;
 
     private ProductoDao() {
+        TABLE_NAME = "productos";
+        ID_COL_NAME = "idProductos";
     }
 
     public static synchronized ProductoDao getInstance() {
@@ -40,15 +39,60 @@ public final class ProductoDao implements Dao<Producto> {
     }
 
     @Override
-    public HashMap<Integer, Producto> queryAll() {
-        productos.clear();
-        String sql = "SELECT * FROM productos";
+    public Producto query(int id) {
+        Producto producto = null;
         if (SessionDB.connect()) {
-            try (Statement ps = SessionDB.getConn().createStatement()) {
-                ResultSet rs = ps.executeQuery(sql);
+            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + id + "'";
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql)) {
+                if (rs.next()) {
+                    producto = new Producto(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4));
+                    table.put(producto.getIdProducto(), producto);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
+            }
+        }
+        return producto;
+    }
+
+    @Override
+    public HashMap<Integer, Producto> query(int... ids) {
+        HashMap<Integer, Producto> productosTemp = new HashMap<>();
+        if (SessionDB.connect() && ids.length > 0) {
+            StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WERE " + ID_COL_NAME + " IN( 0");
+            for (int id : ids) {
+                sql.append(", ").append(id);
+            }
+            sql.append(" )");
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql.toString())) {
                 while (rs.next()) {
                     Producto producto = new Producto(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4));
-                    productos.put(producto.getIdProducto(), producto);
+                    table.put(producto.getIdProducto(), producto);
+                    productosTemp.put(producto.getIdProducto(), producto);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
+            } finally {
+                SessionDB.close();
+            }
+        }
+        return productosTemp;
+    }
+
+    @Override
+    public HashMap<Integer, Producto> queryAll() {
+        table.clear();
+        if (SessionDB.connect()) {
+            String sql = "SELECT * FROM " + TABLE_NAME + "";
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql)) {
+                while (rs.next()) {
+                    Producto producto = new Producto(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4));
+                    table.put(producto.getIdProducto(), producto);
                 }
                 System.out.println(sql);
             } catch (SQLException ex) {
@@ -57,94 +101,69 @@ public final class ProductoDao implements Dao<Producto> {
                 SessionDB.close();
             }
         }
-        return productos;
-    }
-
-    @Override
-    public Producto get(int idProducto) {
-        return productos.get(idProducto);
-    }
-
-    @Override
-    public HashMap<Integer, Producto> getAll() {
-        return productos;
+        return table;
     }
 
     @Override
     public int insert(Producto producto) {
-        String sql = "INSERT INTO productos VALUES(NULL, ?, ?, ?)";
-        SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-            pstmt.setString(1, producto.getProducto());
-            pstmt.setInt(2, producto.getIdCategoria());
-            pstmt.setFloat(3, producto.getPrecio());
-            rows = pstmt.executeUpdate();
+        if (SessionDB.connect()) {
+            String sql = "INSERT INTO " + TABLE_NAME + " VALUES(NULL, ?, ?, ?)";
+            try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
+                pstmt.setString(1, producto.getProducto());
+                pstmt.setInt(2, producto.getIdCategoria());
+                pstmt.setFloat(3, producto.getPrecio());
+                rows = pstmt.executeUpdate();
 
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()) {
-                producto.setIdProducto(rs.getInt(1));
-                productos.put(producto.getIdProducto(), producto);
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        producto.setIdProducto(rs.getInt(1));
+                        table.put(producto.getIdProducto(), producto);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
-        } finally {
-            SessionDB.close();
         }
         return rows;
     }
 
     @Override
     public int update(Producto producto) {
-        String sql = "UPDATE productos SET producto = ?, precio = ?, idCategoria = ? WHERE idProducto = ?";
-        SessionDB.connect();
         int rows = 0;
-        try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-            pstmt.setString(1, producto.getProducto());
-            pstmt.setFloat(2, producto.getPrecio());
-            pstmt.setInt(3, producto.getIdCategoria());
-            pstmt.setInt(4, producto.getIdProducto());
-            rows = pstmt.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
-        } finally {
-            SessionDB.close();
+        if (SessionDB.connect()) {
+            String sql = "UPDATE " + TABLE_NAME + " SET producto = ?, precio = ?, idCategoria = ? WHERE " + ID_COL_NAME + " = ?";
+            try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
+                pstmt.setString(1, producto.getProducto());
+                pstmt.setFloat(2, producto.getPrecio());
+                pstmt.setInt(3, producto.getIdCategoria());
+                pstmt.setInt(4, producto.getIdProducto());
+                rows = pstmt.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
+            }
         }
         return rows;
     }
 
     @Override
     public int delete(Producto producto) {
-        return delete(producto.getIdProducto());
-    }
-
-    @Override
-    public int delete(int id) {
-        String sql = "DELETE FROM productos WHERE idProducto = '" + id + "'";
-        SessionDB.connect();
         int rows = 0;
-        try (Statement stmt = SessionDB.getConn().createStatement()) {
-            rows = stmt.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
-        } finally {
-            SessionDB.close();
+        if (SessionDB.connect()) {
+            String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + producto.getId() + "'";
+            try (Statement stmt = SessionDB.getConn().createStatement()) {
+                rows = stmt.executeUpdate(sql);
+                table.remove(producto.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
+            }
         }
         return rows;
-    }
-
-    @Override
-    public Producto query(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Producto> query(int... ids) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Producto> get(int... ids) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

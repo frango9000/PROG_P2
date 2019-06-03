@@ -7,23 +7,26 @@ package src.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import src.model.IIdentifiable;
 
 /**
  *
  * @author NarF
  * @param <T>
  */
-public interface Dao<T> {
+public interface IDao<T extends IIdentifiable> {
 
     T query(int id);
 
-    ArrayList<T> query(int... ids);
+    HashMap<Integer, T> query(int... ids);
 
     HashMap<Integer, T> queryAll();
 
     T get(int id);
+    
+    ArrayList<T> getSome(int... ids);
 
-    ArrayList<T> get(int... ids);
+    HashMap<Integer, T> getMapOf(int... ids);
 
     HashMap<Integer, T> getAll();
 

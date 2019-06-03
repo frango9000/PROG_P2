@@ -9,7 +9,7 @@ package src.model;
  *
  * @author NarF
  */
-public class Servido {
+public class Servido implements IIdentifiable {
 
     private int idServido;
     private int idOrden;
@@ -78,6 +78,11 @@ public class Servido {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int getId() {
+        return getIdServido();
     }
 
 }

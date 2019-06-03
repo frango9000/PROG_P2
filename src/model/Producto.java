@@ -9,7 +9,7 @@ package src.model;
  *
  * @author NarF
  */
-public class Producto {
+public class Producto implements IIdentifiable {
 
     private int idProducto;
     private String producto;
@@ -51,7 +51,6 @@ public class Producto {
 
     public void setProducto(String producto) {
         this.producto = producto;
-////        ProductoDao.getInstance().update(this);  //Emilio
     }
 
     public void setPrecio(float precio) {
@@ -90,6 +89,11 @@ public class Producto {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int getId() {
+        return getIdProducto();
     }
 
 }

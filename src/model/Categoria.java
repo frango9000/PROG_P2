@@ -9,7 +9,7 @@ package src.model;
  *
  * @author NarF
  */
-public class Categoria {
+public class Categoria implements IIdentifiable {
 
     private int idCategoria;
     private String categoria;
@@ -67,6 +67,11 @@ public class Categoria {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int getId() {
+        return getIdCategoria();
     }
 
 }

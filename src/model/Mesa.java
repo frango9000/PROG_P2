@@ -9,7 +9,7 @@ package src.model;
  *
  * @author NarF
  */
-public class Mesa {
+public class Mesa implements IIdentifiable {
 
     private int idMesa;
     private String mesa;
@@ -90,6 +90,11 @@ public class Mesa {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int getId() {
+        return getIdMesa();
     }
 
 }
