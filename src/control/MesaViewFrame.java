@@ -9,10 +9,13 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import src.dao.MesaDao;
 import src.dao.OrdenDao;
+import src.dao.ServidoDao;
 import src.gui.PanelMesaGui;
 import src.gui.tablemodels.ProductosSimpleTableModel;
+import src.gui.tablemodels.ServidoSimpleTableModel;
 import src.model.Mesa;
 import src.model.Orden;
+import src.model.Servido;
 
 /**
  *
@@ -21,10 +24,9 @@ import src.model.Orden;
 public class MesaViewFrame extends JFrame {
 
     private final JFrame me;
-    
+
     private final ProductosSimpleTableModel productosModel = new ProductosSimpleTableModel();
-    private final ProductosSimpleTableModel servidosModel = new ProductosSimpleTableModel();
-    
+    private final ServidoSimpleTableModel servidosModel = new ServidoSimpleTableModel();
 
     public MesaViewFrame(Mesa mesa) {
         super();
@@ -64,16 +66,16 @@ public class MesaViewFrame extends JFrame {
 
         private void setOcupada(Orden orden) {
             jLabelEstado.setText("<html><b style=\"color:red;\">Ocupada</b></html>");
-            jLabelIdOrden.setText(orden == null ? "" : orden.getId()+"");
+            jLabelIdOrden.setText(orden == null ? "" : orden.getId() + "");
             System.out.println(orden);
 
             jButtonCobrar.setEnabled(true);
             jButtonCerrarMesa.setEnabled(true);
             jButtonAbrir.setEnabled(false);
-            
+
             servidosModel.clearTableModelData();
             servidosModel.addRows(orden.getServidos());
-            
+
         }
 
         private void setDisponible() {
@@ -88,7 +90,7 @@ public class MesaViewFrame extends JFrame {
 
         void setBtnActions() {
             jButtonBack.addActionListener(e -> me.dispose());
-            
+
             jButtonAbrir.addActionListener(e -> {
                 Orden orden = new Orden();
 
@@ -101,17 +103,25 @@ public class MesaViewFrame extends JFrame {
                 MesaDao.getInstance().update(mesa);
                 setOcupada(orden);
             });
-            
+
             jButtonCerrarMesa.addActionListener(e -> {
                 mesa.getOrden().cerrarOrden();
                 OrdenDao.getInstance().update(mesa.getOrden());
-                
+
                 mesa.setOrden(null);
                 mesa.setIdOrden(0);
                 MesaDao.getInstance().update(mesa);
-                
+
                 setDisponible();
-                
+
+            });
+
+            jButtonQuitar.addActionListener(e -> {
+                int selectedRow = jTableServidos.getSelectedRow();
+                Servido servido = servidosModel.getDomainObject(selectedRow);
+                mesa.getOrden().getServidos().remove(servido);
+                servidosModel.deleteRow(selectedRow);
+                ServidoDao.getInstance().delete(servido);
             });
         }
 

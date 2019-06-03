@@ -27,14 +27,14 @@ public class PanelPrincipal extends PanelPrincipalGui {
         setActions();
     }
 
-
     private static void initialQuery() {
         CategoriaDao.getInstance().queryAll();
         ProductoDao.getInstance().queryAll();
-        ArrayList<Orden> ordenesActivas =MesaDao.getInstance().getOrdenesActivas();
+        ArrayList<Orden> ordenesActivas = MesaDao.getInstance().getOrdenesActivas();
+        ServidoDao.getInstance().query(ordenesActivas);
         MesaDao.getInstance().queryAll();
-        ServidoDao.getInstance().getCarritosActivos(ordenesActivas);
     }
+
     void setActions() {
         List<JButton> listaMesas = Arrays.asList(mesa1, mesa2, mesa3, mesa4, mesa5, mesa6, mesa7, mesa8, barra1, barra2, barra3, barra4, terraza1, terraza2, terraza3, terraza4, extra1, extra2, extra3, extra4, extra5, extra6);
         for (int i = 0; i < listaMesas.size(); i++) {

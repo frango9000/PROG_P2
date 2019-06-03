@@ -14,6 +14,7 @@ public class Servido implements IIdentifiable {
     private int idServido;
     private int idOrden;
     private int idProducto;
+    Producto producto;
 
     public Servido(int idServido, int idOrden, int idProducto) {
         this.idServido = idServido;
@@ -24,6 +25,20 @@ public class Servido implements IIdentifiable {
     public Servido(int idOrden, int idProducto) {
         this.idOrden = idOrden;
         this.idProducto = idProducto;
+    }
+
+    public Servido(int idServido, int idOrden, Producto producto) {
+        this.idServido = idServido;
+        this.idOrden = idOrden;
+        this.producto = producto;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public int getIdServido() {

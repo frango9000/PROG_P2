@@ -78,9 +78,13 @@ public final class SessionDB {
         try {
             if (conn == null || (conn != null || conn.isClosed())) {
                 conn = DriverManager.getConnection(dbUrl);
-                if(MainFrame.SQL_CONN)System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
+                if (MainFrame.SQL_CONN) {
+                    System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
+                }
             } else {
-                if(MainFrame.SQL_CONN)System.out.println("Connection to " + conn.getMetaData().getDriverName() + " already active.");
+                if (MainFrame.SQL_CONN) {
+                    System.out.println("Connection to " + conn.getMetaData().getDriverName() + " already active.");
+                }
             }
             success = true;
         } catch (SQLException e) {
@@ -96,9 +100,13 @@ public final class SessionDB {
         try {
             if (conn != null || !conn.isClosed()) {
                 conn.close();
-                if(MainFrame.SQL_CONN)System.out.println("Connection has been closed.");
+                if (MainFrame.SQL_CONN) {
+                    System.out.println("Connection has been closed.");
+                }
             } else {
-                if(MainFrame.SQL_CONN)System.out.println("Connection was already closed.");
+                if (MainFrame.SQL_CONN) {
+                    System.out.println("Connection was already closed.");
+                }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -117,7 +125,9 @@ public final class SessionDB {
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             count = rs.getInt(1);
-                if(MainFrame.SQL_DEBUG)System.out.println(sql);
+            if (MainFrame.SQL_DEBUG) {
+                System.out.println(sql);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -140,7 +150,9 @@ public final class SessionDB {
             while (rs.next()) {
                 tableNames.add(rs.getString(1));
             }
-            if(MainFrame.SQL_DEBUG)System.out.println(sql);
+            if (MainFrame.SQL_DEBUG) {
+                System.out.println(sql);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -171,7 +183,9 @@ public final class SessionDB {
             for (String cmd : cmds) {
                 try (Statement stmt = SessionDB.getConn().createStatement()) {
                     rows += stmt.executeUpdate(cmd.trim());
-                    if(MainFrame.SQL_DEBUG)System.out.println(cmd);
+                    if (MainFrame.SQL_DEBUG) {
+                        System.out.println(cmd);
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, cmd, ex);
                 }
@@ -197,7 +211,9 @@ public final class SessionDB {
             for (String cmd : cmds) {
                 try (Statement stmt = SessionDB.getConn().createStatement()) {
                     stmt.executeUpdate(cmd.trim());
-                    if(MainFrame.SQL_DEBUG)System.out.println(cmd);
+                    if (MainFrame.SQL_DEBUG) {
+                        System.out.println(cmd);
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, cmd, ex);
                 }

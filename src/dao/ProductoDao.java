@@ -51,7 +51,9 @@ public final class ProductoDao extends AbstractDao<Producto> {
                     producto.setCategoria(CategoriaDao.getInstance().get(producto.getIdCategoria()));
                     table.put(producto.getIdProducto(), producto);
                 }
-                if(MainFrame.SQL_DEBUG)System.out.println(sql);
+                if (MainFrame.SQL_DEBUG) {
+                    System.out.println(sql);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -78,7 +80,9 @@ public final class ProductoDao extends AbstractDao<Producto> {
                     table.put(producto.getIdProducto(), producto);
                     productosTemp.put(producto.getIdProducto(), producto);
                 }
-                if(MainFrame.SQL_DEBUG)System.out.println(sql);
+                if (MainFrame.SQL_DEBUG) {
+                    System.out.println(sql);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
             } finally {
@@ -100,7 +104,9 @@ public final class ProductoDao extends AbstractDao<Producto> {
                     producto.setCategoria(CategoriaDao.getInstance().get(producto.getIdCategoria()));
                     table.put(producto.getIdProducto(), producto);
                 }
-                if(MainFrame.SQL_DEBUG)System.out.println(sql);
+                if (MainFrame.SQL_DEBUG) {
+                    System.out.println(sql);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -127,7 +133,9 @@ public final class ProductoDao extends AbstractDao<Producto> {
                         table.put(producto.getIdProducto(), producto);
                     }
                 }
-                if(MainFrame.SQL_DEBUG)System.out.println(sql);
+                if (MainFrame.SQL_DEBUG) {
+                    System.out.println(sql);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -148,7 +156,9 @@ public final class ProductoDao extends AbstractDao<Producto> {
                 pstmt.setInt(3, producto.getIdCategoria());
                 pstmt.setInt(4, producto.getIdProducto());
                 rows = pstmt.executeUpdate();
-                if(MainFrame.SQL_DEBUG)System.out.println(sql);
+                if (MainFrame.SQL_DEBUG) {
+                    System.out.println(sql);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -166,7 +176,9 @@ public final class ProductoDao extends AbstractDao<Producto> {
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 rows = stmt.executeUpdate(sql);
                 table.remove(producto.getId());
-                if(MainFrame.SQL_DEBUG)System.out.println(sql);
+                if (MainFrame.SQL_DEBUG) {
+                    System.out.println(sql);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(ProductoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {

@@ -20,7 +20,7 @@ public class Orden implements IIdentifiable {
     private LocalDateTime cierre;
     private float total;
 
-    private ArrayList<Producto> servidos = new ArrayList<>();
+    private ArrayList<Servido> servidosF = new ArrayList<>();
 
     public Orden() {
         apertura = LocalDateTime.now();
@@ -41,20 +41,20 @@ public class Orden implements IIdentifiable {
         this.total = total;
     }
 
-    public ArrayList<Producto> getServidos() {
-        return servidos;
+    public ArrayList<Servido> getServidos() {
+        return servidosF;
     }
 
-    public void setServidos(ArrayList<Producto> servidos) {
-        this.servidos = servidos;
+    public void setServidos(ArrayList<Servido> servidosF) {
+        this.servidosF = servidosF;
     }
 
-    public void addServido(Producto producto) {
-        servidos.add(producto);
+    public void addServido(Servido servidos) {
+        servidosF.add(servidos);
     }
 
-    public void addServidos(ArrayList<Producto> productos) {
-        servidos.addAll(productos);
+    public void addServidos(ArrayList<Servido> servido) {
+        servidosF.addAll(servido);
     }
 
     public int getIdOrden() {
@@ -131,10 +131,8 @@ public class Orden implements IIdentifiable {
 
     @Override
     public String toString() {
-        return "Orden{" + "idOrden=" + idOrden + ", apertura=" + apertura + ", cierre=" + cierre + ", total=" + total + (servidos==null? "" : servidos) + '}';
+        return "Orden{" + "idOrden=" + idOrden + ", apertura=" + apertura + ", cierre=" + cierre + ", total=" + total + (servidosF == null ? "" : servidosF) + '}';
     }
-    
-
 
     @Override
     public int hashCode() {
