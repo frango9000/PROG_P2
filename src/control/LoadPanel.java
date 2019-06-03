@@ -11,8 +11,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import src.control.MainFrame;
-import src.control.MenuBar;
 import src.gui.LoadPanelGui;
 import src.model.SessionDB;
 import src.model.StaticHelpers;
@@ -105,6 +103,7 @@ public class LoadPanel extends LoadPanelGui {
                 }
                 if (SessionDB.isValid()) {
                     MenuBar.jMenuVer.setEnabled(true);
+                    MainFrame.getCards().add(new PanelPrincipal(), MainFrame.MAINMENUPANEL);
                     MainFrame.setCard(MainFrame.MAINMENUPANEL);
                     JOptionPane.showMessageDialog(this, "DB creada correctamente", "Nueva DB", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -128,6 +127,7 @@ public class LoadPanel extends LoadPanelGui {
 
                 if (SessionDB.isValid()) {
                     MenuBar.jMenuVer.setEnabled(true);
+                    MainFrame.getCards().add(new PanelPrincipal(), MainFrame.MAINMENUPANEL);
                     MainFrame.setCard(MainFrame.MAINMENUPANEL);
                 } else {
                     MenuBar.jMenuVer.setEnabled(false);

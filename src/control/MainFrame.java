@@ -60,7 +60,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (SessionDB.exists()) {
             if (SessionDB.isValid()) {
-                initialQuery();
+                
+                cards.add(new PanelPrincipal(), MAINMENUPANEL);
+
                 MenuBar.jMenuVer.setEnabled(true);
                 cardLayout.show(cards, MAINMENUPANEL);
             }
@@ -86,21 +88,12 @@ public class MainFrame extends javax.swing.JFrame {
         cards.add(new LoadPanel(false), LOADPANEL);
         cards.add(new LoadPanel(true), NEWPANEL);
 
-        cards.add(new PanelPrincipal(), MAINMENUPANEL);
-
         cards.add(new MesasTablePanel(), EDITMESAS);
         cards.add(new CategoriasTablePanel(), EDITCATEGORIAS);
         cards.add(new ProductosTablePanel(), EDITPRODUCTOS);
         cards.add(new OrdenTablePanel(), EDITORDENES);
         cards.add(new ServidosTablePanel(), EDITSERVIDOS);
 
-    }
-
-    private static void initialQuery() {
-        MesaDao.getInstance().queryAll();
-        CategoriaDao.getInstance().queryAll();
-        ProductoDao.getInstance().queryAll();
-        MesaDao.getInstance().getOrdenesActivas();
     }
 
     public void setMenuActions() {
