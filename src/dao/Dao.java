@@ -5,6 +5,7 @@
  */
 package src.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -14,9 +15,15 @@ import java.util.HashMap;
  */
 public interface Dao<T> {
 
+    T query(int id);
+
+    ArrayList<T> query(int... ids);
+
     HashMap<Integer, T> queryAll();
 
     T get(int id);
+
+    ArrayList<T> get(int... ids);
 
     HashMap<Integer, T> getAll();
 

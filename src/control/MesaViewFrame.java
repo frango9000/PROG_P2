@@ -5,11 +5,14 @@
  */
 package src.control;
 
-import src.gui.PanelMesaGui;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import src.dao.MesaDao;
+import src.dao.OrdenDao;
+import src.gui.PanelMesaGui;
 import src.gui.tablemodels.ProductosSimpleTableModel;
 import src.model.Mesa;
+import src.model.Orden;
 
 /**
  *
@@ -34,7 +37,10 @@ public class MesaViewFrame extends JFrame {
 
     private class PanelMesa extends PanelMesaGui {
 
+        private final Mesa mesa;
+
         public PanelMesa(Mesa mesa) {
+            this.mesa = mesa;
 
             jLabelTitle.setText(mesa.getMesa());
 
@@ -45,19 +51,46 @@ public class MesaViewFrame extends JFrame {
             jTableProductos.setModel(servidos);
 
             if (mesa.getIdOrden() == 0) {
-                jLabelEstado.setText("<html><b style=\"color:green;\">Disponible</b></html>");
-                jLabelIdOrden.setText("");
+                setDisponible();
             } else {
-                jLabelEstado.setText("<html><b style=\"color:red;\">Ocupada</b></html>");
-                jLabelIdOrden.setText(mesa.getIdOrden() + "");
+                //setOcupada(mesa);//TODO
             }
 
             setBtnActions();
 
         }
 
+        private void setOcupada(Orden orden) {
+            jLabelEstado.setText("<html><b style=\"color:red;\">Ocupada</b></html>");
+            jLabelIdOrden.setText(orden.getIdOrden() + "");
+
+            jButtonCobrar.setEnabled(true);
+            jButtonCerrarMesa.setEnabled(true);
+            jButtonAbrir.setEnabled(false);
+        }
+
+        private void setDisponible() {
+            jLabelEstado.setText("<html><b style=\"color:green;\">Disponible</b></html>");
+            jLabelIdOrden.setText("");
+
+            jButtonCobrar.setEnabled(false);
+            jButtonCerrarMesa.setEnabled(false);
+            jButtonAbrir.setEnabled(true);
+        }
+
         void setBtnActions() {
             jButtonBack.addActionListener(e -> me.dispose());
+            jButtonAbrir.addActionListener(e -> {
+                Orden orden = new Orden();
+
+                if (OrdenDao.getInstance().insert(orden) > 0) {
+                    System.out.println("OK");
+                }
+
+                mesa.setIdOrden(orden.getIdOrden());
+                MesaDao.getInstance().update(mesa);
+
+            });
         }
 
     }

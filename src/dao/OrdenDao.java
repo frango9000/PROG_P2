@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,12 +41,66 @@ public final class OrdenDao implements Dao<Orden> {
     }
 
     @Override
+    public Orden query(int id) {
+        Orden orden = null;
+        String sql = "SELECT * FROM ordenes WHERE idOrden = '" + id + "'";
+        if (SessionDB.connect()) {
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql)) {
+                if (rs.next()) {
+                    orden = new Orden(rs.getInt(1), rs.getString(2), rs.getFloat(4));
+                    String cierre = rs.getString(3);
+                    if (!rs.wasNull()) {
+                        orden.setCierre(DateTimeFormat.dbStringToLocalDateTime(cierre));
+                    }
+                    ordenes.put(orden.getIdOrden(), orden);
+                    System.out.println(orden.toString());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
+            }
+        }
+        return orden;
+    }
+
+    @Override
+    public ArrayList<Orden> query(int... ids) {
+        ArrayList<Orden> ordenesTemp = new ArrayList<>();
+        if (SessionDB.connect() && ids.length > 0) {
+            StringBuilder sql = new StringBuilder("SELECT * FROM ordenes WERE idOrden IN( 0");
+            for (int id : ids) {
+                sql.append(", ").append(id);
+            }
+            sql.append(" )");
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql.toString())) {
+                while (rs.next()) {
+                    Orden orden = new Orden(rs.getInt(1), rs.getString(2), rs.getFloat(4));
+                    String cierre = rs.getString(3);
+                    if (!rs.wasNull()) {
+                        orden.setCierre(DateTimeFormat.dbStringToLocalDateTime(cierre));
+                    }
+                    ordenes.put(orden.getIdOrden(), orden);
+                    ordenesTemp.add(orden);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
+            } finally {
+                SessionDB.close();
+            }
+        }
+        return ordenesTemp;
+    }
+
+    @Override
     public HashMap<Integer, Orden> queryAll() {
         ordenes.clear();
         String sql = "SELECT * FROM ordenes";
         if (SessionDB.connect()) {
-            try (Statement ps = SessionDB.getConn().createStatement()) {
-                ResultSet rs = ps.executeQuery(sql);
+            try (Statement ps = SessionDB.getConn().createStatement();
+                    ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
                     Orden orden = new Orden(rs.getInt(1), rs.getString(2), rs.getFloat(4));
                     String cierre = rs.getString(3);
@@ -66,7 +121,30 @@ public final class OrdenDao implements Dao<Orden> {
 
     @Override
     public Orden get(int idOrden) {
-        return ordenes.get(idOrden);
+        if (ordenes.containsKey(idOrden)) {
+            return ordenes.get(idOrden);
+        } else {
+            return query(idOrden);
+        }
+
+    }
+
+    @Override
+    public ArrayList<Orden> get(int... ids) {
+        ArrayList<Orden> ordenesTemp = new ArrayList<>();
+        ArrayList<Integer> idsToQuery = new ArrayList<>();
+        for (int i = 0; i < ids.length; i++) {
+            if (ordenes.containsKey(ids[i])) {
+                ordenesTemp.add(ordenes.get(ids[i]));
+            } else {
+                idsToQuery.add(ids[i]);
+            }
+        }
+        if (idsToQuery.size() > 0) {
+            int[] ids2q = idsToQuery.stream().mapToInt(Integer::intValue).toArray();
+            ordenesTemp.addAll(query(ids2q));
+        }
+        return ordenesTemp;
     }
 
     @Override
@@ -85,10 +163,11 @@ public final class OrdenDao implements Dao<Orden> {
             pstmt.setFloat(3, orden.getTotal());
             rows = pstmt.executeUpdate();
 
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()) {
-                orden.setIdOrden(rs.getInt(1));
-                ordenes.put(orden.getIdOrden(), orden);
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    orden.setIdOrden(rs.getInt(1));
+                    ordenes.put(orden.getIdOrden(), orden);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
@@ -129,7 +208,6 @@ public final class OrdenDao implements Dao<Orden> {
         int rows = 0;
         try (Statement stmt = SessionDB.getConn().createStatement()) {
             rows = stmt.executeUpdate(sql);
-            System.out.println(sql);
         } catch (SQLException ex) {
             Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
         } finally {
