@@ -15,24 +15,37 @@ import src.dao.ProductoDao;
 import src.dao.ServidoDao;
 import src.gui.PanelPrincipalGui;
 import src.model.Orden;
+import src.model.Producto;
 
 /**
  *
  * @author NarF
  */
 public class PanelPrincipal extends PanelPrincipalGui {
+    public static ArrayList<Producto>[] productosCategorizados = new ArrayList[8];
 
     public PanelPrincipal() {
         initialQuery();
         setActions();
     }
 
-    private static void initialQuery() {
+    public static void initialQuery() {
         CategoriaDao.getInstance().queryAll();
         ProductoDao.getInstance().queryAll();
+        categorizarProductos();
         ArrayList<Orden> ordenesActivas = MesaDao.getInstance().getOrdenesActivas();
         ServidoDao.getInstance().query(ordenesActivas);
         MesaDao.getInstance().queryAll();
+    }
+    
+    public static void categorizarProductos(){
+        for (int i = 0; i < productosCategorizados.length; i++) {
+            productosCategorizados[i] = new ArrayList<>();
+        }
+        ProductoDao.getInstance().getAll().forEach((id, pro) -> {
+            if(pro.getIdCategoria() < 9 )
+                productosCategorizados[pro.getIdCategoria()-1].add(pro);
+        });
     }
 
     void setActions() {

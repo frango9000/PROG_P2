@@ -5,8 +5,14 @@
  */
 package src.control;
 
+import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import src.dao.MesaDao;
 import src.dao.OrdenDao;
 import src.dao.ServidoDao;
@@ -15,6 +21,7 @@ import src.gui.tablemodels.ProductosSimpleTableModel;
 import src.gui.tablemodels.ServidoSimpleTableModel;
 import src.model.Mesa;
 import src.model.Orden;
+import src.model.Producto;
 import src.model.Servido;
 
 /**
@@ -27,15 +34,18 @@ public class MesaViewFrame extends JFrame {
 
     private final ProductosSimpleTableModel productosModel = new ProductosSimpleTableModel();
     private final ServidoSimpleTableModel servidosModel = new ServidoSimpleTableModel();
-
+    
+    
+    
     public MesaViewFrame(Mesa mesa) {
         super();
         me = this;
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(mesa.getMesa());
-        setMinimumSize(new Dimension(200, 200));
+        setMinimumSize(new Dimension(650, 650));
 
         setContentPane(new PanelMesa(mesa));
+        
 
         pack();
         this.setLocationRelativeTo(null);
@@ -47,11 +57,13 @@ public class MesaViewFrame extends JFrame {
 
         public PanelMesa(Mesa mesa) {
             this.mesa = mesa;
-
             jLabelTitle.setText(mesa.getMesa());
+            
+            jPanelCenterLeft.add(jPanelTablaProductos);
+            jPanelTablaProductos.setVisible(false);
+            
 
             jTableServidos.setModel(servidosModel);
-
             jTableProductos.setModel(productosModel);
 
             if (mesa.getIdOrden() == 0) {
@@ -122,6 +134,24 @@ public class MesaViewFrame extends JFrame {
                 mesa.getOrden().getServidos().remove(servido);
                 servidosModel.deleteRow(selectedRow);
                 ServidoDao.getInstance().delete(servido);
+            });
+            
+            JButton[] cats = new JButton[] {jButtonCat0, jButtonCat1, jButtonCat2, jButtonCat3, jButtonCat4, jButtonCat5, jButtonCat6, jButtonCat7};
+            for(int i = 0;i<cats.length;i++){
+                final int n = i;
+                cats[i].addActionListener(e -> {
+                productosModel.clearTableModelData();
+                productosModel.addRows(PanelPrincipal.productosCategorizados[n]);
+                
+                jPanelCategoriasBtns.setVisible(false);
+                jPanelTablaProductos.setVisible(true);
+                    
+                });
+            }
+            
+            jButtonInicio.addActionListener(e -> {
+                jPanelTablaProductos.setVisible(false);
+                jPanelCategoriasBtns.setVisible(true);
             });
         }
 
