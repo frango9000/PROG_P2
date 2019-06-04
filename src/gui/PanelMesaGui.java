@@ -66,6 +66,8 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(0, 0));
 
+        jPanelMain.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         jPanelTop.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabelTitle.setFont(new java.awt.Font("Calibri", 1, 30)); // NOI18N
@@ -134,8 +136,6 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jLabelIdOrden.getAccessibleContext().setAccessibleDescription("");
         jLabelEstado.getAccessibleContext().setAccessibleDescription("");
 
-        jPanelButtons.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         jButtonCerrarMesa.setText("<html><p style=\"text-align:center;\">CERRAR<br>MESA</p></html>");
         jButtonCerrarMesa.setPreferredSize(new java.awt.Dimension(100, 40));
 
@@ -158,7 +158,7 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jButtonAbrir, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonCobrar, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addComponent(jButtonCobrar, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonCerrarMesa, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                 .addContainerGap())

@@ -35,7 +35,7 @@ public class MesaViewFrame extends JFrame {
         me = this;
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(mesa.getMesa());
-        setMinimumSize(new Dimension(650, 650));
+        setMinimumSize(new Dimension(550, 550));
 
         setContentPane(new PanelMesa(mesa));
 
