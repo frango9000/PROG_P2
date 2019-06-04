@@ -28,16 +28,16 @@ public final class OrdenDao extends AbstractDao<Orden> {
      */
     private static OrdenDao dao;
 
-    private OrdenDao() {
-        TABLE_NAME = "ordenes";
-        ID_COL_NAME = "idOrden";
-    }
-
     public static synchronized OrdenDao getInstance() {
         if (dao == null) {
             dao = new OrdenDao();
         }
         return dao;
+    }
+
+    private OrdenDao() {
+        TABLE_NAME = "ordenes";
+        ID_COL_NAME = "idOrden";
     }
 
     @Override

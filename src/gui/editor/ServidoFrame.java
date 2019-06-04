@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import src.dao.ServidoDao;
 import src.model.Servido;
-import src.model.StaticHelpers;
+import src.control.helpers.StaticHelpers;
 
 /**
  *

@@ -37,6 +37,7 @@ public class MenuBarGui extends JMenuBar {
         jMenuVer = new javax.swing.JMenu();
         jMenuItemMesas = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuEditar = new javax.swing.JMenu();
         jMenuItemEditMesas = new javax.swing.JMenuItem();
         jMenuItemEditProductos = new javax.swing.JMenuItem();
@@ -44,6 +45,7 @@ public class MenuBarGui extends JMenuBar {
         jMenuItemEditOrdenes = new javax.swing.JMenuItem();
         jMenuItemEditServidos = new javax.swing.JMenuItem();
         jMenuMas = new javax.swing.JMenu();
+        jMenuItemLimpiarCache = new javax.swing.JMenuItem();
         jMenuItemInformacion = new javax.swing.JMenuItem();
 
         jMenuInicio.setText("Inicio");
@@ -90,6 +92,10 @@ public class MenuBarGui extends JMenuBar {
 
         jMenuMas.setText("Mas");
 
+        jMenuItemLimpiarCache.setText("Liberar Memoria");
+        jMenuMas.add(jMenuItemLimpiarCache);
+        jMenuEditar.add(jSeparator3);
+
         jMenuItemInformacion.setText("Informacion");
         jMenuMas.add(jMenuItemInformacion);
 
@@ -106,6 +112,7 @@ public class MenuBarGui extends JMenuBar {
     protected javax.swing.JMenuItem jMenuItemEditOrdenes;
     protected javax.swing.JMenuItem jMenuItemEditProductos;
     protected javax.swing.JMenuItem jMenuItemEditServidos;
+    protected javax.swing.JMenuItem jMenuItemLimpiarCache;
     protected javax.swing.JMenuItem jMenuItemInformacion;
     protected javax.swing.JMenuItem jMenuItemMesas;
     protected javax.swing.JMenuItem jMenuItemNueva;
@@ -114,5 +121,6 @@ public class MenuBarGui extends JMenuBar {
     public static javax.swing.JMenu jMenuVer;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     // End of variables declaration                   
 }

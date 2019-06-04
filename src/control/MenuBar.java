@@ -5,6 +5,8 @@
  */
 package src.control;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import static src.control.MainFrame.*;
 import src.gui.MenuBarGui;
 
@@ -29,6 +31,10 @@ public class MenuBar extends MenuBarGui {
         jMenuItemEditProductos.addActionListener(e -> setCard(EDITPRODUCTOS));
         jMenuItemEditOrdenes.addActionListener(e -> setCard(EDITORDENES));
         jMenuItemEditServidos.addActionListener(e -> setCard(EDITSERVIDOS));
+        jMenuItemLimpiarCache.addActionListener(e -> {
+            PanelPrincipal.clearMemory();
+            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), "Cache eliminado", "Limpiando", JOptionPane.INFORMATION_MESSAGE);
+        });
     }
 
 }

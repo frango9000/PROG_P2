@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import src.dao.MesaDao;
 import src.model.Mesa;
-import src.model.StaticHelpers;
+import src.control.helpers.StaticHelpers;
 //import src.model.BiblioSQL;
 
 /**

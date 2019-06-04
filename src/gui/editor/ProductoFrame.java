@@ -11,7 +11,7 @@ import src.dao.CategoriaDao;
 import src.dao.ProductoDao;
 import src.model.Categoria;
 import src.model.Producto;
-import src.model.StaticHelpers;
+import src.control.helpers.StaticHelpers;
 
 /**
  *

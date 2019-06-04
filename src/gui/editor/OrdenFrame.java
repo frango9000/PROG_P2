@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import src.dao.OrdenDao;
 import src.model.DateTimeFormat;
 import src.model.Orden;
-import src.model.StaticHelpers;
+import src.control.helpers.StaticHelpers;
 
 /**
  *

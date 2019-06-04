@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import src.gui.LoadPanelGui;
 import src.model.SessionDB;
-import src.model.StaticHelpers;
+import src.control.helpers.StaticHelpers;
 
 /**
  *
