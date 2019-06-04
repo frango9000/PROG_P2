@@ -54,6 +54,9 @@ public class MesaViewFrame extends JFrame {
             jPanelCenterLeft.add(jPanelTablaProductos);
             jPanelTablaProductos.setVisible(false);
             jButtonAgregar.setEnabled(false);
+            jButtonAgregar.setBackground(PanelPrincipal.COLOR_DISPONIBLE);
+            jButtonQuitar.setBackground(PanelPrincipal.COLOR_OCUPADA);
+            jButtonLimpiarCuenta.setBackground(PanelPrincipal.COLOR_WARNING_RED);
 
             jTableServidos.setModel(servidosModel);
             jTableProductos.setModel(productosModel);
@@ -112,17 +115,15 @@ public class MesaViewFrame extends JFrame {
 
             jButtonAbrir.addActionListener(e -> {
                 Orden orden = new Orden();
-                SessionDB.setAutoclose(false);
-                if (OrdenDao.getInstance().insert(orden) > 0) {
-                    System.out.println("Nueva orden OK " + orden.getIdOrden());
-                }
 
+                SessionDB.setAutoclose(false);
+                OrdenDao.getInstance().insert(orden);
                 mesa.setIdOrden(orden.getIdOrden());
                 mesa.setOrden(orden);
                 MesaDao.getInstance().update(mesa);
                 SessionDB.setAutoclose(true);
-                setOcupada(orden);
 
+                setOcupada(orden);
                 if (jPanelTablaProductos.isVisible()) {
                     jButtonAgregar.setEnabled(true);
                     jTableProductos.setRowSelectionInterval(0, 0);
@@ -131,12 +132,14 @@ public class MesaViewFrame extends JFrame {
             });
 
             jButtonCerrarMesa.addActionListener(e -> {
+
+                SessionDB.setAutoclose(false);
                 mesa.getOrden().cerrarOrden();
                 OrdenDao.getInstance().update(mesa.getOrden());
-
                 mesa.setOrden(null);
                 mesa.setIdOrden(0);
                 MesaDao.getInstance().update(mesa);
+                SessionDB.setAutoclose(true);
 
                 setDisponible();
 

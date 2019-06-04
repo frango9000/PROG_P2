@@ -138,11 +138,12 @@ public final class SessionDB {
      */
     public static void setAutoclose(boolean autoclose) {
         if (autoclose) {
+            SessionDB.autoclose = autoclose;
             close();
         } else {
             connect();
+            SessionDB.autoclose = autoclose;
         }
-        SessionDB.autoclose = autoclose;
         if (MainFrame.SQL_CONN) {
             System.out.println("Autoclose? " + autoclose);
         }

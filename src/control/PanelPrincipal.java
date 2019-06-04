@@ -31,9 +31,10 @@ public class PanelPrincipal extends PanelPrincipalGui {
     private static List<JButton> listaMesasButtons;
 
     public static final Color COLOR_DISPONIBLE = new Color(168, 230, 207);
-    public static final Color COLOR_OCUPADA = new Color(255, 211, 182);
-    public static final Color COLOR_FONT_DISPONIBLE = new Color(255, 211, 182);// @TODO ajsutar colores
+    public static final Color COLOR_OCUPADA = new Color(227, 128, 74);
+    public static final Color COLOR_FONT_DISPONIBLE = new Color(151, 184, 88);// @TODO ajsutar colores
     public static final Color COLOR_FONT_OCUPADA = new Color(168, 230, 207);
+    public static final Color COLOR_WARNING_RED = new Color(219, 102, 81);
 
     public PanelPrincipal() {
         listaMesasButtons = Arrays.asList(mesa1, mesa2, mesa3, mesa4, mesa5, mesa6, mesa7, mesa8,
