@@ -17,6 +17,7 @@ import src.dao.ServidoDao;
 import src.gui.PanelPrincipalGui;
 import src.model.Orden;
 import src.model.Producto;
+import src.model.SessionDB;
 
 /**
  *
@@ -32,12 +33,14 @@ public class PanelPrincipal extends PanelPrincipalGui {
     }
 
     public static void initialQuery() {
+        SessionDB.setAutoclose(false);
         CategoriaDao.getInstance().queryAll();
         ProductoDao.getInstance().queryAll();
         categorizarProductos();
         ArrayList<Orden> ordenesActivas = MesaDao.getInstance().getOrdenesActivas();
         ServidoDao.getInstance().query(ordenesActivas);
         MesaDao.getInstance().queryAll();
+        SessionDB.setAutoclose(true);
     }
 
     public static void categorizarProductos() {

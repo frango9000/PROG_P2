@@ -36,7 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public static boolean DEBUG = true;
     public static boolean SQL_DEBUG = true;
-    public static boolean SQL_CONN = false;
+    public static boolean SQL_CONN = true;
 
     private static MenuBar menu;
 

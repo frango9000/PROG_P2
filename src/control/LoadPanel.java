@@ -44,7 +44,7 @@ public class LoadPanel extends LoadPanelGui {
 
         jTextFieldBrowse.setText(System.getProperty("user.dir") + "/src/src/resources");
     }
-    
+
     void setButtonActions() {
         jBtnBrowse.addActionListener(e -> {
             chooser.setCurrentDirectory(new File(jTextFieldBrowse.getText()));

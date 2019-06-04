@@ -27,6 +27,7 @@ public final class SessionDB {
     private static Connection conn;
     private static String dbUrl = "jdbc:sqlite:" + "src/src/resources/host.db";
     private static File dbFile = new File(dbUrl.substring(12));
+    private static boolean autoclose = true;
 
     private SessionDB() {
     }
@@ -76,13 +77,13 @@ public final class SessionDB {
     public static boolean connect() {
         boolean success = false;
         try {
-            if (conn == null || (conn != null || conn.isClosed())) {
+            if (conn == null ||  conn.isClosed()) {
                 conn = DriverManager.getConnection(dbUrl);
                 if (MainFrame.SQL_CONN) {
                     System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
                 }
             } else {
-                if (MainFrame.SQL_CONN) {
+                if (MainFrame.SQL_CONN && autoclose) {
                     System.out.println("Connection to " + conn.getMetaData().getDriverName() + " already active.");
                 }
             }
@@ -98,19 +99,26 @@ public final class SessionDB {
      */
     public static void close() {
         try {
-            if (conn != null || !conn.isClosed()) {
-                conn.close();
-                if (MainFrame.SQL_CONN) {
-                    System.out.println("Connection has been closed.");
-                }
-            } else {
-                if (MainFrame.SQL_CONN) {
-                    System.out.println("Connection was already closed.");
+            if (autoclose) {
+                if (conn != null || !conn.isClosed()) {
+                    conn.close();
+                    if (MainFrame.SQL_CONN) {
+                        System.out.println("Connection has been closed.");
+                    }
+                } else {
+                    if (MainFrame.SQL_CONN) {
+                        System.out.println("Connection was already closed.");
+                    }
                 }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public static void setAutoclose(boolean autoclose) {
+        SessionDB.autoclose = autoclose;
+        if(autoclose)close();
     }
 
     /**

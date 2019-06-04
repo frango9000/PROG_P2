@@ -66,8 +66,6 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(600, 600));
 
-        jPanelMain.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         jPanelTop.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabelTitle.setFont(new java.awt.Font("Georgia", 1, 36)); // NOI18N
@@ -186,8 +184,6 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jButtonCobrar.getAccessibleContext().setAccessibleDescription("");
         jButtonBack.getAccessibleContext().setAccessibleDescription("");
         jButtonAbrir.getAccessibleContext().setAccessibleDescription("");
-
-        jPanelCenter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jButtonLimpiarCuenta.setText("<html><p style=\"text-align:center;\">Limpiar<br>Cuenta</p></html>");
 
@@ -419,12 +415,15 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jPanelCenterLayout.setVerticalGroup(
             jPanelCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCenterLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
                 .addGroup(jPanelCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelCenterRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelCenterLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelCenterLayout.createSequentialGroup()
-                        .addComponent(jButtonInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanelCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelCenterRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanelCenterLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelCenterLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonAgregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -434,7 +433,7 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanelCenterLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonAgregar, jButtonInicio, jButtonLimpiarCuenta, jButtonQuitar});
+        jPanelCenterLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonAgregar, jButtonLimpiarCuenta, jButtonQuitar});
 
         jPanelCenterLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanelCenterLeft, jPanelCenterRight});
 
