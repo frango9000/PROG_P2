@@ -33,8 +33,8 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jLabelIdOrdenTag = new javax.swing.JLabel();
         jLabelIdOrden = new javax.swing.JLabel();
         jLabelEstado = new javax.swing.JLabel();
-        jLabelIdOrdenTag1 = new javax.swing.JLabel();
-        jLabelIdOrden1 = new javax.swing.JLabel();
+        jLabelIdTotalTag = new javax.swing.JLabel();
+        jLabelTotal = new javax.swing.JLabel();
         jPanelButtons = new javax.swing.JPanel();
         jButtonCerrarMesa = new javax.swing.JButton();
         jButtonCobrar = new javax.swing.JButton();
@@ -42,10 +42,6 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jButtonAbrir = new javax.swing.JButton();
         jPanelCenter = new javax.swing.JPanel();
         jPanelCenterLeft = new javax.swing.JPanel();
-        jPanelTablaProductos = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableProductos = new javax.swing.JTable();
-        jButtonInicio = new javax.swing.JButton();
         jPanelCategoriasBtns = new javax.swing.JPanel();
         jButtonCat0 = new javax.swing.JButton();
         jButtonCat2 = new javax.swing.JButton();
@@ -55,6 +51,10 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jButtonCat5 = new javax.swing.JButton();
         jButtonCat3 = new javax.swing.JButton();
         jButtonCat1 = new javax.swing.JButton();
+        jPanelTablaProductos = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableProductos = new javax.swing.JTable();
+        jButtonInicio = new javax.swing.JButton();
         jPanelCenterRight = new javax.swing.JPanel();
         jPanelTablaServidos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -87,12 +87,12 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jLabelEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelEstado.setText("<estado>");
 
-        jLabelIdOrdenTag1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelIdOrdenTag1.setText("Total:");
+        jLabelIdTotalTag.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelIdTotalTag.setText("Total:");
 
-        jLabelIdOrden1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabelIdOrden1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelIdOrden1.setText("<0000>");
+        jLabelTotal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabelTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTotal.setText("<0000>");
 
         javax.swing.GroupLayout jPanelTopLayout = new javax.swing.GroupLayout(jPanelTop);
         jPanelTop.setLayout(jPanelTopLayout);
@@ -109,8 +109,8 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
                     .addComponent(jLabelEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelIdOrdenTag1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelIdOrden1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                    .addComponent(jLabelIdTotalTag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelTopLayout.setVerticalGroup(
@@ -127,9 +127,9 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelIdOrden))
                     .addGroup(jPanelTopLayout.createSequentialGroup()
-                        .addComponent(jLabelIdOrdenTag1)
+                        .addComponent(jLabelIdTotalTag)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelIdOrden1)))
+                        .addComponent(jLabelTotal)))
                 .addContainerGap())
         );
 
@@ -184,45 +184,6 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jButtonAbrir.getAccessibleContext().setAccessibleDescription("");
 
         jPanelCenterLeft.setMinimumSize(new java.awt.Dimension(198, 240));
-
-        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTableProductos);
-        jTableProductos.getAccessibleContext().setAccessibleDescription("");
-
-        jButtonInicio.setText("Inicio");
-
-        javax.swing.GroupLayout jPanelTablaProductosLayout = new javax.swing.GroupLayout(jPanelTablaProductos);
-        jPanelTablaProductos.setLayout(jPanelTablaProductosLayout);
-        jPanelTablaProductosLayout.setHorizontalGroup(
-            jPanelTablaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTablaProductosLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(jPanelTablaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jButtonInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanelTablaProductosLayout.setVerticalGroup(
-            jPanelTablaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTablaProductosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jButtonInicio.getAccessibleContext().setAccessibleDescription("");
 
         jButtonCat0.setText("Bebidas");
         jButtonCat0.setMinimumSize(new java.awt.Dimension(90, 0));
@@ -322,6 +283,45 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jButtonCat5.getAccessibleContext().setAccessibleDescription("");
         jButtonCat3.getAccessibleContext().setAccessibleDescription("");
         jButtonCat1.getAccessibleContext().setAccessibleDescription("");
+
+        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableProductos);
+        jTableProductos.getAccessibleContext().setAccessibleDescription("");
+
+        jButtonInicio.setText("Inicio");
+
+        javax.swing.GroupLayout jPanelTablaProductosLayout = new javax.swing.GroupLayout(jPanelTablaProductos);
+        jPanelTablaProductos.setLayout(jPanelTablaProductosLayout);
+        jPanelTablaProductosLayout.setHorizontalGroup(
+            jPanelTablaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTablaProductosLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanelTablaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButtonInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelTablaProductosLayout.setVerticalGroup(
+            jPanelTablaProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTablaProductosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jButtonInicio.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout jPanelCenterLeftLayout = new javax.swing.GroupLayout(jPanelCenterLeft);
         jPanelCenterLeft.setLayout(jPanelCenterLeftLayout);
@@ -512,10 +512,10 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
     protected javax.swing.JButton jButtonQuitar;
     protected javax.swing.JLabel jLabelEstado;
     protected javax.swing.JLabel jLabelIdOrden;
-    protected javax.swing.JLabel jLabelIdOrden1;
     private javax.swing.JLabel jLabelIdOrdenTag;
-    private javax.swing.JLabel jLabelIdOrdenTag1;
+    private javax.swing.JLabel jLabelIdTotalTag;
     protected javax.swing.JLabel jLabelTitle;
+    protected javax.swing.JLabel jLabelTotal;
     private javax.swing.JPanel jPanelButtons;
     protected javax.swing.JPanel jPanelCategoriasBtns;
     private javax.swing.JPanel jPanelCenter;

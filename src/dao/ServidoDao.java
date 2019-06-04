@@ -186,6 +186,31 @@ public final class ServidoDao extends AbstractDao<Servido> {
         return rows;
     }
 
+    public int deleteSome(ArrayList<Servido> toDelete) {
+        int rows = 0;
+        if (SessionDB.connect() && toDelete.size() > 0) {
+            StringBuilder sql = new StringBuilder("DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN( 0");
+            for (Servido servido : toDelete) {
+                sql.append(", ").append(servido.getIdServido());
+            }
+            sql.append(" )");
+            try (Statement ps = SessionDB.getConn().createStatement()) {
+                rows = ps.executeUpdate(sql.toString());
+                toDelete.forEach(e -> {
+                    table.remove(e.getId());
+                });
+                if (MainFrame.SQL_DEBUG) {
+                    System.out.println(sql);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
+            } finally {
+                SessionDB.close();
+            }
+        }
+        return rows;
+    }
+
     public ArrayList<Servido> query(Orden orden) {
         ArrayList<Servido> servidosOf = new ArrayList<>();
         if (SessionDB.connect()) {
