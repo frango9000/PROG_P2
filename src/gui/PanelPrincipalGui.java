@@ -58,9 +58,9 @@ public abstract class PanelPrincipalGui extends javax.swing.JPanel {
         extra2 = new javax.swing.JButton();
         extra3 = new javax.swing.JButton();
         extra4 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         extra5 = new javax.swing.JButton();
         extra6 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -299,14 +299,14 @@ public abstract class PanelPrincipalGui extends javax.swing.JPanel {
         extra4.setText("E4");
         extra4.setPreferredSize(new java.awt.Dimension(50, 40));
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("EXTRA");
-
-        extra5.setText("E4");
+        extra5.setText("E5");
         extra5.setPreferredSize(new java.awt.Dimension(50, 40));
 
-        extra6.setText("E4");
+        extra6.setText("E6");
         extra6.setPreferredSize(new java.awt.Dimension(50, 40));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("EXTRA");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -429,16 +429,16 @@ public abstract class PanelPrincipalGui extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    protected javax.swing.JButton barra1;
-    protected javax.swing.JButton barra2;
-    protected javax.swing.JButton barra3;
-    protected javax.swing.JButton barra4;
-    protected javax.swing.JButton extra1;
-    protected javax.swing.JButton extra2;
-    protected javax.swing.JButton extra3;
-    protected javax.swing.JButton extra4;
-    protected javax.swing.JButton extra5;
-    protected javax.swing.JButton extra6;
+    protected static javax.swing.JButton barra1;
+    protected static javax.swing.JButton barra2;
+    protected static javax.swing.JButton barra3;
+    protected static javax.swing.JButton barra4;
+    protected static javax.swing.JButton extra1;
+    protected static javax.swing.JButton extra2;
+    protected static javax.swing.JButton extra3;
+    protected static javax.swing.JButton extra4;
+    protected static javax.swing.JButton extra5;
+    protected static javax.swing.JButton extra6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -451,17 +451,17 @@ public abstract class PanelPrincipalGui extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator2;
-    protected javax.swing.JButton mesa1;
-    protected javax.swing.JButton mesa2;
-    protected javax.swing.JButton mesa3;
-    protected javax.swing.JButton mesa4;
-    protected javax.swing.JButton mesa5;
-    protected javax.swing.JButton mesa6;
-    protected javax.swing.JButton mesa7;
-    protected javax.swing.JButton mesa8;
-    protected javax.swing.JButton terraza1;
-    protected javax.swing.JButton terraza2;
-    protected javax.swing.JButton terraza3;
-    protected javax.swing.JButton terraza4;
+    protected static javax.swing.JButton mesa1;
+    protected static javax.swing.JButton mesa2;
+    protected static javax.swing.JButton mesa3;
+    protected static javax.swing.JButton mesa4;
+    protected static javax.swing.JButton mesa5;
+    protected static javax.swing.JButton mesa6;
+    protected static javax.swing.JButton mesa7;
+    protected static javax.swing.JButton mesa8;
+    protected static javax.swing.JButton terraza1;
+    protected static javax.swing.JButton terraza2;
+    protected static javax.swing.JButton terraza3;
+    protected static javax.swing.JButton terraza4;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package src.control;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,9 +28,21 @@ public class PanelPrincipal extends PanelPrincipalGui {
 
     public static ArrayList<Producto>[] productosCategorizados = new ArrayList[8];
 
+    private static List<JButton> listaMesasButtons;
+
+    public static final Color COLOR_DISPONIBLE = new Color(168, 230, 207);
+    public static final Color COLOR_OCUPADA = new Color(255, 211, 182);
+    public static final Color COLOR_FONT_DISPONIBLE = new Color(255, 211, 182);// @TODO ajsutar colores
+    public static final Color COLOR_FONT_OCUPADA = new Color(168, 230, 207);
+
     public PanelPrincipal() {
+        listaMesasButtons = Arrays.asList(mesa1, mesa2, mesa3, mesa4, mesa5, mesa6, mesa7, mesa8,
+                barra1, barra2, barra3, barra4,
+                terraza1, terraza2, terraza3, terraza4,
+                extra1, extra2, extra3, extra4, extra5, extra6);
         initialQuery();
         setActions();
+        colorMesas();
     }
 
     public static void initialQuery() {
@@ -64,15 +77,26 @@ public class PanelPrincipal extends PanelPrincipalGui {
         initialQuery();
     }
 
-    void setActions() {
-        List<JButton> listaMesas = Arrays.asList(mesa1, mesa2, mesa3, mesa4, mesa5, mesa6, mesa7, mesa8, barra1, barra2, barra3, barra4, terraza1, terraza2, terraza3, terraza4, extra1, extra2, extra3, extra4, extra5, extra6);
-        for (int i = 0; i < listaMesas.size(); i++) {
+    private static void setActions() {
+        for (int i = 0; i < listaMesasButtons.size(); i++) {
             final int k = i;
-            listaMesas.get(i).addActionListener(e -> {
+            listaMesasButtons.get(i).addActionListener(e -> {
                 java.awt.EventQueue.invokeLater(() -> {
                     new MesaViewFrame(MesaDao.getInstance().get(k + 1)).setVisible(true);
                 });
             });
         }
     }
+
+    public static void colorMesas() {
+        for (int i = 0; i < listaMesasButtons.size(); i++) {
+            if (MesaDao.getInstance().getAll().get(i + 1).getIdOrden() == 0) {
+                listaMesasButtons.get(i).setBackground(COLOR_DISPONIBLE);
+            } else {
+                listaMesasButtons.get(i).setBackground(COLOR_OCUPADA);
+            }
+        }
+
+    }
+
 }

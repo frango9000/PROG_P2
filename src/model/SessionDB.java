@@ -77,7 +77,7 @@ public final class SessionDB {
     public static boolean connect() {
         boolean success = false;
         try {
-            if (conn == null ||  conn.isClosed()) {
+            if (conn == null || conn.isClosed()) {
                 conn = DriverManager.getConnection(dbUrl);
                 if (MainFrame.SQL_CONN) {
                     System.out.println("Connection to " + conn.getMetaData().getDriverName() + " has been established.");
@@ -118,7 +118,9 @@ public final class SessionDB {
 
     public static void setAutoclose(boolean autoclose) {
         SessionDB.autoclose = autoclose;
-        if(autoclose)close();
+        if (autoclose) {
+            close();
+        }
     }
 
     /**

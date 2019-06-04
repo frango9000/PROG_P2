@@ -68,7 +68,9 @@ public class MesaViewFrame extends JFrame {
         }
 
         private void setOcupada(Orden orden) {
-            jLabelEstado.setText("<html><b style=\"color:red;\">Ocupada</b></html>");
+            jLabelEstado.setText("Ocupada");
+            jLabelEstado.setForeground(PanelPrincipal.COLOR_FONT_OCUPADA);
+            jPanelTop.setBackground(PanelPrincipal.COLOR_OCUPADA);
             jLabelIdOrden.setText(orden == null ? "" : orden.getId() + "");
             System.out.println(orden);
 
@@ -86,7 +88,9 @@ public class MesaViewFrame extends JFrame {
         }
 
         private void setDisponible() {
-            jLabelEstado.setText("<html><b style=\"color:green;\">Disponible</b></html>");
+            jLabelEstado.setText("Disponible");
+            jLabelEstado.setForeground(PanelPrincipal.COLOR_FONT_DISPONIBLE);
+            jPanelTop.setBackground(PanelPrincipal.COLOR_DISPONIBLE);
             jLabelIdOrden.setText("");
             servidosModel.clearTableModelData();
 

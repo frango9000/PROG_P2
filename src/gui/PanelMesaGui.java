@@ -520,7 +520,7 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelMain;
     protected javax.swing.JPanel jPanelTablaProductos;
     private javax.swing.JPanel jPanelTablaServidos;
-    private javax.swing.JPanel jPanelTop;
+    protected javax.swing.JPanel jPanelTop;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     protected javax.swing.JTable jTableProductos;
