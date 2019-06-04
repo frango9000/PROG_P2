@@ -2,6 +2,9 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[530, 460]"/>
+    </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[0, 0]"/>
     </Property>
@@ -218,13 +221,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonBack" pref="105" max="32767" attributes="0"/>
+                      <Component id="jButtonBack" pref="110" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonAbrir" pref="105" max="32767" attributes="0"/>
+                      <Component id="jButtonAbrir" pref="107" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonCobrar" pref="107" max="32767" attributes="0"/>
+                      <Component id="jButtonCobrar" pref="109" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonCerrarMesa" pref="108" max="32767" attributes="0"/>
+                      <Component id="jButtonCerrarMesa" pref="110" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -314,7 +317,7 @@
                       <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       <Component id="jPanelCenterBtns" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanelCenterRight" max="32767" attributes="0"/>
+                      <Component id="jPanelCenterRight" pref="203" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -325,7 +328,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanelCenterBtns" alignment="0" max="32767" attributes="0"/>
                           <Component id="jPanelCenterLeft" max="32767" attributes="0"/>
-                          <Component id="jPanelCenterRight" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jPanelCenterRight" alignment="0" pref="247" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -370,7 +373,7 @@
                               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jButtonInicio" max="32767" attributes="0"/>
+                                  <Component id="jButtonInicio" pref="192" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -380,7 +383,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="181" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonInicio" min="-2" pref="48" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -441,14 +444,14 @@
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jButtonCat4" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jButtonCat2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jButtonCat2" alignment="0" pref="93" max="32767" attributes="0"/>
                                   <Component id="jButtonCat0" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButtonCat6" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jButtonCat1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jButtonCat5" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jButtonCat5" alignment="0" pref="93" max="32767" attributes="0"/>
                                   <Component id="jButtonCat3" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButtonCat7" alignment="1" max="32767" attributes="0"/>
                               </Group>
@@ -461,22 +464,22 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButtonCat0" max="32767" attributes="0"/>
+                                  <Component id="jButtonCat0" pref="54" max="32767" attributes="0"/>
                                   <Component id="jButtonCat1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButtonCat2" max="32767" attributes="0"/>
+                                  <Component id="jButtonCat2" pref="55" max="32767" attributes="0"/>
                                   <Component id="jButtonCat3" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButtonCat4" max="32767" attributes="0"/>
+                                  <Component id="jButtonCat4" pref="55" max="32767" attributes="0"/>
                                   <Component id="jButtonCat5" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButtonCat6" max="32767" attributes="0"/>
+                                  <Component id="jButtonCat6" pref="53" max="32767" attributes="0"/>
                                   <Component id="jButtonCat7" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -722,7 +725,7 @@
                           <Component id="jButtonAgregar" linkSize="33" min="-2" pref="70" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButtonQuitar" linkSize="33" min="-2" pref="70" max="-2" attributes="0"/>
-                          <EmptySpace pref="22" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jButtonLimpiarCuenta" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
