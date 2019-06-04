@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JButton;
 import src.dao.CategoriaDao;
 import src.dao.MesaDao;
+import src.dao.OrdenDao;
 import src.dao.ProductoDao;
 import src.dao.ServidoDao;
 import src.gui.PanelPrincipalGui;
@@ -22,6 +23,7 @@ import src.model.Producto;
  * @author NarF
  */
 public class PanelPrincipal extends PanelPrincipalGui {
+
     public static ArrayList<Producto>[] productosCategorizados = new ArrayList[8];
 
     public PanelPrincipal() {
@@ -37,15 +39,26 @@ public class PanelPrincipal extends PanelPrincipalGui {
         ServidoDao.getInstance().query(ordenesActivas);
         MesaDao.getInstance().queryAll();
     }
-    
-    public static void categorizarProductos(){
+
+    public static void categorizarProductos() {
         for (int i = 0; i < productosCategorizados.length; i++) {
             productosCategorizados[i] = new ArrayList<>();
         }
         ProductoDao.getInstance().getAll().forEach((id, pro) -> {
-            if(pro.getIdCategoria() < 9 )
-                productosCategorizados[pro.getIdCategoria()-1].add(pro);
+            if (pro.getIdCategoria() < 9) {
+                productosCategorizados[pro.getIdCategoria() - 1].add(pro);
+            }
         });
+    }
+
+    public static void clearMemory() {
+        CategoriaDao.getInstance().getAll().clear();
+        ProductoDao.getInstance().getAll().clear();
+        OrdenDao.getInstance().getAll().clear();
+        ServidoDao.getInstance().getAll().clear();
+        MesaDao.getInstance().getAll().clear();
+        System.gc();
+        initialQuery();
     }
 
     void setActions() {

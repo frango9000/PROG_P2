@@ -5,14 +5,9 @@
  */
 package src.control;
 
-import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import src.dao.MesaDao;
 import src.dao.OrdenDao;
 import src.dao.ServidoDao;
@@ -34,9 +29,7 @@ public class MesaViewFrame extends JFrame {
 
     private final ProductosSimpleTableModel productosModel = new ProductosSimpleTableModel();
     private final ServidoSimpleTableModel servidosModel = new ServidoSimpleTableModel();
-    
-    
-    
+
     public MesaViewFrame(Mesa mesa) {
         super();
         me = this;
@@ -45,7 +38,6 @@ public class MesaViewFrame extends JFrame {
         setMinimumSize(new Dimension(650, 650));
 
         setContentPane(new PanelMesa(mesa));
-        
 
         pack();
         this.setLocationRelativeTo(null);
@@ -58,10 +50,9 @@ public class MesaViewFrame extends JFrame {
         public PanelMesa(Mesa mesa) {
             this.mesa = mesa;
             jLabelTitle.setText(mesa.getMesa());
-            
+
             jPanelCenterLeft.add(jPanelTablaProductos);
             jPanelTablaProductos.setVisible(false);
-            
 
             jTableServidos.setModel(servidosModel);
             jTableProductos.setModel(productosModel);
@@ -83,6 +74,10 @@ public class MesaViewFrame extends JFrame {
 
             jButtonCobrar.setEnabled(true);
             jButtonCerrarMesa.setEnabled(true);
+            jButtonLimpiarCuenta.setEnabled(true);
+            jButtonQuitar.setEnabled(true);
+            jButtonAgregar.setEnabled(true);
+
             jButtonAbrir.setEnabled(false);
 
             servidosModel.clearTableModelData();
@@ -97,6 +92,10 @@ public class MesaViewFrame extends JFrame {
 
             jButtonCobrar.setEnabled(false);
             jButtonCerrarMesa.setEnabled(false);
+            jButtonLimpiarCuenta.setEnabled(false);
+            jButtonQuitar.setEnabled(false);
+            jButtonAgregar.setEnabled(false);
+
             jButtonAbrir.setEnabled(true);
         }
 
@@ -125,7 +124,6 @@ public class MesaViewFrame extends JFrame {
                 MesaDao.getInstance().update(mesa);
 
                 setDisponible();
-
             });
 
             jButtonQuitar.addActionListener(e -> {
@@ -135,23 +133,30 @@ public class MesaViewFrame extends JFrame {
                 servidosModel.deleteRow(selectedRow);
                 ServidoDao.getInstance().delete(servido);
             });
-            
-            JButton[] cats = new JButton[] {jButtonCat0, jButtonCat1, jButtonCat2, jButtonCat3, jButtonCat4, jButtonCat5, jButtonCat6, jButtonCat7};
-            for(int i = 0;i<cats.length;i++){
+
+            JButton[] cats = new JButton[]{jButtonCat0, jButtonCat1, jButtonCat2, jButtonCat3, jButtonCat4, jButtonCat5, jButtonCat6, jButtonCat7};
+            for (int i = 0; i < cats.length; i++) {
                 final int n = i;
                 cats[i].addActionListener(e -> {
-                productosModel.clearTableModelData();
-                productosModel.addRows(PanelPrincipal.productosCategorizados[n]);
-                
-                jPanelCategoriasBtns.setVisible(false);
-                jPanelTablaProductos.setVisible(true);
-                    
+                    productosModel.clearTableModelData();
+                    productosModel.addRows(PanelPrincipal.productosCategorizados[n]);
+
+                    jPanelCategoriasBtns.setVisible(false);
+                    jPanelTablaProductos.setVisible(true);
                 });
             }
-            
+
             jButtonInicio.addActionListener(e -> {
                 jPanelTablaProductos.setVisible(false);
                 jPanelCategoriasBtns.setVisible(true);
+            });
+
+            jButtonAgregar.addActionListener(e -> {
+                Producto producto = productosModel.getDomainObject(jTableProductos.getSelectedRow());
+                Servido servido = new Servido(mesa.getIdOrden(), producto);
+                ServidoDao.getInstance().insert(servido);
+                mesa.getOrden().addServido(servido);
+                servidosModel.addRow(servido);
             });
         }
 

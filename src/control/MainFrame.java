@@ -8,9 +8,6 @@ package src.control;
 import src.gui.editor.MesasTablePanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
-import src.dao.CategoriaDao;
-import src.dao.MesaDao;
-import src.dao.ProductoDao;
 import src.gui.editor.CategoriasTablePanel;
 import src.gui.editor.OrdenTablePanel;
 import src.gui.editor.ProductosTablePanel;
@@ -36,11 +33,6 @@ public class MainFrame extends javax.swing.JFrame {
     public final static String EDITPRODUCTOS = "Edit Productos Card";
     public final static String EDITORDENES = "Edit Ordenes Card";
     public final static String EDITSERVIDOS = "Edit Servidos Card";
-
-    public final static String PAISESPANEL = "Paises Card";
-    public final static String AUTORESPANEL = "Autores Card";
-    public final static String EDITORIALESPANEL = "Editoriales Card";
-    public final static String LIBROSPANEL = "Libros Card";
 
     public static boolean DEBUG = true;
     public static boolean SQL_DEBUG = true;

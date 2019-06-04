@@ -31,6 +31,13 @@ public class Servido implements IIdentifiable {
         this.idServido = idServido;
         this.idOrden = idOrden;
         this.producto = producto;
+        idProducto = this.producto.getId();
+    }
+
+    public Servido(int idOrden, Producto producto) {
+        this.idOrden = idOrden;
+        this.producto = producto;
+        idProducto = this.producto.getId();
     }
 
     public Producto getProducto() {
