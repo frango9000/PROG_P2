@@ -25,8 +25,8 @@ import src.control.MainFrame;
 public final class SessionDB {
 
     private static Connection conn;
-    private static String dbUrl = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\src\\src\\resources\\host.db";
-    private static File dbFile = new File(dbUrl.substring(14));
+    private static String dbUrl = "jdbc:sqlite:" + "src/src/resources/host.db";
+    private static File dbFile = new File(dbUrl.substring(12));
 
     private SessionDB() {
     }
