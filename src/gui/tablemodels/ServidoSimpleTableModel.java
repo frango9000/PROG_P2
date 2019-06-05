@@ -6,7 +6,6 @@
 package src.gui.tablemodels;
 
 import java.util.Arrays;
-import src.model.Producto;
 import src.model.Servido;
 
 /**

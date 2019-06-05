@@ -7,6 +7,7 @@ package src.control;
 
 import src.gui.editor.MesasTablePanel;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import javax.swing.JPanel;
 import src.gui.editor.CategoriasTablePanel;
 import src.gui.editor.OrdenTablePanel;
@@ -43,7 +44,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("El Chiringuito Playero");
-        //setMinimumSize(new Dimension(200, 200));
+        setMinimumSize(new Dimension(600, 675));
 
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);

@@ -103,6 +103,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
     public HashMap<Integer, Orden> queryAll() {
         table.clear();
         if (SessionDB.connect()) {
+            SessionDB.setAutoclose(false);
             String sql = "SELECT * FROM " + TABLE_NAME + "";
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
@@ -121,7 +122,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
-                SessionDB.close();
+                SessionDB.setAutoclose(true);
             }
         }
         return table;

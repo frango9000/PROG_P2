@@ -216,14 +216,14 @@ public final class SessionDB {
             String multicmd = sqlcmd.toString();
             String[] cmds = multicmd.split(";");
             SessionDB.connect();
-            for (String cmd : cmds) {
+            for (String sql : cmds) {
                 try (Statement stmt = SessionDB.getConn().createStatement()) {
-                    rows += stmt.executeUpdate(cmd.trim());
+                    rows += stmt.executeUpdate(sql.trim());
                     if (MainFrame.SQL_DEBUG) {
-                        System.out.println(cmd);
+                        System.out.println(sql);
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, cmd, ex);
+                    Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, sql, ex);
                 }
             }
         } catch (FileNotFoundException ignored) {
@@ -244,14 +244,14 @@ public final class SessionDB {
             String multicmd = sqlcmd.toString();
             String[] cmds = multicmd.split(";");
             SessionDB.connect();
-            for (String cmd : cmds) {
+            for (String sql : cmds) {
                 try (Statement stmt = SessionDB.getConn().createStatement()) {
-                    stmt.executeUpdate(cmd.trim());
+                    stmt.executeUpdate(sql.trim());
                     if (MainFrame.SQL_DEBUG) {
-                        System.out.println(cmd);
+                        System.out.println(sql);
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, cmd, ex);
+                    Logger.getLogger(SessionDB.class.getName()).log(Level.SEVERE, sql, ex);
                 }
             }
         } catch (FileNotFoundException ignored) {

@@ -61,6 +61,17 @@ public class MesaViewFrame extends JFrame {
             jTableServidos.setModel(servidosModel);
             jTableProductos.setModel(productosModel);
 
+            if (jTableProductos.getColumnModel().getColumnCount() > 0) {
+                jTableProductos.getColumnModel().getColumn(0).setMinWidth(50);
+                jTableProductos.getColumnModel().getColumn(1).setMinWidth(50);
+                jTableProductos.getColumnModel().getColumn(1).setMaxWidth(50);
+            }
+            if (jTableServidos.getColumnModel().getColumnCount() > 0) {
+                jTableServidos.getColumnModel().getColumn(0).setMinWidth(50);
+                jTableServidos.getColumnModel().getColumn(1).setMinWidth(50);
+                jTableServidos.getColumnModel().getColumn(1).setMaxWidth(50);
+            }
+
             if (mesa.getIdOrden() == 0) {
                 setDisponible();
             } else {
