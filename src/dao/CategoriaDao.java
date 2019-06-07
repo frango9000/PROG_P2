@@ -5,17 +5,17 @@
  */
 package src.dao;
 
+import src.control.MainFrame;
+import src.model.Categoria;
+import src.model.SessionDB;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import src.control.MainFrame;
-import src.model.Categoria;
-import src.model.SessionDB;
 
 /**
  *
@@ -160,6 +160,11 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
             }
         }
         return rows;
+    }
+
+    @Override
+    public int updateDao(Categoria objectT) {
+        return 0;
     }
 
     @Override

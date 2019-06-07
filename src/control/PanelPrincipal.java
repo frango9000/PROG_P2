@@ -5,20 +5,17 @@
  */
 package src.control;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JButton;
-import src.dao.CategoriaDao;
-import src.dao.MesaDao;
-import src.dao.OrdenDao;
-import src.dao.ProductoDao;
-import src.dao.ServidoDao;
+import src.dao.*;
 import src.gui.PanelPrincipalGui;
 import src.model.Orden;
 import src.model.Producto;
 import src.model.SessionDB;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -51,9 +48,9 @@ public class PanelPrincipal extends PanelPrincipalGui {
         CategoriaDao.getInstance().queryAll();
         ProductoDao.getInstance().queryAll();
         categorizarProductos();
-        ArrayList<Orden> ordenesActivas = MesaDao.getInstance().getOrdenesActivas();
+        ArrayList<Orden> ordenesActivas = MesasDao.getInstance().getOrdenesActivas();
         ServidoDao.getInstance().query(ordenesActivas);
-        MesaDao.getInstance().queryAll();
+        MesasDao.getInstance().queryAll();
         SessionDB.setAutoclose(true);
     }
 
@@ -73,7 +70,7 @@ public class PanelPrincipal extends PanelPrincipalGui {
         ProductoDao.getInstance().getAll().clear();
         OrdenDao.getInstance().getAll().clear();
         ServidoDao.getInstance().getAll().clear();
-        MesaDao.getInstance().getAll().clear();
+        MesasDao.getInstance().getAll().clear();
         System.gc();
         initialQuery();
     }
@@ -83,7 +80,7 @@ public class PanelPrincipal extends PanelPrincipalGui {
             final int k = i;
             listaMesasButtons.get(i).addActionListener(e -> {
                 java.awt.EventQueue.invokeLater(() -> {
-                    new MesaViewFrame(MesaDao.getInstance().get(k + 1)).setVisible(true);
+                    new MesaViewFrame(MesasDao.getInstance().get(k + 1)).setVisible(true);
                 });
             });
         }
@@ -91,7 +88,7 @@ public class PanelPrincipal extends PanelPrincipalGui {
 
     public static void colorMesas() {
         for (int i = 0; i < listaMesasButtons.size(); i++) {
-            if (MesaDao.getInstance().getAll().get(i + 1).getIdOrden() == 0) {
+            if (MesasDao.getInstance().getAll().get(i + 1).getIdOrden() == 0) {
                 listaMesasButtons.get(i).setBackground(COLOR_DISPONIBLE);
             } else {
                 listaMesasButtons.get(i).setBackground(COLOR_OCUPADA);

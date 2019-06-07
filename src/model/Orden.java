@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author NarF
  */
-public class Orden implements IIdentifiable {
+public class Orden implements IPersistable {
 
     private int idOrden;
     private LocalDateTime apertura;
@@ -153,15 +153,22 @@ public class Orden implements IIdentifiable {
             return false;
         }
         final Orden other = (Orden) obj;
-        if (this.idOrden != other.idOrden) {
-            return false;
-        }
-        return true;
+        return this.idOrden == other.idOrden;
     }
 
     @Override
     public int getId() {
         return getIdOrden();
+    }
+
+    @Override
+    public int updateOnDb() {
+        return 0;
+    }
+
+    @Override
+    public int refreshFromDb() {
+        return 0;
     }
 
 }

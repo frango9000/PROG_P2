@@ -5,16 +5,17 @@
  */
 package src.dao;
 
+import src.model.IPersistable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import src.model.IIdentifiable;
 
 /**
  *
  * @author NarF
  * @param <T>
  */
-public interface IDao<T extends IIdentifiable> {
+public interface IDao<T extends IPersistable> {
 
     T query(int id);
 
@@ -33,6 +34,8 @@ public interface IDao<T extends IIdentifiable> {
     int insert(T objecT);
 
     int update(T objecT);
+
+    int updateDao(T objectT);
 
     int delete(T objecT);
 

@@ -5,22 +5,16 @@
  */
 package src.control;
 
-import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import src.dao.MesaDao;
+import src.dao.MesasDao;
 import src.dao.OrdenDao;
 import src.dao.ServidoDao;
 import src.gui.PanelMesaGui;
 import src.gui.tablemodels.ProductosSimpleTableModel;
 import src.gui.tablemodels.ServidoSimpleTableModel;
-import src.model.Mesa;
-import src.model.Orden;
-import src.model.Producto;
-import src.model.Servido;
-import src.model.SessionDB;
+import src.model.*;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -131,7 +125,7 @@ public class MesaViewFrame extends JFrame {
                 OrdenDao.getInstance().insert(orden);
                 mesa.setIdOrden(orden.getIdOrden());
                 mesa.setOrden(orden);
-                MesaDao.getInstance().update(mesa);
+                MesasDao.getInstance().update(mesa);
                 SessionDB.setAutoclose(true);
 
                 setOcupada(orden);
@@ -149,7 +143,7 @@ public class MesaViewFrame extends JFrame {
                 OrdenDao.getInstance().update(mesa.getOrden());
                 mesa.setOrden(null);
                 mesa.setIdOrden(0);
-                MesaDao.getInstance().update(mesa);
+                MesasDao.getInstance().update(mesa);
                 SessionDB.setAutoclose(true);
 
                 setDisponible();

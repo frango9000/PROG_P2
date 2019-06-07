@@ -5,9 +5,10 @@
  */
 package src.gui.editor;
 
-import javax.swing.JOptionPane;
-import src.dao.MesaDao;
+import src.dao.MesasDao;
 import src.gui.tablemodels.MesasTableModel;
+
+import javax.swing.*;
 
 /**
  *
@@ -26,7 +27,7 @@ public class MesasTablePanel extends GenericTablePanel {
     @Override
     public void refreshTable() {
         model.clearTableModelData();
-        MesaDao.getInstance().queryAll().forEach((id, mesa) -> model.addRow(mesa));
+        MesasDao.getInstance().queryAll().forEach((id, mesa) -> model.addRow(mesa));
     }
 
     @Override
@@ -57,7 +58,7 @@ public class MesasTablePanel extends GenericTablePanel {
             String nameSelected = (String) jTable.getValueAt(selectedRow, 1);
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar la " + nombre + ": " + nameSelected, "Eliminando " + nombre + "", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
-                if (MesaDao.getInstance().delete(idSelected) > 0) {
+                if (MesasDao.getInstance().delete(idSelected) > 0) {
                     JOptionPane.showMessageDialog(this, nombre + " eliminada: " + nameSelected, nombre + " Eliminada", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, nombre + " NO eliminada: " + nameSelected, nombre + " Eliminada", JOptionPane.ERROR_MESSAGE);

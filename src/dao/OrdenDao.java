@@ -5,6 +5,11 @@
  */
 package src.dao;
 
+import src.control.MainFrame;
+import src.model.DateTimeFormat;
+import src.model.Orden;
+import src.model.SessionDB;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +17,6 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import src.control.MainFrame;
-import src.model.DateTimeFormat;
-import src.model.Orden;
-import src.model.SessionDB;
 
 /**
  *
@@ -178,6 +179,11 @@ public final class OrdenDao extends AbstractDao<Orden> {
             }
         }
         return rows;
+    }
+
+    @Override
+    public int updateDao(Orden objectT) {
+        return 0;
     }
 
     @Override

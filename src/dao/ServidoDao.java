@@ -5,6 +5,11 @@
  */
 package src.dao;
 
+import src.control.MainFrame;
+import src.model.Orden;
+import src.model.Servido;
+import src.model.SessionDB;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,11 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import src.control.MainFrame;
-import src.model.Orden;
-import src.model.Producto;
-import src.model.Servido;
-import src.model.SessionDB;
 
 /**
  *
@@ -164,6 +164,11 @@ public final class ServidoDao extends AbstractDao<Servido> {
             }
         }
         return rows;
+    }
+
+    @Override
+    public int updateDao(Servido objectT) {
+        return 0;
     }
 
     @Override

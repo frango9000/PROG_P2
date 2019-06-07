@@ -1,19 +1,16 @@
 package src.model;
 
+import src.control.MainFrame;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import src.control.MainFrame;
 
 /**
  * Clase Session se encagra de mantener la informacion de una conexion a una DB
@@ -25,7 +22,7 @@ import src.control.MainFrame;
 public final class SessionDB {
 
     private static Connection conn;
-    private static String dbUrl = "jdbc:sqlite:" + "src/src/resources/host.db";
+    private static String dbUrl = "jdbc:sqlite:" + "src/resources/host.db";
     private static File dbFile = new File(dbUrl.substring(12));
     private static boolean autoclose = true;
 
@@ -66,6 +63,8 @@ public final class SessionDB {
      * @return BOOLEAN
      */
     public static boolean exists() {
+        System.out.println(dbFile.exists());
+        System.out.println(dbFile.getAbsolutePath());
         return dbFile.exists();
     }
 

@@ -9,7 +9,7 @@ package src.model;
  *
  * @author NarF
  */
-public class Servido implements IIdentifiable {
+public class Servido implements IPersistable {
 
     private int idServido;
     private int idOrden;
@@ -96,15 +96,22 @@ public class Servido implements IIdentifiable {
             return false;
         }
         final Servido other = (Servido) obj;
-        if (this.idServido != other.idServido) {
-            return false;
-        }
-        return true;
+        return this.idServido == other.idServido;
     }
 
     @Override
     public int getId() {
         return getIdServido();
+    }
+
+    @Override
+    public int updateOnDb() {
+        return 0;
+    }
+
+    @Override
+    public int refreshFromDb() {
+        return 0;
     }
 
 }

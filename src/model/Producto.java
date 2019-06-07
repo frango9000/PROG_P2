@@ -9,7 +9,7 @@ package src.model;
  *
  * @author NarF
  */
-public class Producto implements IIdentifiable {
+public class Producto implements IPersistable {
 
     private int idProducto;
     private String producto;
@@ -102,15 +102,22 @@ public class Producto implements IIdentifiable {
             return false;
         }
         final Producto other = (Producto) obj;
-        if (this.idProducto != other.idProducto) {
-            return false;
-        }
-        return true;
+        return this.idProducto == other.idProducto;
     }
 
     @Override
     public int getId() {
         return getIdProducto();
+    }
+
+    @Override
+    public int updateOnDb() {
+        return 0;
+    }
+
+    @Override
+    public int refreshFromDb() {
+        return 0;
     }
 
 }

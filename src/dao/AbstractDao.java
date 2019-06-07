@@ -5,16 +5,23 @@
  */
 package src.dao;
 
+import src.control.MainFrame;
+import src.model.IPersistable;
+import src.model.SessionDB;
+
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import src.model.IIdentifiable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author NarF
  * @param <T>
  */
-public abstract class AbstractDao<T extends IIdentifiable> implements IDao<T> {
+public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
 
     protected final HashMap<Integer, T> table = new HashMap<>();
     protected String TABLE_NAME;
@@ -65,6 +72,26 @@ public abstract class AbstractDao<T extends IIdentifiable> implements IDao<T> {
     @Override
     public HashMap<Integer, T> getAll() {
         return table;
+    }
+
+    @Override
+    public int delete(T t) {
+        int rows = 0;
+        if (SessionDB.connect()) {
+            String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + t.getId() + "'";
+            try (Statement stmt = SessionDB.getConn().createStatement()) {
+                rows = stmt.executeUpdate(sql);
+                table.remove(t.getId());
+                if (MainFrame.SQL_DEBUG) {
+                    System.out.println(sql);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AbstractDao.class.getName()).log(Level.SEVERE, sql, ex);
+            } finally {
+                SessionDB.close();
+            }
+        }
+        return rows;
     }
 
     @Override

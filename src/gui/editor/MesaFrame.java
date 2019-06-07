@@ -5,11 +5,12 @@
  */
 package src.gui.editor;
 
-import java.awt.Dimension;
-import javax.swing.JOptionPane;
-import src.dao.MesaDao;
-import src.model.Mesa;
 import src.control.helpers.StaticHelpers;
+import src.dao.MesasDao;
+import src.model.Mesa;
+
+import javax.swing.*;
+import java.awt.*;
 //import src.model.BiblioSQL;
 
 /**
@@ -34,14 +35,14 @@ public final class MesaFrame extends javax.swing.JFrame {
     public MesaFrame(Mesa mesa) {
         this();
         this.mesa = mesa;
-        jTextFieldID.setText(mesa.getIdMesa() + "");
+        jTextFieldID.setText(mesa.getId() + "");
         jTextFieldName.setText(mesa.getMesa());
         jTextFieldCapacidad.setText(mesa.getCapacidad() + "");
         jTextFieldIdOrden.setText(mesa.getIdOrden() + "");
     }
 
     public MesaFrame(int id) {
-        this(MesaDao.getInstance().getAll().get(id));
+        this(MesasDao.getInstance().getAll().get(id));
     }
 
     /**
@@ -236,7 +237,7 @@ public final class MesaFrame extends javax.swing.JFrame {
                 if (idOrden.length() > 0 && StaticHelpers.isInteger(idOrden) && Integer.parseInt(idOrden) > -1) {
                     if (id.length() == 0) { // id vacio = objeto nuevo
                         mesa = new Mesa(mesaStr, Integer.parseInt(cap), Integer.parseInt(idOrden));
-                        if (MesaDao.getInstance().insert(mesa) > 0) {
+                        if (MesasDao.getInstance().insert(mesa) > 0) {
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                         } else {
@@ -246,7 +247,7 @@ public final class MesaFrame extends javax.swing.JFrame {
                         mesa.setMesa(mesaStr);
                         mesa.setCapacidad(Integer.parseInt(cap));
                         mesa.setIdOrden(Integer.parseInt(idOrden));
-                        if (MesaDao.getInstance().update(mesa) > 0) {
+                        if (MesasDao.getInstance().update(mesa) > 0) {
                             this.dispose();
                             JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                         } else {

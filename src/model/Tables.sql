@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS ordenes (
                         );
 
 CREATE TABLE IF NOT EXISTS mesas (
-                            idMesa INTEGER PRIMARY KEY,
-                            mesa TEXT NOT NULL UNIQUE,
-                            capacidad INTEGER NOT NULL,
-                            idOrden INTEGER NOT NULL REFERENCES ordenes (idOrden)
+                                     id        INTEGER PRIMARY KEY,
+                                     mesa      TEXT NOT NULL UNIQUE,
+                                     capacidad INTEGER NOT NULL,
+                                     idOrden   INTEGER NOT NULL REFERENCES ordenes (idOrden)
                         );
 
 CREATE TABLE IF NOT EXISTS productos (

@@ -9,7 +9,7 @@ package src.model;
  *
  * @author NarF
  */
-public class Categoria implements IIdentifiable {
+public class Categoria implements IPersistable {
 
     private int idCategoria;
     private String categoria;
@@ -63,15 +63,22 @@ public class Categoria implements IIdentifiable {
             return false;
         }
         final Categoria other = (Categoria) obj;
-        if (this.idCategoria != other.idCategoria) {
-            return false;
-        }
-        return true;
+        return this.idCategoria == other.idCategoria;
     }
 
     @Override
     public int getId() {
         return getIdCategoria();
+    }
+
+    @Override
+    public int updateOnDb() {
+        return 0;
+    }
+
+    @Override
+    public int refreshFromDb() {
+        return 0;
     }
 
 }

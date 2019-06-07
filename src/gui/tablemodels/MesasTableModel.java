@@ -5,8 +5,9 @@
  */
 package src.gui.tablemodels;
 
-import java.util.Arrays;
 import src.model.Mesa;
+
+import java.util.Arrays;
 
 /**
  *
@@ -15,7 +16,7 @@ import src.model.Mesa;
 public class MesasTableModel extends GenericDomainTableModel<Mesa> {
 
     public MesasTableModel() {
-        super(Arrays.asList(new Object[]{"id", "Mesa", "Capacidad", "idOrden"}));
+        super(Arrays.asList("id", "Mesa", "Capacidad", "idOrden"));
     }
 
     @Override
@@ -43,7 +44,7 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
         Mesa mesa = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                return mesa.getIdMesa();
+                return mesa.getId();
             case 1:
                 return mesa.getMesa();
             case 2:
@@ -60,7 +61,7 @@ public class MesasTableModel extends GenericDomainTableModel<Mesa> {
         Mesa mesa = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                mesa.setIdMesa((Integer) value);
+                mesa.setId((Integer) value);
                 break;
             case 1:
                 mesa.setMesa((String) value);
