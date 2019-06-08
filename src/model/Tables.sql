@@ -10,8 +10,8 @@
 
 
 CREATE TABLE IF NOT EXISTS categorias (
-                            idCategoria INTEGER PRIMARY KEY,
-                            categoria TEXT NOT NULL UNIQUE
+                                          id        INTEGER PRIMARY KEY,
+                                          categoria TEXT NOT NULL UNIQUE
                         );
 
 CREATE TABLE IF NOT EXISTS ordenes (
@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS mesas (
                         );
 
 CREATE TABLE IF NOT EXISTS productos (
-                            idProducto INTEGER PRIMARY KEY,
-                            producto TEXT NOT NULL UNIQUE,
-                            precio REAL NOT NULL,
-                            idCategoria INTEGER NOT NULL REFERENCES categorias (idCategoria)
+                                         idProducto INTEGER PRIMARY KEY,
+                                         producto   TEXT    NOT NULL UNIQUE,
+                                         precio     REAL    NOT NULL,
+                                         id         INTEGER NOT NULL REFERENCES categorias (id)
                         );
 
 CREATE TABLE IF NOT EXISTS servidos (

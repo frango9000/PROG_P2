@@ -30,7 +30,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
 
     private CategoriaDao() {
         TABLE_NAME = "categorias";
-        ID_COL_NAME = "idCategoria";
+        ID_COL_NAME = "id";
     }
 
     public static synchronized CategoriaDao getInstance() {
@@ -49,7 +49,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
                     ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
                     categoria = new Categoria(rs.getInt(1), rs.getString(2));
-                    table.put(categoria.getIdCategoria(), categoria);
+                    table.put(categoria.getId(), categoria);
                 }
                 if (MainFrame.SQL_DEBUG) {
                     System.out.println(sql);
@@ -76,8 +76,8 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
                     ResultSet rs = ps.executeQuery(sql.toString())) {
                 while (rs.next()) {
                     Categoria categoria = new Categoria(rs.getInt(1), rs.getString(2));
-                    table.put(categoria.getIdCategoria(), categoria);
-                    categoriasTemp.put(categoria.getIdCategoria(), categoria);
+                    table.put(categoria.getId(), categoria);
+                    categoriasTemp.put(categoria.getId(), categoria);
                 }
                 if (MainFrame.SQL_DEBUG) {
                     System.out.println(sql);
@@ -100,7 +100,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
                     ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
                     Categoria categoria = new Categoria(rs.getInt(1), rs.getString(2));
-                    table.put(categoria.getIdCategoria(), categoria);
+                    table.put(categoria.getId(), categoria);
                 }
                 if (MainFrame.SQL_DEBUG) {
                     System.out.println(sql);
@@ -125,8 +125,8 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
 
                 try (ResultSet rs = pstmt.getGeneratedKeys()) {
                     if (rs.next()) {
-                        categoria.setIdCategoria(rs.getInt(1));
-                        table.put(categoria.getIdCategoria(), categoria);
+                        categoria.setId(rs.getInt(1));
+                        table.put(categoria.getId(), categoria);
                     }
                 }
                 if (MainFrame.SQL_DEBUG) {
@@ -148,7 +148,7 @@ public final class CategoriaDao extends AbstractDao<Categoria> {
             String sql = "UPDATE " + TABLE_NAME + " SET categoria = ? WHERE " + ID_COL_NAME + " = ?";
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setString(1, categoria.getCategoria());
-                pstmt.setInt(2, categoria.getIdCategoria());
+                pstmt.setInt(2, categoria.getId());
                 rows = pstmt.executeUpdate();
                 if (MainFrame.SQL_DEBUG) {
                     System.out.println(sql);

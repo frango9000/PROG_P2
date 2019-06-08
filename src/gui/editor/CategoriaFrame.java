@@ -5,10 +5,11 @@
  */
 package src.gui.editor;
 
-import java.awt.Dimension;
-import javax.swing.JOptionPane;
 import src.dao.CategoriaDao;
 import src.model.Categoria;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -32,7 +33,7 @@ public final class CategoriaFrame extends javax.swing.JFrame {
     public CategoriaFrame(Categoria categoria) {
         this();
         this.categoria = categoria;
-        jTextFieldID.setText(categoria.getIdCategoria() + "");
+        jTextFieldID.setText(categoria.getId() + "");
         jTextFieldName.setText(categoria.getCategoria());
     }
 

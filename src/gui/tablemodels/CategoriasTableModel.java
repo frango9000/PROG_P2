@@ -5,8 +5,9 @@
  */
 package src.gui.tablemodels;
 
-import java.util.Arrays;
 import src.model.Categoria;
+
+import java.util.Arrays;
 
 /**
  *
@@ -15,7 +16,7 @@ import src.model.Categoria;
 public class CategoriasTableModel extends GenericDomainTableModel<Categoria> {
 
     public CategoriasTableModel() {
-        super(Arrays.asList(new Object[]{"id", "Categoria"}));
+        super(Arrays.asList("id", "Categoria"));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class CategoriasTableModel extends GenericDomainTableModel<Categoria> {
         Categoria categoria = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                return categoria.getIdCategoria();
+                return categoria.getId();
             case 1:
                 return categoria.getCategoria();
             default:
@@ -52,7 +53,7 @@ public class CategoriasTableModel extends GenericDomainTableModel<Categoria> {
         Categoria categoria = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                categoria.setIdCategoria((Integer) value);
+                categoria.setId((Integer) value);
                 break;
             case 1:
                 categoria.setCategoria((String) value);

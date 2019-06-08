@@ -16,15 +16,10 @@ public class Mesa extends AbstractMesa implements IPersistable {
         refreshOrden();
     }
 
-    public void refreshOrden() {
-        if (idOrden > 0) {
-            orden = OrdenDao.getInstance().get(idOrden);
-        } else orden = null;
-    }
-
     @Override
-    public int getId() {
-        return id;
+    public void setIdOrden(int idOrden) {
+        super.setIdOrden(idOrden);
+        refreshOrden();
     }
 
     @Override
@@ -35,5 +30,11 @@ public class Mesa extends AbstractMesa implements IPersistable {
     @Override
     public int refreshFromDb() {
         return MesasDao.getInstance().updateDao(this);
+    }
+
+    private void refreshOrden() {
+        if (idOrden > 0) {
+            orden = OrdenDao.getInstance().get(idOrden);
+        } else orden = null;
     }
 }

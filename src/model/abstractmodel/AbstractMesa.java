@@ -88,7 +88,7 @@ public abstract class AbstractMesa {
 
     @Override
     public String toString() {
-        return "AbstractMesa{" +
+        return "Mesa{" +
                 "id=" + id +
                 ", mesa='" + mesa + '\'' +
                 ", capacidad=" + capacidad +

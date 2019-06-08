@@ -80,7 +80,7 @@ public class Producto implements IPersistable {
 
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", producto=" + producto + ", precio=" + precio + ", idCategoria=" + idCategoria + '}';
+        return "Producto{" + "idProducto=" + idProducto + ", producto=" + producto + ", precio=" + precio + ", id=" + idCategoria + '}';
     }
 
     @Override
