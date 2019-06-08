@@ -95,13 +95,7 @@ public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
         return delete(table.get(id));
     }
 
-    static void printSql(String sql) {
-        if (MainFrame.SQL_DEBUG) {
-            System.out.println(sql);
-        }
-    }
-
-
+    @Override
     public int deleteSome(ArrayList<T> toDelete) {
         int rows = 0;
         if (SessionDB.connect() && toDelete.size() > 0) {
@@ -125,4 +119,9 @@ public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
         return rows;
     }
 
+    static void printSql(String sql) {
+        if (MainFrame.SQL_DEBUG) {
+            System.out.println(sql);
+        }
+    }
 }
