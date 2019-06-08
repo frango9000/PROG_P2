@@ -5,6 +5,7 @@ import src.dao.ProductosDao;
 import src.model.abstractmodel.AbstractProducto;
 
 public class Producto extends AbstractProducto implements IPersistable {
+
     public Producto(int id, String producto, float precio, int idCategoria) {
         super(id, producto, precio, idCategoria);
         refreshCategoria();

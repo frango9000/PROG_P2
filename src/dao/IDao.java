@@ -40,4 +40,6 @@ public interface IDao<T extends IPersistable> {
     int delete(T objecT);
 
     int delete(int id);
+
+    int deleteSome(ArrayList<T> toDelete);
 }

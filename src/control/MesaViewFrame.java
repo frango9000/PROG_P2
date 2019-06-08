@@ -6,7 +6,7 @@
 package src.control;
 
 import src.dao.MesasDao;
-import src.dao.OrdenDao;
+import src.dao.OrdenesDao;
 import src.dao.ServidoDao;
 import src.gui.PanelMesaGui;
 import src.gui.tablemodels.ProductosSimpleTableModel;
@@ -122,8 +122,8 @@ public class MesaViewFrame extends JFrame {
                 Orden orden = new Orden();
 
                 SessionDB.setAutoclose(false);
-                OrdenDao.getInstance().insert(orden);
-                mesa.setIdOrden(orden.getIdOrden());
+                OrdenesDao.getInstance().insert(orden);
+                mesa.setIdOrden(orden.getId());
                 mesa.setOrden(orden);
                 MesasDao.getInstance().update(mesa);
                 SessionDB.setAutoclose(true);
@@ -140,7 +140,7 @@ public class MesaViewFrame extends JFrame {
 
                 SessionDB.setAutoclose(false);
                 mesa.getOrden().cerrarOrden();
-                OrdenDao.getInstance().update(mesa.getOrden());
+                OrdenesDao.getInstance().update(mesa.getOrden());
                 mesa.setOrden(null);
                 mesa.setIdOrden(0);
                 MesasDao.getInstance().update(mesa);

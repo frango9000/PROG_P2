@@ -55,7 +55,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                 }
                 printSql(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
+                Logger.getLogger(OrdenesDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
@@ -81,7 +81,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                 }
                 printSql(sql.toString());
             } catch (SQLException ex) {
-                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
+                Logger.getLogger(OrdenesDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
             } finally {
                 SessionDB.close();
             }
@@ -175,7 +175,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                     }
                     printSql(sql);
                 } catch (SQLException ex) {
-                    Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
+                    Logger.getLogger(OrdenesDao.class.getName()).log(Level.SEVERE, sql, ex);
                 } finally {
                     SessionDB.close();
                 }
@@ -204,7 +204,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
     }
 
     public ArrayList<Orden> getOrdenesActivas() {
-        return OrdenDao.getInstance().getSome(getIdsOrdenesActivas());
+        return OrdenesDao.getInstance().getSome(getIdsOrdenesActivas());
     }
 
 }

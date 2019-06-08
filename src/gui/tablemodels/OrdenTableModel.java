@@ -5,8 +5,9 @@
  */
 package src.gui.tablemodels;
 
-import java.util.Arrays;
 import src.model.Orden;
+
+import java.util.Arrays;
 
 /**
  *
@@ -15,7 +16,7 @@ import src.model.Orden;
 public class OrdenTableModel extends GenericDomainTableModel<Orden> {
 
     public OrdenTableModel() {
-        super(Arrays.asList(new Object[]{"id", "Apertura", "Cierre", "Total"}));
+        super(Arrays.asList("id", "Apertura", "Cierre", "Total"));
     }
 
     @Override
@@ -43,7 +44,7 @@ public class OrdenTableModel extends GenericDomainTableModel<Orden> {
         Orden orden = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                return orden.getIdOrden();
+                return orden.getId();
             case 1:
                 return orden.getAperturaToUserString();
             case 2:
@@ -64,7 +65,7 @@ public class OrdenTableModel extends GenericDomainTableModel<Orden> {
         Orden orden = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                orden.setIdOrden((Integer) value);
+                orden.setId((Integer) value);
                 break;
             case 1:
                 orden.setAperturaUser((String) value);

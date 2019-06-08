@@ -5,12 +5,13 @@
  */
 package src.gui.editor;
 
-import java.awt.Dimension;
-import javax.swing.JOptionPane;
-import src.dao.OrdenDao;
+import src.control.helpers.StaticHelpers;
+import src.dao.OrdenesDao;
 import src.model.DateTimeFormat;
 import src.model.Orden;
-import src.control.helpers.StaticHelpers;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -48,7 +49,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
         this();
         this.orden = orden;
 
-        jTextFieldID.setText(orden.getIdOrden() + "");
+        jTextFieldID.setText(orden.getId() + "");
 
         aperturaPicker.getDatePicker().setDate(orden.getApertura().toLocalDate());
         aperturaPicker.getTimePicker().setTime(orden.getApertura().toLocalTime());
@@ -63,7 +64,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
     }
 
     public OrdenFrame(int id) {
-        this(OrdenDao.getInstance().getAll().get(id));
+        this(OrdenesDao.getInstance().getAll().get(id));
     }
 
     /**
@@ -250,7 +251,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
         if (total.length() > 0 && StaticHelpers.isFloat(total)) {
             if (id.length() == 0) { // id vacio = objeto nuevo
                 orden = new Orden(aperturaPicker.getDateTimePermissive(), cierrePicker.getDateTimeStrict(), Float.parseFloat(total));
-                if (OrdenDao.getInstance().insert(orden) > 0) {
+                if (OrdenesDao.getInstance().insert(orden) > 0) {
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -260,7 +261,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
                 orden.setApertura(aperturaPicker.getDateTimePermissive());
                 orden.setCierre(cierrePicker.getDateTimeStrict());
                 orden.setTotal(Float.parseFloat(total));
-                if (OrdenDao.getInstance().update(orden) > 0) {
+                if (OrdenesDao.getInstance().update(orden) > 0) {
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {

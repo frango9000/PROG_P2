@@ -7,7 +7,6 @@ package src.control;
 
 import src.dao.*;
 import src.gui.PanelPrincipalGui;
-import src.model.Orden;
 import src.model.Producto;
 import src.model.SessionDB;
 
@@ -48,8 +47,12 @@ public class PanelPrincipal extends PanelPrincipalGui {
         CategoriasDao.getInstance().queryAll();
         ProductosDao.getInstance().queryAll();
         categorizarProductos();
-        ArrayList<Orden> ordenesActivas = MesasDao.getInstance().getOrdenesActivas();
-        ServidoDao.getInstance().queryByOrden(ordenesActivas);
+//        ArrayList<Orden> ordenesActivas = MesasDao.getInstance().getOrdenesActivas();
+//        ServidoDao.getInstance().queryByOrden(ordenesActivas);
+        ArrayList<Integer> ordenesActivas = MesasDao.getInstance().getIdsOrdenesActivas();
+        ArrayList<Integer> servidosActivos = ServidoDao.getInstance().queryIdsByIdsOrden(ordenesActivas);
+        ServidoDao.getInstance().getSome(servidosActivos);
+        OrdenesDao.getInstance().getSome(ordenesActivas);
         MesasDao.getInstance().queryAll();
         SessionDB.setAutoclose(true);
     }
@@ -68,7 +71,7 @@ public class PanelPrincipal extends PanelPrincipalGui {
     public static void clearMemory() {
         CategoriasDao.getInstance().getAll().clear();
         ProductosDao.getInstance().getAll().clear();
-        OrdenDao.getInstance().getAll().clear();
+        OrdenesDao.getInstance().getAll().clear();
         ServidoDao.getInstance().getAll().clear();
         MesasDao.getInstance().getAll().clear();
         System.gc();

@@ -197,7 +197,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="nameLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="idOrden"/>
+                    <Property name="text" type="java.lang.String" value="id"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextFieldIdOrden">

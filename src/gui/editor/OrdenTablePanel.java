@@ -5,9 +5,10 @@
  */
 package src.gui.editor;
 
-import javax.swing.JOptionPane;
-import src.dao.OrdenDao;
+import src.dao.OrdenesDao;
 import src.gui.tablemodels.OrdenTableModel;
+
+import javax.swing.*;
 
 /**
  *
@@ -26,7 +27,7 @@ public class OrdenTablePanel extends GenericTablePanel {
     @Override
     public void refreshTable() {
         model.clearTableModelData();
-        OrdenDao.getInstance().queryAll().forEach((id, orden) -> model.addRow(orden));
+        OrdenesDao.getInstance().queryAll().forEach((id, orden) -> model.addRow(orden));
     }
 
     @Override
@@ -56,7 +57,7 @@ public class OrdenTablePanel extends GenericTablePanel {
             int idSelected = (int) jTable.getValueAt(selectedRow, 0);
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar la " + nombre + ": " + idSelected, "Eliminando " + nombre + "", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
-                if (OrdenDao.getInstance().delete(idSelected) > 0) {
+                if (OrdenesDao.getInstance().delete(idSelected) > 0) {
                     JOptionPane.showMessageDialog(this, nombre + " eliminada: " + idSelected, nombre + " Eliminada", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, nombre + " NO eliminada: " + idSelected, nombre + " Eliminada", JOptionPane.ERROR_MESSAGE);

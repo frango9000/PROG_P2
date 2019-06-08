@@ -1,7 +1,7 @@
 package src.model;
 
 import src.dao.MesasDao;
-import src.dao.OrdenDao;
+import src.dao.OrdenesDao;
 import src.model.abstractmodel.AbstractMesa;
 
 public class Mesa extends AbstractMesa implements IPersistable {
@@ -34,7 +34,7 @@ public class Mesa extends AbstractMesa implements IPersistable {
 
     private void refreshOrden() {
         if (idOrden > 0) {
-            orden = OrdenDao.getInstance().get(idOrden);
+            orden = OrdenesDao.getInstance().get(idOrden);
         } else orden = null;
     }
 }

@@ -161,7 +161,7 @@
             <Component class="javax.swing.JLabel" name="jLabelIdOrdenTag">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="idOrden: "/>
+                <Property name="text" type="java.lang.String" value="id: "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelIdOrden">

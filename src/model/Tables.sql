@@ -10,35 +10,35 @@
 
 
 CREATE TABLE IF NOT EXISTS categorias (
-                                          id        INTEGER PRIMARY KEY,
-                                          categoria TEXT NOT NULL UNIQUE
+                                          idCategoria INTEGER PRIMARY KEY,
+                                          categoria   TEXT NOT NULL UNIQUE
                         );
 
 CREATE TABLE IF NOT EXISTS ordenes (
-                            idOrden INTEGER PRIMARY KEY AUTOINCREMENT,
-                            apertura TEXT NOT NULL,
-                            cierre TEXT,
-                            total REAL NOT NULL
+                                       idOrden  INTEGER PRIMARY KEY AUTOINCREMENT,
+                                       apertura TEXT NOT NULL,
+                                       cierre   TEXT,
+                                       total    REAL NOT NULL
                         );
 
 CREATE TABLE IF NOT EXISTS mesas (
-                                     id        INTEGER PRIMARY KEY,
-                                     mesa      TEXT NOT NULL UNIQUE,
+                                     idMesa    INTEGER PRIMARY KEY,
+                                     mesa      TEXT    NOT NULL UNIQUE,
                                      capacidad INTEGER NOT NULL,
                                      idOrden   INTEGER NOT NULL REFERENCES ordenes (idOrden)
                         );
 
 CREATE TABLE IF NOT EXISTS productos (
-                                         id       INTEGER PRIMARY KEY,
-                                         producto TEXT    NOT NULL UNIQUE,
-                                         precio   REAL    NOT NULL,
-                                         id       INTEGER NOT NULL REFERENCES categorias (id)
+                                         idProducto  INTEGER PRIMARY KEY,
+                                         producto    TEXT    NOT NULL UNIQUE,
+                                         precio      REAL    NOT NULL,
+                                         idCategoria INTEGER NOT NULL REFERENCES categorias (idCategoria)
                         );
 
 CREATE TABLE IF NOT EXISTS servidos (
-                                        idServido INTEGER PRIMARY KEY AUTOINCREMENT,
-                                        idOrden   INTEGER NOT NULL,
-                                        id        INTEGER NOT NULL,
-                                        FOREIGN KEY (idOrden) REFERENCES ordenes(idOrden),
-                                        FOREIGN KEY (id) REFERENCES productos (id)
+                                        idServido  INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        idOrden    INTEGER NOT NULL,
+                                        idProducto INTEGER NOT NULL,
+                                        FOREIGN KEY (idOrden) REFERENCES ordenes (idOrden),
+                                        FOREIGN KEY (idProducto) REFERENCES productos (idProducto)
                         );

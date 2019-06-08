@@ -5,7 +5,7 @@
  */
 package src.dao;
 
-import src.model.Categoria;
+import src.model.Orden;
 import src.model.SessionDB;
 
 import java.sql.PreparedStatement;
@@ -21,35 +21,35 @@ import java.util.logging.Logger;
  *
  * @author NarF
  */
-public final class CategoriasDao extends AbstractDao<Categoria> {
+public final class OrdenesDao extends AbstractDao<Orden> {
 
     /**
      * Singleton lazy initialization
      */
-    private static CategoriasDao dao;
+    private static OrdenesDao dao;
 
-    private CategoriasDao() {
-        TABLE_NAME = "categorias";
-        ID_COL_NAME = "id";
-    }
-
-    public static synchronized CategoriasDao getInstance() {
+    public static synchronized OrdenesDao getInstance() {
         if (dao == null) {
-            dao = new CategoriasDao();
+            dao = new OrdenesDao();
         }
         return dao;
     }
 
+    private OrdenesDao() {
+        TABLE_NAME = "ordenes";
+        ID_COL_NAME = "idOrden";
+    }
+
     @Override
-    public Categoria query(int id) {
-        Categoria categoria = null;
+    public Orden query(int id) {
+        Orden orden = null;
         if (SessionDB.connect()) {
             String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, id);
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
-                    categoria = new Categoria(rs.getInt(1), rs.getString(2));
-                    table.put(categoria.getId(), categoria);
+                    orden = new Orden(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4));
+                    table.put(orden.getId(), orden);
                 }
                 printSql(sql);
             } catch (SQLException ex) {
@@ -58,14 +58,14 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
                 SessionDB.close();
             }
         }
-        return categoria;
+        return orden;
     }
 
     @Override
-    public HashMap<Integer, Categoria> query(ArrayList<Integer> ids) {
-        HashMap<Integer, Categoria> categoriasTemp = new HashMap<>();
+    public HashMap<Integer, Orden> query(ArrayList<Integer> ids) {
+        HashMap<Integer, Orden> ordenesTemp = new HashMap<>();
         if (SessionDB.connect() && ids.size() > 0) {
-            StringBuilder sql = new StringBuilder(String.format("SELECT * FROM %s WHERE %s IN( 0", TABLE_NAME, ID_COL_NAME));
+            StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN ( 0");
             for (int id : ids) {
                 sql.append(", ").append(id);
             }
@@ -73,9 +73,9 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql.toString())) {
                 while (rs.next()) {
-                    Categoria categoria = new Categoria(rs.getInt(1), rs.getString(2));
-                    table.put(categoria.getId(), categoria);
-                    categoriasTemp.put(categoria.getId(), categoria);
+                    Orden orden = new Orden(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4));
+                    table.put(orden.getId(), orden);
+                    ordenesTemp.put(orden.getId(), orden);
                 }
                 printSql(sql.toString());
             } catch (SQLException ex) {
@@ -84,48 +84,51 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
                 SessionDB.close();
             }
         }
-        return categoriasTemp;
+        return ordenesTemp;
     }
 
     @Override
-    public HashMap<Integer, Categoria> queryAll() {
+    public HashMap<Integer, Orden> queryAll() {
         table.clear();
         if (SessionDB.connect()) {
+            SessionDB.setAutoclose(false);
             String sql = String.format("SELECT * FROM %s", TABLE_NAME);
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
-                    Categoria categoria = new Categoria(rs.getInt(1), rs.getString(2));
-                    table.put(categoria.getId(), categoria);
+                    Orden orden = new Orden(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4));
+                    table.put(orden.getId(), orden);
                 }
                 printSql(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(CategoriasDao.class.getName()).log(Level.SEVERE, sql, ex);
+                Logger.getLogger(OrdenesDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
-                SessionDB.close();
+                SessionDB.setAutoclose(true);
             }
         }
         return table;
     }
 
     @Override
-    public int insert(Categoria categoria) {
+    public int insert(Orden orden) {
         int rows = 0;
         if (SessionDB.connect()) {
-            String sql = String.format("INSERT INTO %s VALUES(NULL, ?)", TABLE_NAME);
+            String sql = String.format("INSERT INTO %s VALUES(NULL, ?, ?, ?)", TABLE_NAME);
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-                pstmt.setString(1, categoria.getCategoria());
+                pstmt.setString(1, orden.getAperturaToDbString());
+                pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
+                pstmt.setFloat(3, orden.getTotal());
                 rows = pstmt.executeUpdate();
 
                 try (ResultSet rs = pstmt.getGeneratedKeys()) {
                     if (rs.next()) {
-                        categoria.setId(rs.getInt(1));
-                        table.put(categoria.getId(), categoria);
+                        orden.setId(rs.getInt(1));
+                        table.put(orden.getId(), orden);
                     }
                 }
                 printSql(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(CategoriasDao.class.getName()).log(Level.SEVERE, sql, ex);
+                Logger.getLogger(OrdenesDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
@@ -134,17 +137,19 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
     }
 
     @Override
-    public int update(Categoria categoria) {
+    public int update(Orden orden) {
         int rows = 0;
         if (SessionDB.connect()) {
-            String sql = String.format("UPDATE %s SET categoria = ? WHERE %s = ?", TABLE_NAME, ID_COL_NAME);
+            String sql = String.format("UPDATE %s SET apertura = ?, cierre = ?, total = ? WHERE %s = ?", TABLE_NAME, ID_COL_NAME);
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
-                pstmt.setString(1, categoria.getCategoria());
-                pstmt.setInt(2, categoria.getId());
+                pstmt.setString(1, orden.getAperturaToDbString());
+                pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
+                pstmt.setFloat(3, orden.getTotal());
+                pstmt.setInt(4, orden.getId());
                 rows = pstmt.executeUpdate();
                 printSql(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(CategoriasDao.class.getName()).log(Level.SEVERE, sql, ex);
+                Logger.getLogger(OrdenesDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
@@ -153,16 +158,18 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
     }
 
     @Override
-    public int updateDao(Categoria categoria) {
+    public int updateDao(Orden orden) {
         int rows = 0;
-        if (categoria.getId() > 0) {
+        if (orden.getId() > 0) {
             if (SessionDB.connect()) {
-                String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, categoria.getId());
+                String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, orden.getId());
                 try (Statement ps = SessionDB.getConn().createStatement();
                      ResultSet rs = ps.executeQuery(sql)) {
                     if (rs.next()) {
-                        categoria.setCategoria(rs.getString(2));
-                        table.put(categoria.getId(), categoria);
+                        orden.setAperturaDB(rs.getString(2));
+                        orden.setCierreDB(rs.getString(3));
+                        orden.setTotal(rs.getFloat(4));
+                        table.put(orden.getId(), orden);
                     }
                     printSql(sql);
                 } catch (SQLException ex) {
@@ -174,5 +181,4 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
         }
         return rows;
     }
-
 }
