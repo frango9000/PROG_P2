@@ -5,8 +5,6 @@
  */
 package src.model.abstractmodel;
 
-import src.model.Categoria;
-
 /**
  * @author NarF
  */
@@ -16,7 +14,6 @@ public abstract class AbstractProducto {
     protected String producto;
     protected float precio;
     protected int idCategoria;
-    protected Categoria categoria;
 
     public AbstractProducto(int id, String producto, float precio, int idCategoria) {
         this.id = id;
@@ -29,13 +26,6 @@ public abstract class AbstractProducto {
         this.producto = producto;
         this.precio = precio;
         this.idCategoria = idCategoria;
-    }
-
-    public AbstractProducto(String producto, float precio, Categoria categoria) {
-        this.producto = producto;
-        this.precio = precio;
-        this.categoria = categoria;
-        this.idCategoria = categoria.getId();
     }
 
     public int getId() {
@@ -70,13 +60,6 @@ public abstract class AbstractProducto {
         this.idCategoria = idCategoria;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,5 +76,13 @@ public abstract class AbstractProducto {
         return id;
     }
 
-
+    @Override
+    public String toString() {
+        return "AbstractProducto{" +
+                "id=" + id +
+                ", producto='" + producto + '\'' +
+                ", precio=" + precio +
+                ", idCategoria=" + idCategoria +
+                '}';
+    }
 }

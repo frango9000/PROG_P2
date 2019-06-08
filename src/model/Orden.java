@@ -5,8 +5,11 @@ import src.dao.ServidoDao;
 import src.model.abstractmodel.AbstractOrden;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Orden extends AbstractOrden implements IPersistable {
+
+    protected ArrayList<Servido> servidos = new ArrayList<>();
 
     public Orden() {
         super();
@@ -19,6 +22,22 @@ public class Orden extends AbstractOrden implements IPersistable {
     public Orden(int id, String dbOpen, String dbClose, float total) {
         super(id, dbOpen, dbClose, total);
         updateServidos();
+    }
+
+    public ArrayList<Servido> getServidos() {
+        return servidos;
+    }
+
+    public void setServidos(ArrayList<Servido> servidos) {
+        this.servidos = servidos;
+    }
+
+    public void addServido(Servido servidos) {
+        this.servidos.add(servidos);
+    }
+
+    public void addServidos(ArrayList<Servido> servido) {
+        servidos.addAll(servido);
     }
 
     @Override

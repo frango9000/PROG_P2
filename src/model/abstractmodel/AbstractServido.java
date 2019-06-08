@@ -5,8 +5,6 @@
  */
 package src.model.abstractmodel;
 
-import src.model.Producto;
-
 /**
  * @author NarF
  */
@@ -15,18 +13,11 @@ public abstract class AbstractServido {
     protected int id;
     protected int idOrden;
     protected int idProducto;
-    protected Producto producto;
 
     public AbstractServido(int id, int idOrden, int idProducto) {
         this.id = id;
         this.idOrden = idOrden;
         this.idProducto = idProducto;
-    }
-
-    public AbstractServido(int idOrden, Producto producto) {
-        this.idOrden = idOrden;
-        this.producto = producto;
-        this.idProducto = producto.getId();
     }
 
     public AbstractServido(int idOrden, int idProducto) {
@@ -58,10 +49,6 @@ public abstract class AbstractServido {
         this.idProducto = idProducto;
     }
 
-    public Producto getProducto() {
-        return producto;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,7 +70,6 @@ public abstract class AbstractServido {
                 "id=" + id +
                 ", idOrden=" + idOrden +
                 ", idProducto=" + idProducto +
-                ", producto=" + producto +
                 '}';
     }
 }

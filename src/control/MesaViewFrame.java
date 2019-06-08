@@ -177,6 +177,7 @@ public class MesaViewFrame extends JFrame {
                 mesa.getOrden().setTotal(mesa.getOrden().getTotal() + producto.getPrecio());
                 servidosModel.addRow(servido);
                 jTableServidos.setRowSelectionInterval(jTableServidos.getRowCount() - 1, jTableServidos.getRowCount() - 1);
+
                 updateTotal();
                 checkBtnQuitar();
             });

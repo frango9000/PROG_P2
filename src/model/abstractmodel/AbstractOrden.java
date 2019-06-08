@@ -6,11 +6,9 @@
 package src.model.abstractmodel;
 
 import src.model.DateTimeFormat;
-import src.model.Servido;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 /**
  * @author NarF
@@ -22,7 +20,6 @@ public class AbstractOrden {
     protected LocalDateTime cierre;
     protected float total;
 
-    protected ArrayList<Servido> servidos = new ArrayList<>();
 
     /**
      * Constructor usado por  el creador de ordenes de produccion (Abrir mesa)
@@ -94,21 +91,7 @@ public class AbstractOrden {
         this.total = total;
     }
 
-    public ArrayList<Servido> getServidos() {
-        return servidos;
-    }
 
-    public void setServidos(ArrayList<Servido> servidos) {
-        this.servidos = servidos;
-    }
-
-    public void addServido(Servido servidos) {
-        this.servidos.add(servidos);
-    }
-
-    public void addServidos(ArrayList<Servido> servido) {
-        servidos.addAll(servido);
-    }
 
     public String getAperturaToDbString() {
         return DateTimeFormat.toDbString(apertura);
@@ -157,7 +140,6 @@ public class AbstractOrden {
                 ", apertura=" + apertura +
                 ", cierre=" + cierre +
                 ", total=" + total +
-                ", servidos=" + servidos +
                 '}';
     }
 

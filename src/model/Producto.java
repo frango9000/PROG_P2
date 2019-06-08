@@ -6,6 +6,8 @@ import src.model.abstractmodel.AbstractProducto;
 
 public class Producto extends AbstractProducto implements IPersistable {
 
+    private Categoria categoria;
+
     public Producto(int id, String producto, float precio, int idCategoria) {
         super(id, producto, precio, idCategoria);
         refreshCategoria();
@@ -21,6 +23,17 @@ public class Producto extends AbstractProducto implements IPersistable {
         categoria.getCategorizados().remove(this);
         super.setIdCategoria(idCategoria);
         refreshCategoria();
+    }
+
+    public void setCategoria(Categoria categoria) {
+        categoria.getCategorizados().remove(this);
+        this.categoria = categoria;
+        this.idCategoria = categoria.getId();
+        categoria.getCategorizados().add(this);
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
     }
 
     @Override
