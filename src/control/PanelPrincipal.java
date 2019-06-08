@@ -45,11 +45,11 @@ public class PanelPrincipal extends PanelPrincipalGui {
 
     public static void initialQuery() {
         SessionDB.setAutoclose(false);
-        CategoriaDao.getInstance().queryAll();
-        ProductoDao.getInstance().queryAll();
+        CategoriasDao.getInstance().queryAll();
+        ProductosDao.getInstance().queryAll();
         categorizarProductos();
         ArrayList<Orden> ordenesActivas = MesasDao.getInstance().getOrdenesActivas();
-        ServidoDao.getInstance().query(ordenesActivas);
+        ServidoDao.getInstance().queryByOrden(ordenesActivas);
         MesasDao.getInstance().queryAll();
         SessionDB.setAutoclose(true);
     }
@@ -58,7 +58,7 @@ public class PanelPrincipal extends PanelPrincipalGui {
         for (int i = 0; i < productosCategorizados.length; i++) {
             productosCategorizados[i] = new ArrayList<>();
         }
-        ProductoDao.getInstance().getAll().forEach((id, pro) -> {
+        ProductosDao.getInstance().getAll().forEach((id, pro) -> {
             if (pro.getIdCategoria() < 9) {
                 productosCategorizados[pro.getIdCategoria() - 1].add(pro);
             }
@@ -66,8 +66,8 @@ public class PanelPrincipal extends PanelPrincipalGui {
     }
 
     public static void clearMemory() {
-        CategoriaDao.getInstance().getAll().clear();
-        ProductoDao.getInstance().getAll().clear();
+        CategoriasDao.getInstance().getAll().clear();
+        ProductosDao.getInstance().getAll().clear();
         OrdenDao.getInstance().getAll().clear();
         ServidoDao.getInstance().getAll().clear();
         MesasDao.getInstance().getAll().clear();

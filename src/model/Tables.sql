@@ -29,16 +29,16 @@ CREATE TABLE IF NOT EXISTS mesas (
                         );
 
 CREATE TABLE IF NOT EXISTS productos (
-                                         idProducto INTEGER PRIMARY KEY,
-                                         producto   TEXT    NOT NULL UNIQUE,
-                                         precio     REAL    NOT NULL,
-                                         id         INTEGER NOT NULL REFERENCES categorias (id)
+                                         id       INTEGER PRIMARY KEY,
+                                         producto TEXT    NOT NULL UNIQUE,
+                                         precio   REAL    NOT NULL,
+                                         id       INTEGER NOT NULL REFERENCES categorias (id)
                         );
 
 CREATE TABLE IF NOT EXISTS servidos (
-                            idServido INTEGER PRIMARY KEY AUTOINCREMENT,
-                            idOrden INTEGER NOT NULL,
-                            idProducto INTEGER NOT NULL,
-                                FOREIGN KEY (idOrden) REFERENCES ordenes(idOrden),
-                                FOREIGN KEY (idProducto) REFERENCES productos(idProducto)
+                                        idServido INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        idOrden   INTEGER NOT NULL,
+                                        id        INTEGER NOT NULL,
+                                        FOREIGN KEY (idOrden) REFERENCES ordenes(idOrden),
+                                        FOREIGN KEY (id) REFERENCES productos (id)
                         );

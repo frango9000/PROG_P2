@@ -128,7 +128,7 @@ public final class SessionDB {
      * ProductoDao.getInstance().queryAll(); categorizarProductos();
      * ArrayList<Orden> ordenesActivas =
      * MesaDao.getInstance().getOrdenesActivas();
-     * ServidoDao.getInstance().query(ordenesActivas);
+     * ServidoDao.getInstance().queryByOrden(ordenesActivas);
      * MesaDao.getInstance().queryAll();
      *
      * SessionDB.setAutoclose(true);

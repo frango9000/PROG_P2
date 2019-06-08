@@ -5,8 +5,9 @@
  */
 package src.gui.tablemodels;
 
-import java.util.Arrays;
 import src.model.Producto;
+
+import java.util.Arrays;
 
 /**
  *
@@ -15,7 +16,7 @@ import src.model.Producto;
 public class ProductosTableModel extends GenericDomainTableModel<Producto> {
 
     public ProductosTableModel() {
-        super(Arrays.asList(new Object[]{"id", "Producto", "Precio", "Categoria"}));
+        super(Arrays.asList("id", "Producto", "Precio", "Categoria"));
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ProductosTableModel extends GenericDomainTableModel<Producto> {
         Producto producto = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                return producto.getIdProducto();
+                return producto.getId();
             case 1:
                 return producto.getProducto();
             case 2:
@@ -60,7 +61,7 @@ public class ProductosTableModel extends GenericDomainTableModel<Producto> {
         Producto producto = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                producto.setIdProducto((Integer) value);
+                producto.setId((Integer) value);
                 break;
             case 1:
                 producto.setProducto((String) value);

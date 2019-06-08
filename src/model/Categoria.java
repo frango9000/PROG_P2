@@ -1,6 +1,6 @@
 package src.model;
 
-import src.dao.CategoriaDao;
+import src.dao.CategoriasDao;
 import src.model.abstractmodel.AbstractCategoria;
 
 import java.util.HashSet;
@@ -19,11 +19,15 @@ public class Categoria extends AbstractCategoria implements IPersistable {
 
     @Override
     public int updateOnDb() {
-        return CategoriaDao.getInstance().update(this);
+        return CategoriasDao.getInstance().update(this);
     }
 
     @Override
     public int refreshFromDb() {
-        return CategoriaDao.getInstance().updateDao(this);
+        return CategoriasDao.getInstance().updateDao(this);
+    }
+
+    public static void categorizarProductos() {
+
     }
 }

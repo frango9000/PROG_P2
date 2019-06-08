@@ -19,15 +19,15 @@ public interface IDao<T extends IPersistable> {
 
     T query(int id);
 
-    HashMap<Integer, T> query(int... ids);
+    HashMap<Integer, T> query(ArrayList<Integer> ids);
 
     HashMap<Integer, T> queryAll();
 
     T get(int id);
 
-    ArrayList<T> getSome(int... ids);
+    ArrayList<T> getSome(ArrayList<Integer> ids);
 
-    HashMap<Integer, T> getMapOf(int... ids);
+    HashMap<Integer, T> getMapOf(ArrayList<Integer> ids);
 
     HashMap<Integer, T> getAll();
 

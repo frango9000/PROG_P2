@@ -5,7 +5,6 @@
  */
 package src.dao;
 
-import src.control.MainFrame;
 import src.model.Orden;
 import src.model.Servido;
 import src.model.SessionDB;
@@ -46,16 +45,14 @@ public final class ServidoDao extends AbstractDao<Servido> {
     public Servido query(int id) {
         Servido servido = null;
         if (SessionDB.connect()) {
-            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + id + "'";
+            String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, id);
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
                     servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
                     table.put(servido.getIdServido(), servido);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -66,9 +63,9 @@ public final class ServidoDao extends AbstractDao<Servido> {
     }
 
     @Override
-    public HashMap<Integer, Servido> query(int... ids) {
+    public HashMap<Integer, Servido> query(ArrayList<Integer> ids) {
         HashMap<Integer, Servido> servidosTemp = new HashMap<>();
-        if (SessionDB.connect() && ids.length > 0) {
+        if (SessionDB.connect() && ids.size() > 0) {
             StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN( 0");
             for (int id : ids) {
                 sql.append(", ").append(id);
@@ -81,9 +78,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
                     table.put(servido.getIdServido(), servido);
                     servidosTemp.put(servido.getIdServido(), servido);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql.toString());
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
             } finally {
@@ -97,16 +92,14 @@ public final class ServidoDao extends AbstractDao<Servido> {
     public HashMap<Integer, Servido> queryAll() {
         table.clear();
         if (SessionDB.connect()) {
-            String sql = "SELECT * FROM " + TABLE_NAME + "";
+            String sql = String.format("SELECT * FROM %s", TABLE_NAME);
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
                     Servido servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
                     table.put(servido.getIdServido(), servido);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -120,7 +113,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
     public int insert(Servido servido) {
         int rows = 0;
         if (SessionDB.connect()) {
-            String sql = "INSERT INTO " + TABLE_NAME + " VALUES(NULL, ?, ?)";
+            String sql = String.format("INSERT INTO %s VALUES(NULL, ?, ?)", TABLE_NAME);
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setInt(1, servido.getIdOrden());
                 pstmt.setInt(2, servido.getIdProducto());
@@ -132,9 +125,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
                         table.put(servido.getIdServido(), servido);
                     }
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -148,15 +139,13 @@ public final class ServidoDao extends AbstractDao<Servido> {
     public int update(Servido servido) {
         int rows = 0;
         if (SessionDB.connect()) {
-            String sql = "UPDATE " + TABLE_NAME + " SET idOrden = ?, idProducto = ? WHERE " + ID_COL_NAME + " = ?";
+            String sql = String.format("UPDATE %s SET idOrden = ?, idProducto = ? WHERE %s = ?", TABLE_NAME, ID_COL_NAME);
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setInt(1, servido.getIdOrden());
                 pstmt.setInt(2, servido.getIdProducto());
                 pstmt.setInt(3, servido.getIdServido());
                 rows = pstmt.executeUpdate();
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -171,25 +160,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
         return 0;
     }
 
-    @Override
-    public int delete(Servido servido) {
-        int rows = 0;
-        if (SessionDB.connect()) {
-            String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + servido.getId() + "'";
-            try (Statement stmt = SessionDB.getConn().createStatement()) {
-                rows = stmt.executeUpdate(sql);
-                table.remove(servido.getId());
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
-            } finally {
-                SessionDB.close();
-            }
-        }
-        return rows;
-    }
+
 
     public int deleteSome(ArrayList<Servido> toDelete) {
         int rows = 0;
@@ -204,9 +175,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
                 toDelete.forEach(e -> {
                     table.remove(e.getId());
                 });
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql.toString());
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
             } finally {
@@ -216,22 +185,20 @@ public final class ServidoDao extends AbstractDao<Servido> {
         return rows;
     }
 
-    public ArrayList<Servido> query(Orden orden) {
+    public ArrayList<Servido> queryByOrden(Orden orden) {
         ArrayList<Servido> servidosOf = new ArrayList<>();
         if (SessionDB.connect()) {
-            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE idOrden = '" + orden.getIdOrden() + "'";
+            String sql = String.format("SELECT * FROM %s WHERE idOrden = '%d'", TABLE_NAME, orden.getIdOrden());
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 ResultSet rs = stmt.executeQuery(sql);
                 while (rs.next()) {
                     Servido servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-                    servido.setProducto(ProductoDao.getInstance().get(servido.getIdProducto()));
+                    servido.setProducto(ProductosDao.getInstance().get(servido.getIdProducto()));
                     servidosOf.add(servido);
                     table.put(servido.getId(), servido);
                 }
                 orden.setServidos(servidosOf);
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -241,25 +208,24 @@ public final class ServidoDao extends AbstractDao<Servido> {
         return servidosOf;
     }
 
-    public ArrayList<ArrayList<Servido>> query(ArrayList<Orden> ordenes) {
+
+    public ArrayList<ArrayList<Servido>> queryByOrden(ArrayList<Orden> ordenes) {
         ArrayList<ArrayList<Servido>> carritos = new ArrayList<>(ordenes.size());
         if (SessionDB.connect()) {
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 for (Orden orden : ordenes) {
                     ArrayList<Servido> servidosOf = new ArrayList<>();
-                    String sql = "SELECT * FROM " + TABLE_NAME + " WHERE idOrden = '" + orden.getIdOrden() + "'";
+                    String sql = String.format("SELECT * FROM %s WHERE idOrden = '%d'", TABLE_NAME, orden.getIdOrden());
                     ResultSet rs = stmt.executeQuery(sql);
                     while (rs.next()) {
                         Servido servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-                        servido.setProducto(ProductoDao.getInstance().get(servido.getIdProducto()));
+                        servido.setProducto(ProductosDao.getInstance().get(servido.getIdProducto()));
                         servidosOf.add(servido);
                         table.put(servido.getId(), servido);
                     }
                     carritos.add(servidosOf);
                     orden.setServidos(servidosOf);
-                    if (MainFrame.SQL_DEBUG) {
-                        System.out.println(sql);
-                    }
+                    printSql(sql);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, null, ex);

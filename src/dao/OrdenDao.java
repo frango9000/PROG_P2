@@ -5,7 +5,6 @@
  */
 package src.dao;
 
-import src.control.MainFrame;
 import src.model.DateTimeFormat;
 import src.model.Orden;
 import src.model.SessionDB;
@@ -14,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +45,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
     public Orden query(int id) {
         Orden orden = null;
         if (SessionDB.connect()) {
-            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + id + "'";
+            String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, id);
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
@@ -56,9 +56,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                     }
                     table.put(orden.getIdOrden(), orden);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -69,9 +67,9 @@ public final class OrdenDao extends AbstractDao<Orden> {
     }
 
     @Override
-    public HashMap<Integer, Orden> query(int... ids) {
+    public HashMap<Integer, Orden> query(ArrayList<Integer> ids) {
         HashMap<Integer, Orden> ordenesTemp = new HashMap<>();
-        if (SessionDB.connect() && ids.length > 0) {
+        if (SessionDB.connect() && ids.size() > 0) {
             StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN ( 0");
             for (int id : ids) {
                 sql.append(", ").append(id);
@@ -88,9 +86,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                     table.put(orden.getIdOrden(), orden);
                     ordenesTemp.put(orden.getIdOrden(), orden);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql.toString());
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
             } finally {
@@ -105,7 +101,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
         table.clear();
         if (SessionDB.connect()) {
             SessionDB.setAutoclose(false);
-            String sql = "SELECT * FROM " + TABLE_NAME + "";
+            String sql = String.format("SELECT * FROM %s", TABLE_NAME);
             try (Statement ps = SessionDB.getConn().createStatement();
                     ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
@@ -114,12 +110,10 @@ public final class OrdenDao extends AbstractDao<Orden> {
                     if (!rs.wasNull()) {
                         orden.setCierre(DateTimeFormat.dbStringToLocalDateTime(cierre));
                     }
-                    orden.setServidos(ServidoDao.getInstance().query(orden));
+                    orden.setServidos(ServidoDao.getInstance().queryByOrden(orden));
                     table.put(orden.getIdOrden(), orden);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -133,7 +127,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
     public int insert(Orden orden) {
         int rows = 0;
         if (SessionDB.connect()) {
-            String sql = "INSERT INTO " + TABLE_NAME + " VALUES(NULL, ?, ?, ?)";
+            String sql = String.format("INSERT INTO %s VALUES(NULL, ?, ?, ?)", TABLE_NAME);
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setString(1, orden.getAperturaToDbString());
                 pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
@@ -146,9 +140,7 @@ public final class OrdenDao extends AbstractDao<Orden> {
                         table.put(orden.getIdOrden(), orden);
                     }
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -162,16 +154,14 @@ public final class OrdenDao extends AbstractDao<Orden> {
     public int update(Orden orden) {
         int rows = 0;
         if (SessionDB.connect()) {
-            String sql = "UPDATE " + TABLE_NAME + " SET apertura = ?, cierre = ?, total = ? WHERE " + ID_COL_NAME + " = ?";
+            String sql = String.format("UPDATE %s SET apertura = ?, cierre = ?, total = ? WHERE %s = ?", TABLE_NAME, ID_COL_NAME);
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setString(1, orden.getAperturaToDbString());
                 pstmt.setString(2, orden.isClosed() ? null : orden.getCierreToDbString());
                 pstmt.setFloat(3, orden.getTotal());
                 pstmt.setInt(4, orden.getIdOrden());
                 rows = pstmt.executeUpdate();
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -185,25 +175,4 @@ public final class OrdenDao extends AbstractDao<Orden> {
     public int updateDao(Orden objectT) {
         return 0;
     }
-
-    @Override
-    public int delete(Orden orden) {
-        int rows = 0;
-        if (SessionDB.connect()) {
-            String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + orden.getId() + "'";
-            try (Statement stmt = SessionDB.getConn().createStatement()) {
-                rows = stmt.executeUpdate(sql);
-                table.remove(orden.getId());
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
-            } finally {
-                SessionDB.close();
-            }
-        }
-        return rows;
-    }
-
 }

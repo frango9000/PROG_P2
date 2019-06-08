@@ -5,9 +5,10 @@
  */
 package src.gui.editor;
 
-import javax.swing.JOptionPane;
-import src.dao.CategoriaDao;
+import src.dao.CategoriasDao;
 import src.gui.tablemodels.CategoriasTableModel;
+
+import javax.swing.*;
 
 /**
  *
@@ -26,7 +27,7 @@ public class CategoriasTablePanel extends GenericTablePanel {
     @Override
     public void refreshTable() {
         model.clearTableModelData();
-        CategoriaDao.getInstance().queryAll().forEach((id, categoria) -> model.addRow(categoria));
+        CategoriasDao.getInstance().queryAll().forEach((id, categoria) -> model.addRow(categoria));
     }
 
     @Override
@@ -57,7 +58,7 @@ public class CategoriasTablePanel extends GenericTablePanel {
             String nameSelected = (String) jTable.getValueAt(selectedRow, 1);
             int i = JOptionPane.showConfirmDialog(this, "Deseas eliminar la " + nombre + ": " + nameSelected, "Eliminando " + nombre + "", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
-                if (CategoriaDao.getInstance().delete(idSelected) > 0) {
+                if (CategoriasDao.getInstance().delete(idSelected) > 0) {
                     JOptionPane.showMessageDialog(this, nombre + " eliminada: " + nameSelected, nombre + " Eliminada", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, nombre + " NO eliminada: " + nameSelected, nombre + " Eliminada", JOptionPane.ERROR_MESSAGE);

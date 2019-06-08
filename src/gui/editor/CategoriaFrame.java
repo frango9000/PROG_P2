@@ -5,7 +5,7 @@
  */
 package src.gui.editor;
 
-import src.dao.CategoriaDao;
+import src.dao.CategoriasDao;
 import src.model.Categoria;
 
 import javax.swing.*;
@@ -38,7 +38,7 @@ public final class CategoriaFrame extends javax.swing.JFrame {
     }
 
     public CategoriaFrame(int id) {
-        this(CategoriaDao.getInstance().getAll().get(id));
+        this(CategoriasDao.getInstance().getAll().get(id));
     }
 
     /**
@@ -201,7 +201,7 @@ public final class CategoriaFrame extends javax.swing.JFrame {
         if (catStr.length() > 0) {
             if (id.length() == 0) { // id vacio = objeto nuevo
                 categoria = new Categoria(catStr);
-                if (CategoriaDao.getInstance().insert(categoria) > 0) {
+                if (CategoriasDao.getInstance().insert(categoria) > 0) {
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -209,7 +209,7 @@ public final class CategoriaFrame extends javax.swing.JFrame {
                 }
             } else {
                 categoria.setCategoria(catStr);
-                if (CategoriaDao.getInstance().update(categoria) > 0) {
+                if (CategoriasDao.getInstance().update(categoria) > 0) {
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                 } else {

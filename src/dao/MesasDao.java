@@ -5,7 +5,6 @@
  */
 package src.dao;
 
-import src.control.MainFrame;
 import src.model.Mesa;
 import src.model.Orden;
 import src.model.SessionDB;
@@ -54,9 +53,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                     mesa = new Mesa(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
                     table.put(mesa.getId(), mesa);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -67,9 +64,9 @@ public final class MesasDao extends AbstractDao<Mesa> {
     }
 
     @Override
-    public HashMap<Integer, Mesa> query(int... ids) {
+    public HashMap<Integer, Mesa> query(ArrayList<Integer> ids) {
         HashMap<Integer, Mesa> mesasTempHashMap = new HashMap<>();
-        if (SessionDB.connect() && ids.length > 0) {
+        if (SessionDB.connect() && ids.size() > 0) {
             StringBuilder sql = new StringBuilder("SELECT * FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " IN( 0");
             for (int id : ids) {
                 sql.append(", ").append(id);
@@ -82,9 +79,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                     table.put(mesa.getId(), mesa);
                     mesasTempHashMap.put(mesa.getIdOrden(), mesa);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql.toString());
-                }
+                printSql(sql.toString());
             } catch (SQLException ex) {
                 Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql.toString(), ex);
             } finally {
@@ -105,9 +100,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                     Mesa mesa = new Mesa(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
                     table.put(mesa.getId(), mesa);
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(MesasDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -135,9 +128,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                         table.put(mesa.getId(), mesa);
                     }
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(MesasDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -158,9 +149,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                 pstmt.setInt(3, mesa.getIdOrden());
                 pstmt.setInt(4, mesa.getId());
                 rows = pstmt.executeUpdate();
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(MesasDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -184,9 +173,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                         mesa.setIdOrden(rs.getInt(4));
                         table.put(mesa.getId(), mesa);
                     }
-                    if (MainFrame.SQL_DEBUG) {
-                        System.out.println(sql);
-                    }
+                    printSql(sql);
                 } catch (SQLException ex) {
                     Logger.getLogger(OrdenDao.class.getName()).log(Level.SEVERE, sql, ex);
                 } finally {
@@ -206,9 +193,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                 while (rs.next()) {
                     activas.add(rs.getInt(1));
                 }
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(MesasDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -219,8 +204,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
     }
 
     public ArrayList<Orden> getOrdenesActivas() {
-        int[] ids = getIdsOrdenesActivas().stream().mapToInt(Integer::intValue).toArray();
-        return OrdenDao.getInstance().getSome(ids);
+        return OrdenDao.getInstance().getSome(getIdsOrdenesActivas());
     }
 
 }

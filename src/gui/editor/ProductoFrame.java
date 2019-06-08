@@ -5,13 +5,14 @@
  */
 package src.gui.editor;
 
-import java.awt.Dimension;
-import javax.swing.JOptionPane;
-import src.dao.CategoriaDao;
-import src.dao.ProductoDao;
+import src.control.helpers.StaticHelpers;
+import src.dao.CategoriasDao;
+import src.dao.ProductosDao;
 import src.model.Categoria;
 import src.model.Producto;
-import src.control.helpers.StaticHelpers;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -29,14 +30,14 @@ public final class ProductoFrame extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        CategoriaDao.getInstance().getAll().forEach((id, cat) -> jComboBoxCategoria.addItem(cat));
+        CategoriasDao.getInstance().getAll().forEach((id, cat) -> jComboBoxCategoria.addItem(cat));
         this.setLocationRelativeTo(null);
     }
 
     public ProductoFrame(Producto producto) {
         this();
         this.producto = producto;
-        jTextFieldID.setText(producto.getIdProducto() + "");
+        jTextFieldID.setText(producto.getId() + "");
         jTextFieldName.setText(producto.getProducto());
         jTextFieldPrecio.setText(producto.getPrecio() + "");
         jComboBoxCategoria.setSelectedItem(producto.getCategoria());
@@ -44,7 +45,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
     }
 
     public ProductoFrame(int id) {
-        this(ProductoDao.getInstance().getAll().get(id));
+        this(ProductosDao.getInstance().getAll().get(id));
     }
 
     /**
@@ -234,8 +235,8 @@ public final class ProductoFrame extends javax.swing.JFrame {
         if (productoStr.length() > 0) {
             if (precio.length() > 0 && StaticHelpers.isFloat(precio)) {
                 if (id.length() == 0) { // id vacio = objeto nuevo
-                    producto = new Producto(productoStr, Float.parseFloat(precio), (Categoria) jComboBoxCategoria.getSelectedItem());
-                    if (ProductoDao.getInstance().insert(producto) > 0) {
+                    producto = new Producto(productoStr, Float.parseFloat(precio), ((Categoria) jComboBoxCategoria.getSelectedItem()).getId());
+                    if (ProductosDao.getInstance().insert(producto) > 0) {
                         this.dispose();
                         JOptionPane.showMessageDialog(this, "Insercion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -245,7 +246,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
                     producto.setProducto(productoStr);
                     producto.setPrecio(Float.parseFloat(precio));
                     producto.setCategoria((Categoria) jComboBoxCategoria.getSelectedItem());
-                    if (ProductoDao.getInstance().update(producto) > 0) {
+                    if (ProductosDao.getInstance().update(producto) > 0) {
                         this.dispose();
                         JOptionPane.showMessageDialog(this, "Modificacion realizada", nombre, JOptionPane.INFORMATION_MESSAGE);
                     } else {

@@ -37,34 +37,26 @@ public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
     }
 
     @Override
-    public ArrayList<T> getSome(int... ids) {
-        query(ids);
+    public ArrayList<T> getSome(ArrayList<Integer> ids) {
+        ArrayList<Integer> idsToQuery = new ArrayList<>();
+        for (int id : ids) {
+            if (!table.containsKey(id))
+                idsToQuery.add(id);
+        }
+        query(idsToQuery);
         ArrayList<T> list = new ArrayList<>();
-        for (int i = 0; i < ids.length; i++) {
-            if (table.containsKey(ids[i])) {
-                T t = table.get(ids[i]);
-                list.add(t);
-            }
+        for (int id : ids) {
+            list.add(table.get(id));
         }
         return list;
     }
 
     @Override
-    public HashMap<Integer, T> getMapOf(int... ids) {
+    public HashMap<Integer, T> getMapOf(ArrayList<Integer> ids) {
+        ArrayList<T> objs = getSome(ids);
         HashMap<Integer, T> filteredHashMap = new HashMap<>();
-        ArrayList<Integer> idsToQuery = new ArrayList<>();
-        for (int i = 0; i < ids.length; i++) {
-            if (table.containsKey(ids[i])) {
-                T t = table.get(ids[i]);
-                filteredHashMap.put(t.getId(), t);
-            } else {
-                idsToQuery.add(ids[i]);
-            }
-        }
-        if (idsToQuery.size() > 0) {
-            int[] tempList = idsToQuery.stream().mapToInt(Integer::intValue).toArray();
-            HashMap<Integer, T> found = query(tempList);
-            filteredHashMap.putAll(found);
+        for (T t : objs) {
+            filteredHashMap.put(t.getId(), t);
         }
         return filteredHashMap;
     }
@@ -78,13 +70,11 @@ public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
     public int delete(T t) {
         int rows = 0;
         if (SessionDB.connect()) {
-            String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COL_NAME + " = '" + t.getId() + "'";
+            String sql = String.format("DELETE FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, t.getId());
             try (Statement stmt = SessionDB.getConn().createStatement()) {
                 rows = stmt.executeUpdate(sql);
                 table.remove(t.getId());
-                if (MainFrame.SQL_DEBUG) {
-                    System.out.println(sql);
-                }
+                printSql(sql);
             } catch (SQLException ex) {
                 Logger.getLogger(AbstractDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
@@ -97,6 +87,12 @@ public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
     @Override
     public int delete(int id) {
         return delete(table.get(id));
+    }
+
+    protected static void printSql(String sql) {
+        if (MainFrame.SQL_DEBUG) {
+            System.out.println(sql);
+        }
     }
 
 }
