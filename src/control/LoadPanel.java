@@ -5,15 +5,13 @@
  */
 package src.control;
 
-import java.awt.CardLayout;
-import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import src.control.helpers.StaticHelpers;
 import src.gui.LoadPanelGui;
 import src.model.SessionDB;
-import src.control.helpers.StaticHelpers;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 /**
  *

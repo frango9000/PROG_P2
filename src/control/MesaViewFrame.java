@@ -154,18 +154,6 @@ public class MesaViewFrame extends JFrame {
                 PanelPrincipal.colorMesas();
             });
 
-            jButtonQuitar.addActionListener(e -> {
-                int selectedRow = jTableServidos.getSelectedRow();
-                Servido servido = servidosModel.getDomainObject(selectedRow);
-                mesa.getOrden().getServidos().remove(servido);
-                mesa.getOrden().setTotal(mesa.getOrden().getTotal() - servido.getProducto().getPrecio());
-                servidosModel.deleteRow(selectedRow);
-                ServidoDao.getInstance().delete(servido);
-
-                updateTotal();
-                checkBtnQuitar();
-            });
-
             JButton[] cats = new JButton[]{jButtonCat0, jButtonCat1, jButtonCat2, jButtonCat3, jButtonCat4, jButtonCat5, jButtonCat6, jButtonCat7};
             for (int i = 0; i < cats.length; i++) {
                 final int n = i + 1;
@@ -179,9 +167,7 @@ public class MesaViewFrame extends JFrame {
                 });
             }
 
-            jButtonInicio.addActionListener(e -> {
-                switchPaneL();
-            });
+            jButtonInicio.addActionListener(e -> switchPaneL());
 
             jButtonAgregar.addActionListener(e -> {
                 Producto producto = productosModel.getDomainObject(jTableProductos.getSelectedRow());
@@ -191,6 +177,18 @@ public class MesaViewFrame extends JFrame {
                 mesa.getOrden().setTotal(mesa.getOrden().getTotal() + producto.getPrecio());
                 servidosModel.addRow(servido);
                 jTableServidos.setRowSelectionInterval(jTableServidos.getRowCount() - 1, jTableServidos.getRowCount() - 1);
+                updateTotal();
+                checkBtnQuitar();
+            });
+
+            jButtonQuitar.addActionListener(e -> {
+                int selectedRow = jTableServidos.getSelectedRow();
+                Servido servido = servidosModel.getDomainObject(selectedRow);
+                mesa.getOrden().getServidos().remove(servido);
+                mesa.getOrden().setTotal(mesa.getOrden().getTotal() - servido.getProducto().getPrecio());
+                servidosModel.deleteRow(selectedRow);
+                ServidoDao.getInstance().delete(servido);
+
                 updateTotal();
                 checkBtnQuitar();
             });

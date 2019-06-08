@@ -5,7 +5,7 @@
  */
 package src.gui;
 
-import javax.swing.JMenuBar;
+import javax.swing.*;
 
 /**
  *

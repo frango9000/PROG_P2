@@ -5,8 +5,9 @@
  */
 package src.gui.tablemodels;
 
-import java.util.Arrays;
 import src.model.Producto;
+
+import java.util.Arrays;
 
 /**
  *
@@ -15,7 +16,7 @@ import src.model.Producto;
 public class ProductosSimpleTableModel extends GenericDomainTableModel<Producto> {
 
     public ProductosSimpleTableModel() {
-        super(Arrays.asList(new Object[]{"Producto", "Precio"}));
+        super(Arrays.asList("Producto", "Precio"));
     }
 
     @Override

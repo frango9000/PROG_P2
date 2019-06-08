@@ -5,10 +5,11 @@
  */
 package src.control;
 
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import static src.control.MainFrame.*;
 import src.gui.MenuBarGui;
+
+import javax.swing.*;
+
+import static src.control.MainFrame.*;
 
 /**
  *

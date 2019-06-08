@@ -5,7 +5,7 @@
  */
 package src.gui;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 /**
  *
@@ -99,9 +99,9 @@ public abstract class LoadPanelGui extends javax.swing.JPanel {
                 .addGap(9, 9, 9))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtnBrowse, jBtnCargar});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, jBtnBrowse, jBtnCargar);
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel3, jLabel6});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, jLabel3, jLabel6);
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,9 +126,9 @@ public abstract class LoadPanelGui extends javax.swing.JPanel {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabFileSize, jLabStatus, jLabel3, jLabel6});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, jLabFileSize, jLabStatus, jLabel3, jLabel6);
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtnBrowse, jTextFieldBrowse});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, jBtnBrowse, jTextFieldBrowse);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -5,7 +5,7 @@
  */
 package src.gui.template;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
  *
