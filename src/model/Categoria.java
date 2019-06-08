@@ -3,11 +3,11 @@ package src.model;
 import src.dao.CategoriasDao;
 import src.model.abstractmodel.AbstractCategoria;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Categoria extends AbstractCategoria implements IPersistable {
 
-    protected HashSet<Producto> categorizados = new HashSet<>();
+    private ArrayList<Producto> categorizados = new ArrayList<>();
 
     public Categoria(String categoria) {
         super(categoria);
@@ -15,6 +15,10 @@ public class Categoria extends AbstractCategoria implements IPersistable {
 
     public Categoria(int idCategoria, String categoria) {
         super(idCategoria, categoria);
+    }
+
+    public ArrayList<Producto> getCategorizados() {
+        return categorizados;
     }
 
     @Override
@@ -27,7 +31,4 @@ public class Categoria extends AbstractCategoria implements IPersistable {
         return CategoriasDao.getInstance().updateDao(this);
     }
 
-    public static void categorizarProductos() {
-
-    }
 }

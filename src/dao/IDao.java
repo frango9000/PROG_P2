@@ -29,7 +29,7 @@ public interface IDao<T extends IPersistable> {
 
     HashMap<Integer, T> getMapOf(ArrayList<Integer> ids);
 
-    HashMap<Integer, T> getAll();
+    HashMap<Integer, T> getCache();
 
     int insert(T objecT);
 

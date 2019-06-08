@@ -31,7 +31,7 @@ public class Orden extends AbstractOrden implements IPersistable {
         return OrdenesDao.getInstance().updateDao(this);
     }
 
-    void updateServidos() {
+    private void updateServidos() {
         servidos = ServidoDao.getInstance().getByIdOrden(this.id);
     }
 }

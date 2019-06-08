@@ -38,7 +38,7 @@ public final class CategoriaFrame extends javax.swing.JFrame {
     }
 
     public CategoriaFrame(int id) {
-        this(CategoriasDao.getInstance().getAll().get(id));
+        this(CategoriasDao.getInstance().getCache().get(id));
     }
 
     /**

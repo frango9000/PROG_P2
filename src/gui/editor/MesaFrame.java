@@ -42,7 +42,7 @@ public final class MesaFrame extends javax.swing.JFrame {
     }
 
     public MesaFrame(int id) {
-        this(MesasDao.getInstance().getAll().get(id));
+        this(MesasDao.getInstance().getCache().get(id));
     }
 
     /**

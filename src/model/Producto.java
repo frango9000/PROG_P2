@@ -18,6 +18,7 @@ public class Producto extends AbstractProducto implements IPersistable {
 
     @Override
     public void setIdCategoria(int idCategoria) {
+        categoria.getCategorizados().remove(this);
         super.setIdCategoria(idCategoria);
         refreshCategoria();
     }
@@ -33,8 +34,10 @@ public class Producto extends AbstractProducto implements IPersistable {
     }
 
     private void refreshCategoria() {
-        if (idCategoria > 0)
+        if (idCategoria > 0) {
             categoria = CategoriasDao.getInstance().get(idCategoria);
+            categoria.getCategorizados().add(this);
+        }
         else categoria = null;
     }
 }

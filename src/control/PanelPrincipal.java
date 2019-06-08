@@ -7,7 +7,6 @@ package src.control;
 
 import src.dao.*;
 import src.gui.PanelPrincipalGui;
-import src.model.Producto;
 import src.model.SessionDB;
 
 import javax.swing.*;
@@ -21,8 +20,6 @@ import java.util.List;
  * @author NarF
  */
 public class PanelPrincipal extends PanelPrincipalGui {
-
-    public static ArrayList<Producto>[] productosCategorizados = new ArrayList[8];
 
     private static List<JButton> listaMesasButtons;
 
@@ -46,7 +43,6 @@ public class PanelPrincipal extends PanelPrincipalGui {
         SessionDB.setAutoclose(false);
         CategoriasDao.getInstance().queryAll();
         ProductosDao.getInstance().queryAll();
-        categorizarProductos();
         ArrayList<Integer> ordenesActivas = MesasDao.getInstance().getIdsOrdenesActivas();
         ArrayList<Integer> servidosActivos = ServidoDao.getInstance().queryIdsByIdsOrden(ordenesActivas);
         ServidoDao.getInstance().getSome(servidosActivos);
@@ -55,23 +51,13 @@ public class PanelPrincipal extends PanelPrincipalGui {
         SessionDB.setAutoclose(true);
     }
 
-    public static void categorizarProductos() {
-        for (int i = 0; i < productosCategorizados.length; i++) {
-            productosCategorizados[i] = new ArrayList<>();
-        }
-        ProductosDao.getInstance().getAll().forEach((id, pro) -> {
-            if (pro.getIdCategoria() < 9) {
-                productosCategorizados[pro.getIdCategoria() - 1].add(pro);
-            }
-        });
-    }
 
     public static void clearMemory() {
-        CategoriasDao.getInstance().getAll().clear();
-        ProductosDao.getInstance().getAll().clear();
-        OrdenesDao.getInstance().getAll().clear();
-        ServidoDao.getInstance().getAll().clear();
-        MesasDao.getInstance().getAll().clear();
+        CategoriasDao.getInstance().getCache().clear();
+        ProductosDao.getInstance().getCache().clear();
+        OrdenesDao.getInstance().getCache().clear();
+        ServidoDao.getInstance().getCache().clear();
+        MesasDao.getInstance().getCache().clear();
         System.gc();
         initialQuery();
     }
@@ -89,7 +75,7 @@ public class PanelPrincipal extends PanelPrincipalGui {
 
     public static void colorMesas() {
         for (int i = 0; i < listaMesasButtons.size(); i++) {
-            if (MesasDao.getInstance().getAll().get(i + 1).getIdOrden() == 0) {
+            if (MesasDao.getInstance().getCache().get(i + 1).getIdOrden() == 0) {
                 listaMesasButtons.get(i).setBackground(COLOR_DISPONIBLE);
             } else {
                 listaMesasButtons.get(i).setBackground(COLOR_OCUPADA);

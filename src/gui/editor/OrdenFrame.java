@@ -64,7 +64,7 @@ public final class OrdenFrame extends javax.swing.JFrame {
     }
 
     public OrdenFrame(int id) {
-        this(OrdenesDao.getInstance().getAll().get(id));
+        this(OrdenesDao.getInstance().getCache().get(id));
     }
 
     /**

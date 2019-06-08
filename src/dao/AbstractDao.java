@@ -68,7 +68,7 @@ public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
     }
 
     @Override
-    public HashMap<Integer, T> getAll() {
+    public HashMap<Integer, T> getCache() {
         return table;
     }
 

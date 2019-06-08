@@ -30,7 +30,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        CategoriasDao.getInstance().getAll().forEach((id, cat) -> jComboBoxCategoria.addItem(cat));
+        CategoriasDao.getInstance().getCache().forEach((id, cat) -> jComboBoxCategoria.addItem(cat));
         this.setLocationRelativeTo(null);
     }
 
@@ -45,7 +45,7 @@ public final class ProductoFrame extends javax.swing.JFrame {
     }
 
     public ProductoFrame(int id) {
-        this(ProductosDao.getInstance().getAll().get(id));
+        this(ProductosDao.getInstance().getCache().get(id));
     }
 
     /**

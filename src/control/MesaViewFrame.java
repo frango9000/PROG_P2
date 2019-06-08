@@ -5,6 +5,7 @@
  */
 package src.control;
 
+import src.dao.CategoriasDao;
 import src.dao.MesasDao;
 import src.dao.OrdenesDao;
 import src.dao.ServidoDao;
@@ -167,10 +168,11 @@ public class MesaViewFrame extends JFrame {
 
             JButton[] cats = new JButton[]{jButtonCat0, jButtonCat1, jButtonCat2, jButtonCat3, jButtonCat4, jButtonCat5, jButtonCat6, jButtonCat7};
             for (int i = 0; i < cats.length; i++) {
-                final int n = i;
+                final int n = i + 1;
                 cats[i].addActionListener(e -> {
                     productosModel.clearTableModelData();
-                    productosModel.addRows(PanelPrincipal.productosCategorizados[n]);
+
+                    productosModel.addRows(CategoriasDao.getInstance().get(n).getCategorizados());
 
                     jTableProductos.setRowSelectionInterval(0, 0);
                     switchPaneL();

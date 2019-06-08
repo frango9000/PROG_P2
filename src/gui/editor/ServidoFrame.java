@@ -40,7 +40,7 @@ public final class ServidoFrame extends javax.swing.JFrame {
     }
 
     public ServidoFrame(int id) {
-        this(ServidoDao.getInstance().getAll().get(id));
+        this(ServidoDao.getInstance().getCache().get(id));
     }
 
     /**
