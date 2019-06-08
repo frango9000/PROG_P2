@@ -5,8 +5,9 @@
  */
 package src.gui.tablemodels;
 
-import java.util.Arrays;
 import src.model.Servido;
+
+import java.util.Arrays;
 
 /**
  *
@@ -15,7 +16,7 @@ import src.model.Servido;
 public class ServidosTableModel extends GenericDomainTableModel<Servido> {
 
     public ServidosTableModel() {
-        super(Arrays.asList(new Object[]{"id", "idOrden", "idProducto"}));
+        super(Arrays.asList("id", "idOrden", "idProducto"));
     }
 
     @Override
@@ -41,7 +42,7 @@ public class ServidosTableModel extends GenericDomainTableModel<Servido> {
         Servido servido = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                return servido.getIdServido();
+                return servido.getId();
             case 1:
                 return servido.getIdOrden();
             case 2:
@@ -56,7 +57,7 @@ public class ServidosTableModel extends GenericDomainTableModel<Servido> {
         Servido servido = getDomainObject(rowIndex);
         switch (columnIndex) {
             case 0:
-                servido.setIdServido((Integer) value);
+                servido.setId((Integer) value);
                 break;
             case 1:
                 servido.setIdOrden((Integer) value);

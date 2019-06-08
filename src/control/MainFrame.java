@@ -5,15 +5,11 @@
  */
 package src.control;
 
-import src.gui.editor.MesasTablePanel;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import javax.swing.JPanel;
-import src.gui.editor.CategoriasTablePanel;
-import src.gui.editor.OrdenTablePanel;
-import src.gui.editor.ProductosTablePanel;
-import src.gui.editor.ServidosTablePanel;
+import src.gui.editor.*;
 import src.model.SessionDB;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -37,7 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public static boolean DEBUG = true;
     public static boolean SQL_DEBUG = true;
-    public static boolean SQL_CONN = true;
+    public static boolean SQL_CONN = false;
 
     private static MenuBar menu;
 

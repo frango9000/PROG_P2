@@ -47,8 +47,6 @@ public class PanelPrincipal extends PanelPrincipalGui {
         CategoriasDao.getInstance().queryAll();
         ProductosDao.getInstance().queryAll();
         categorizarProductos();
-//        ArrayList<Orden> ordenesActivas = MesasDao.getInstance().getOrdenesActivas();
-//        ServidoDao.getInstance().queryByOrden(ordenesActivas);
         ArrayList<Integer> ordenesActivas = MesasDao.getInstance().getIdsOrdenesActivas();
         ArrayList<Integer> servidosActivos = ServidoDao.getInstance().queryIdsByIdsOrden(ordenesActivas);
         ServidoDao.getInstance().getSome(servidosActivos);

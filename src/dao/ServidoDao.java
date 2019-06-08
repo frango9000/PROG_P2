@@ -49,7 +49,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
                     ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
                     servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-                    table.put(servido.getIdServido(), servido);
+                    table.put(servido.getId(), servido);
                 }
                 printSql(sql);
             } catch (SQLException ex) {
@@ -74,8 +74,8 @@ public final class ServidoDao extends AbstractDao<Servido> {
                     ResultSet rs = ps.executeQuery(sql.toString())) {
                 while (rs.next()) {
                     Servido servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-                    table.put(servido.getIdServido(), servido);
-                    servidosTemp.put(servido.getIdServido(), servido);
+                    table.put(servido.getId(), servido);
+                    servidosTemp.put(servido.getId(), servido);
                 }
                 printSql(sql.toString());
             } catch (SQLException ex) {
@@ -96,7 +96,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
                     ResultSet rs = ps.executeQuery(sql)) {
                 while (rs.next()) {
                     Servido servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-                    table.put(servido.getIdServido(), servido);
+                    table.put(servido.getId(), servido);
                 }
                 printSql(sql);
             } catch (SQLException ex) {
@@ -120,8 +120,8 @@ public final class ServidoDao extends AbstractDao<Servido> {
 
                 try (ResultSet rs = pstmt.getGeneratedKeys()) {
                     if (rs.next()) {
-                        servido.setIdServido(rs.getInt(1));
-                        table.put(servido.getIdServido(), servido);
+                        servido.setId(rs.getInt(1));
+                        table.put(servido.getId(), servido);
                     }
                 }
                 printSql(sql);
@@ -142,7 +142,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
             try (PreparedStatement pstmt = SessionDB.getConn().prepareStatement(sql)) {
                 pstmt.setInt(1, servido.getIdOrden());
                 pstmt.setInt(2, servido.getIdProducto());
-                pstmt.setInt(3, servido.getIdServido());
+                pstmt.setInt(3, servido.getId());
                 rows = pstmt.executeUpdate();
                 printSql(sql);
             } catch (SQLException ex) {
@@ -155,32 +155,28 @@ public final class ServidoDao extends AbstractDao<Servido> {
     }
 
     @Override
-    public int updateDao(Servido objectT) {
-        return 0;
-    }
-
-
-    public ArrayList<Servido> queryByOrden(int idOrden) {
-        ArrayList<Servido> servidosOf = new ArrayList<>();
+    public int updateDao(Servido servido) {
+        int rows = 0;
         if (SessionDB.connect()) {
-            String sql = String.format("SELECT * FROM %s WHERE idOrden = '%d'", TABLE_NAME, idOrden);
-            try (Statement stmt = SessionDB.getConn().createStatement()) {
-                ResultSet rs = stmt.executeQuery(sql);
-                while (rs.next()) {
-                    Servido servido = new Servido(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-                    servido.setProducto(ProductosDao.getInstance().get(servido.getIdProducto()));
-                    servidosOf.add(servido);
+            String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, servido.getId());
+            try (Statement ps = SessionDB.getConn().createStatement();
+                 ResultSet rs = ps.executeQuery(sql)) {
+                if (rs.next()) {
+                    servido.setIdOrden(rs.getInt(2));
+                    servido.setIdProducto(rs.getInt(3));
+                    rows++;
                     table.put(servido.getId(), servido);
                 }
                 printSql(sql);
             } catch (SQLException ex) {
-                Logger.getLogger(ServidoDao.class.getName()).log(Level.SEVERE, sql, ex);
+                Logger.getLogger(OrdenesDao.class.getName()).log(Level.SEVERE, sql, ex);
             } finally {
                 SessionDB.close();
             }
         }
-        return servidosOf;
+        return rows;
     }
+
 
     public ArrayList<Integer> queryIdsByIdOrden(int idOrden) {
         ArrayList<Integer> idsServidos = new ArrayList<>();

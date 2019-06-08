@@ -171,6 +171,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
                         mesa.setMesa(rs.getString(2));
                         mesa.setCapacidad(rs.getInt(3));
                         mesa.setIdOrden(rs.getInt(4));
+                        rows++;
                         table.put(mesa.getId(), mesa);
                     }
                     printSql(sql);

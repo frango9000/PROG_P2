@@ -5,11 +5,12 @@
  */
 package src.gui.editor;
 
-import java.awt.Dimension;
-import javax.swing.JOptionPane;
+import src.control.helpers.StaticHelpers;
 import src.dao.ServidoDao;
 import src.model.Servido;
-import src.control.helpers.StaticHelpers;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -33,7 +34,7 @@ public final class ServidoFrame extends javax.swing.JFrame {
     public ServidoFrame(Servido servido) {
         this();
         this.servido = servido;
-        jTextFieldID.setText(servido.getIdServido() + "");
+        jTextFieldID.setText(servido.getId() + "");
         jTextFieldIdOrden.setText(servido.getIdOrden() + "");
         jTextFieldIdProducto.setText(servido.getIdProducto() + "");
     }

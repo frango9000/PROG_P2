@@ -169,6 +169,7 @@ public final class OrdenesDao extends AbstractDao<Orden> {
                         orden.setAperturaDB(rs.getString(2));
                         orden.setCierreDB(rs.getString(3));
                         orden.setTotal(rs.getFloat(4));
+                        rows++;
                         table.put(orden.getId(), orden);
                     }
                     printSql(sql);

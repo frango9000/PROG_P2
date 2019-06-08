@@ -30,7 +30,7 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
 
     private CategoriasDao() {
         TABLE_NAME = "categorias";
-        ID_COL_NAME = "id";
+        ID_COL_NAME = "idCategoria";
     }
 
     public static synchronized CategoriasDao getInstance() {
@@ -162,6 +162,7 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
                      ResultSet rs = ps.executeQuery(sql)) {
                     if (rs.next()) {
                         categoria.setCategoria(rs.getString(2));
+                        rows++;
                         table.put(categoria.getId(), categoria);
                     }
                     printSql(sql);

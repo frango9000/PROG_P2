@@ -168,6 +168,7 @@ public final class ProductosDao extends AbstractDao<Producto> {
                         producto.setProducto(rs.getString(2));
                         producto.setPrecio(rs.getFloat(3));
                         producto.setIdCategoria(rs.getInt(4));
+                        rows++;
                         table.put(producto.getId(), producto);
                     }
                     printSql(sql);
