@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public final class SessionDB {
 
     private static Connection conn;
-    private static String dbUrl = "jdbc:sqlite:" + "src/resources/host.db";
+    private static String dbUrl = "jdbc:sqlite:" + "src/src/resources/host.db";
     private static File dbFile = new File(dbUrl.substring(12));
     private static boolean autoclose = true;
 

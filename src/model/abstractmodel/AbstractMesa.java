@@ -5,7 +5,6 @@
  */
 package src.model.abstractmodel;
 
-
 import src.model.Orden;
 
 /**
@@ -73,8 +72,12 @@ public abstract class AbstractMesa {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AbstractMesa that = (AbstractMesa) o;
 
@@ -88,13 +91,13 @@ public abstract class AbstractMesa {
 
     @Override
     public String toString() {
-        return "Mesa{" +
-                "id=" + id +
-                ", mesa='" + mesa + '\'' +
-                ", capacidad=" + capacidad +
-                ", idOrden=" + idOrden +
-                ", orden=" + orden.toString() +
-                '}';
+        return "Mesa{"
+                + "id=" + id
+                + ", mesa='" + mesa + '\''
+                + ", capacidad=" + capacidad
+                + ", idOrden=" + idOrden
+                + ", orden=" + orden.toString()
+                + '}';
     }
 
 }

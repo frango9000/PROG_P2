@@ -166,7 +166,7 @@ public final class MesasDao extends AbstractDao<Mesa> {
             if (SessionDB.connect()) {
                 String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, mesa.getId());
                 try (Statement ps = SessionDB.getConn().createStatement();
-                     ResultSet rs = ps.executeQuery(sql)) {
+                        ResultSet rs = ps.executeQuery(sql)) {
                     if (rs.next()) {
                         mesa.setMesa(rs.getString(2));
                         mesa.setCapacidad(rs.getInt(3));

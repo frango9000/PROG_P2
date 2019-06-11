@@ -70,4 +70,10 @@ public class MesasTablePanel extends GenericTablePanel {
         refreshTable();
     }
 
+    @Override
+    public void cacheTable() {
+        model.clearTableModelData();
+        MesasDao.getInstance().getCache().forEach((id, mesa) -> model.addRow(mesa));
+    }
+
 }

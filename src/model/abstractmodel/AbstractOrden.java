@@ -20,9 +20,8 @@ public class AbstractOrden {
     protected LocalDateTime cierre;
     protected float total;
 
-
     /**
-     * Constructor usado por  el creador de ordenes de produccion (Abrir mesa)
+     * Constructor usado por el creador de ordenes de produccion (Abrir mesa)
      */
     public AbstractOrden() {
         apertura = LocalDateTime.now();
@@ -31,11 +30,12 @@ public class AbstractOrden {
     }
 
     /**
-     * constructor usado por el editor para crear objetos nuevos e introducirlos a la base de datos
+     * constructor usado por el editor para crear objetos nuevos e introducirlos
+     * a la base de datos
      *
      * @param apertura LocalDateTime apertura
-     * @param cierre   LocalDateTime cierre
-     * @param total    precio total
+     * @param cierre LocalDateTime cierre
+     * @param total precio total
      */
     public AbstractOrden(LocalDateTime apertura, LocalDateTime cierre, float total) {
         this.apertura = apertura;
@@ -44,18 +44,20 @@ public class AbstractOrden {
     }
 
     /**
-     * constructor usado por OrdenesDao para crear objetos que esten en la base de datos
+     * constructor usado por OrdenesDao para crear objetos que esten en la base
+     * de datos
      *
-     * @param id      id orden
-     * @param dbOpen  LocalDateTime apertura
+     * @param id id orden
+     * @param dbOpen LocalDateTime apertura
      * @param dbClose LocalDateTime cierre
-     * @param total   precio total
+     * @param total precio total
      */
     public AbstractOrden(int id, String dbOpen, String dbClose, float total) {
         this.id = id;
         this.apertura = LocalDateTime.parse(dbOpen, DateTimeFormatter.ofPattern(DateTimeFormat.DB_FORMAT));
-        if (dbClose != null)
+        if (dbClose != null) {
             this.cierre = LocalDateTime.parse(dbClose, DateTimeFormatter.ofPattern(DateTimeFormat.DB_FORMAT));
+        }
         this.total = total;
     }
 
@@ -90,8 +92,6 @@ public class AbstractOrden {
     public void setTotal(float total) {
         this.total = total;
     }
-
-
 
     public String getAperturaToDbString() {
         return DateTimeFormat.toDbString(apertura);
@@ -135,18 +135,22 @@ public class AbstractOrden {
 
     @Override
     public String toString() {
-        return "AbstractOrden{" +
-                "id=" + id +
-                ", apertura=" + apertura +
-                ", cierre=" + cierre +
-                ", total=" + total +
-                '}';
+        return "AbstractOrden{"
+                + "id=" + id
+                + ", apertura=" + apertura
+                + ", cierre=" + cierre
+                + ", total=" + total
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AbstractOrden that = (AbstractOrden) o;
 

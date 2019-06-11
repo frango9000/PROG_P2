@@ -70,4 +70,10 @@ public class ProductosTablePanel extends GenericTablePanel {
         refreshTable();
     }
 
+    @Override
+    public void cacheTable() {
+        model.clearTableModelData();
+        ProductosDao.getInstance().getCache().forEach((id, producto) -> model.addRow(producto));
+    }
+
 }

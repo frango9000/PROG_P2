@@ -60,11 +60,14 @@ public abstract class AbstractProducto {
         this.idCategoria = idCategoria;
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AbstractProducto that = (AbstractProducto) o;
 
@@ -78,11 +81,11 @@ public abstract class AbstractProducto {
 
     @Override
     public String toString() {
-        return "AbstractProducto{" +
-                "id=" + id +
-                ", producto='" + producto + '\'' +
-                ", precio=" + precio +
-                ", idCategoria=" + idCategoria +
-                '}';
+        return "AbstractProducto{"
+                + "id=" + id
+                + ", producto='" + producto + '\''
+                + ", precio=" + precio
+                + ", idCategoria=" + idCategoria
+                + '}';
     }
 }

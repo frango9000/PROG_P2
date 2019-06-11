@@ -52,11 +52,12 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        btnRefresh = new javax.swing.JButton();
+        btnLoadFromDb = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnLoadFromCache = new javax.swing.JButton();
 
         titleLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -97,10 +98,10 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnRefresh.setText("Refrescar");
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+        btnLoadFromDb.setText("Select *");
+        btnLoadFromDb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
+                btnLoadFromDbActionPerformed(evt);
             }
         });
 
@@ -132,6 +133,13 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
             }
         });
 
+        btnLoadFromCache.setText("Cache");
+        btnLoadFromCache.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadFromCacheActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,13 +147,17 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAgregar)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete)
+                    .addComponent(btnLoadFromDb, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLoadFromCache, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAgregar, btnDelete, btnEdit, btnLoadFromCache, btnLoadFromDb, btnVolver});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -155,12 +167,16 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
                 .addComponent(btnEdit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(btnRefresh)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(btnLoadFromCache)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLoadFromDb)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVolver)
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAgregar, btnDelete, btnEdit, btnLoadFromCache, btnLoadFromDb, btnVolver});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -171,10 +187,9 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)))
+                        .addComponent(jScrollPane2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,22 +199,19 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
                 .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        //TODO add your handling code here:
-        editAction();
-    }//GEN-LAST:event_btnEditActionPerformed
+    public abstract void addAction();
 
     public abstract void editAction();
 
-    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        refreshTable();
-    }//GEN-LAST:event_btnRefreshActionPerformed
+    public abstract void deleteAction();
+
+    public abstract void cacheTable();
 
     public abstract void refreshTable();
 
@@ -208,29 +220,41 @@ public abstract class GenericTablePanel extends javax.swing.JPanel {
         backAction();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    public void backAction() {
-        MainFrame.setCard(MainFrame.MAINMENUPANEL);
-    }
-
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         addAction();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    public abstract void addAction();
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        editAction();
+    }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         deleteAction();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    public abstract void deleteAction();
+    private void btnLoadFromCacheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFromCacheActionPerformed
+        // TODO add your handling code here:
+        cacheTable();
+    }//GEN-LAST:event_btnLoadFromCacheActionPerformed
+
+    private void btnLoadFromDbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFromDbActionPerformed
+        // TODO add your handling code here:
+        refreshTable();
+    }//GEN-LAST:event_btnLoadFromDbActionPerformed
+
+    public void backAction() {
+        MainFrame.setCard(MainFrame.MAINMENUPANEL);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JButton btnAgregar;
     protected javax.swing.JButton btnDelete;
     protected javax.swing.JButton btnEdit;
-    protected javax.swing.JButton btnRefresh;
+    protected javax.swing.JButton btnLoadFromCache;
+    protected javax.swing.JButton btnLoadFromDb;
     protected javax.swing.JButton btnVolver;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;

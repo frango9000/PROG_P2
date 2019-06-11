@@ -50,7 +50,8 @@ public class Producto extends AbstractProducto implements IPersistable {
         if (idCategoria > 0) {
             categoria = CategoriasDao.getInstance().get(idCategoria);
             categoria.getCategorizados().add(this);
+        } else {
+            categoria = null;
         }
-        else categoria = null;
     }
 }

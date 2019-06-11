@@ -51,7 +51,6 @@ public class PanelPrincipal extends PanelPrincipalGui {
         SessionDB.setAutoclose(true);
     }
 
-
     public static void clearMemory() {
         CategoriasDao.getInstance().getCache().clear();
         ProductosDao.getInstance().getCache().clear();

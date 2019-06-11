@@ -35,6 +35,8 @@ public class Mesa extends AbstractMesa implements IPersistable {
     private void refreshOrden() {
         if (idOrden > 0) {
             orden = OrdenesDao.getInstance().get(idOrden);
-        } else orden = null;
+        } else {
+            orden = null;
+        }
     }
 }

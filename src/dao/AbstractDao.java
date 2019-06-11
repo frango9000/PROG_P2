@@ -35,7 +35,9 @@ public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
             } else {
                 return query(id);
             }
-        } else return null;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -43,11 +45,14 @@ public abstract class AbstractDao<T extends IPersistable> implements IDao<T> {
         ArrayList<T> list = new ArrayList<>();
         if (ids.size() > 0) {
             ArrayList<Integer> idsToQuery = new ArrayList<>();
-            for (int id : ids)
-                if (!table.containsKey(id))
+            for (int id : ids) {
+                if (!table.containsKey(id)) {
                     idsToQuery.add(id);
-            if (ids.size() > 0)
+                }
+            }
+            if (ids.size() > 0) {
                 query(idsToQuery);
+            }
             for (int id : ids) {
                 list.add(table.get(id));
             }

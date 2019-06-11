@@ -159,7 +159,7 @@ public final class CategoriasDao extends AbstractDao<Categoria> {
             if (SessionDB.connect()) {
                 String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, categoria.getId());
                 try (Statement ps = SessionDB.getConn().createStatement();
-                     ResultSet rs = ps.executeQuery(sql)) {
+                        ResultSet rs = ps.executeQuery(sql)) {
                     if (rs.next()) {
                         categoria.setCategoria(rs.getString(2));
                         rows++;

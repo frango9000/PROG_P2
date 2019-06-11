@@ -160,7 +160,7 @@ public final class ServidoDao extends AbstractDao<Servido> {
         if (SessionDB.connect()) {
             String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, servido.getId());
             try (Statement ps = SessionDB.getConn().createStatement();
-                 ResultSet rs = ps.executeQuery(sql)) {
+                    ResultSet rs = ps.executeQuery(sql)) {
                 if (rs.next()) {
                     servido.setIdOrden(rs.getInt(2));
                     servido.setIdProducto(rs.getInt(3));
@@ -176,7 +176,6 @@ public final class ServidoDao extends AbstractDao<Servido> {
         }
         return rows;
     }
-
 
     public ArrayList<Integer> queryIdsByIdOrden(int idOrden) {
         ArrayList<Integer> idsServidos = new ArrayList<>();
@@ -219,6 +218,5 @@ public final class ServidoDao extends AbstractDao<Servido> {
     public ArrayList<Servido> getByIdOrden(int idOrden) {
         return getSome(queryIdsByIdOrden(idOrden));
     }
-
 
 }

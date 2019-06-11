@@ -51,8 +51,12 @@ public abstract class AbstractServido {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AbstractServido servido = (AbstractServido) o;
 
@@ -66,10 +70,10 @@ public abstract class AbstractServido {
 
     @Override
     public String toString() {
-        return "Servido{" +
-                "id=" + id +
-                ", idOrden=" + idOrden +
-                ", idProducto=" + idProducto +
-                '}';
+        return "Servido{"
+                + "id=" + id
+                + ", idOrden=" + idOrden
+                + ", idProducto=" + idProducto
+                + '}';
     }
 }

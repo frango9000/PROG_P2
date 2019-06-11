@@ -69,4 +69,9 @@ public class ServidosTablePanel extends GenericTablePanel {
         refreshTable();
     }
 
+    @Override
+    public void cacheTable() {
+        ServidoDao.getInstance().getCache().forEach((id, servido) -> model.addRow(servido));
+    }
+
 }

@@ -40,8 +40,12 @@ public abstract class AbstractCategoria {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AbstractCategoria that = (AbstractCategoria) o;
 
@@ -55,10 +59,10 @@ public abstract class AbstractCategoria {
 
     @Override
     public String toString() {
-        return "Categoria{" +
-                "id=" + id +
-                ", categoria='" + categoria + '\'' +
-                '}';
+        return "Categoria{"
+                + "id=" + id
+                + ", categoria='" + categoria + '\''
+                + '}';
     }
 
 }

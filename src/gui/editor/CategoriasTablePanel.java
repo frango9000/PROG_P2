@@ -70,4 +70,10 @@ public class CategoriasTablePanel extends GenericTablePanel {
         refreshTable();
     }
 
+    @Override
+    public void cacheTable() {
+        model.clearTableModelData();
+        CategoriasDao.getInstance().getCache().forEach((id, categoria) -> model.addRow(categoria));
+    }
+
 }

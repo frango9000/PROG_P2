@@ -164,7 +164,7 @@ public final class OrdenesDao extends AbstractDao<Orden> {
             if (SessionDB.connect()) {
                 String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, orden.getId());
                 try (Statement ps = SessionDB.getConn().createStatement();
-                     ResultSet rs = ps.executeQuery(sql)) {
+                        ResultSet rs = ps.executeQuery(sql)) {
                     if (rs.next()) {
                         orden.setAperturaDB(rs.getString(2));
                         orden.setCierreDB(rs.getString(3));

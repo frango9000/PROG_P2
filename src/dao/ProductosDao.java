@@ -163,7 +163,7 @@ public final class ProductosDao extends AbstractDao<Producto> {
             if (SessionDB.connect()) {
                 String sql = String.format("SELECT * FROM %s WHERE %s = '%d'", TABLE_NAME, ID_COL_NAME, producto.getId());
                 try (Statement ps = SessionDB.getConn().createStatement();
-                     ResultSet rs = ps.executeQuery(sql)) {
+                        ResultSet rs = ps.executeQuery(sql)) {
                     if (rs.next()) {
                         producto.setProducto(rs.getString(2));
                         producto.setPrecio(rs.getFloat(3));

@@ -69,4 +69,10 @@ public class OrdenTablePanel extends GenericTablePanel {
         refreshTable();
     }
 
+    @Override
+    public void cacheTable() {
+        model.clearTableModelData();
+        OrdenesDao.getInstance().getCache().forEach((id, orden) -> model.addRow(orden));
+    }
+
 }

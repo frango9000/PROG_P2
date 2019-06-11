@@ -77,7 +77,7 @@ public abstract class PanelMesaGui extends javax.swing.JPanel {
         jLabelTitle.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         jLabelIdOrdenTag.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelIdOrdenTag.setText("idOrden: ");
+        jLabelIdOrdenTag.setText("id: ");
 
         jLabelIdOrden.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabelIdOrden.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
